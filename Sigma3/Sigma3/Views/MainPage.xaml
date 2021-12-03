@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Sigma3.MainPage"
+             BackgroundColor="Black"
+            xmlns:local="clr-namespce:Sigma3" xmlns:local1="clr-namespace:Sigma3" xmlns:local11="clr-namespace:Sigma3.Views">
+
+    <local1:Home IconImageSource="bank1.png"></local1:Home>
+    <local1:Following IconImageSource="star.png"></local1:Following>
+    <local1:Notifications IconImageSource="bell.png"></local1:Notifications>
+    <local11:Settings IconImageSource="settings.png"></local11:Settings>
+     <local11:Portfolio IconImageSource="sigma.png"></local11:Portfolio>
+
+
+
+
+</TabbedPage>

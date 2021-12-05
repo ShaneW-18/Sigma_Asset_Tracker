@@ -16,5 +16,13 @@ namespace Sigma3
         {
             InitializeComponent();
         }
+        async private void StockSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+
+        }
+        async private void Topmovers()
+        {
+           // var topMovers = await YahooFinanceApi.Yahoo.
+        }
     }
 }

@@ -2,10 +2,27 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Sigma3.Home">
-   
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="search.png"></ToolbarItem>
+    </ContentPage.ToolbarItems>
         <ContentPage.Content>
-            <StackLayout>
-                <Label Text="Home"></Label>
+           <StackLayout>
+            <StackLayout >
+                <ImageButton Source="search.png" WidthRequest="30" HorizontalOptions="End" ></ImageButton>
             </StackLayout>
+            <StackLayout>
+                <Label Text="Sigma" FontSize="25"  TextColor="White" TranslationY="-40"  HorizontalOptions="Center" ></Label>
+            </StackLayout>
+            <ListView x:Name="topMoversListView" ItemSelected="StockSelected">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text ="{Binding topMovers} " Detail="{Binding combine}" TextColor="black" DetailColor="#2196F3" ></TextCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+        
+      
         </ContentPage.Content>
+    
     </ContentPage>

@@ -15,6 +15,7 @@ namespace Sigma3
             InitializeComponent();
             BarBackground = new SolidColorBrush(Color.Black);
             
+            
         }
     }
 }

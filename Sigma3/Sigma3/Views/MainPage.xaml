@@ -3,13 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Sigma3.MainPage"
              BackgroundColor="Black"
-            xmlns:local="clr-namespce:Sigma3" xmlns:local1="clr-namespace:Sigma3" xmlns:local11="clr-namespace:Sigma3.Views">
+             xmlns:sigmans="clr-namespace:Sigma3.Views"
+             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+             android:TabbedPage.ToolbarPlacement="Bottom"
+             BarBackgroundColor="Black"
+             SelectedTabColor="White"
+             UnselectedTabColor="Gray"
+          >
 
-    <local1:Home IconImageSource="bank1.png"></local1:Home>
-    <local1:Following IconImageSource="star.png"></local1:Following>
-    <local1:Notifications IconImageSource="bell.png"></local1:Notifications>
-    <local11:Settings IconImageSource="settings.png"></local11:Settings>
-     <local11:Portfolio IconImageSource="sigma.png"></local11:Portfolio>
+    <sigmans:Home IconImageSource="bank1.png"/>
+    <sigmans:Following IconImageSource="star.png"/>
+    <sigmans:Portfolio IconImageSource="sigma.png"/>
+    <sigmans:Notifications IconImageSource="bell.png"/>
+    <sigmans:Settings IconImageSource="settings.png"/>
 
 
 

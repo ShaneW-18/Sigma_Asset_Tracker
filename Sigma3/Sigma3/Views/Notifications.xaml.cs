@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace Sigma3.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Page1 : ContentPage
+    public partial class Notifications : ContentPage
     {
-        public Page1()
+        public Notifications()
         {
             InitializeComponent();
         }

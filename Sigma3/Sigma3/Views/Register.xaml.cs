@@ -130,7 +130,7 @@ namespace Sigma3.Views
             });
 
             // add to database logic here
-            await Navigation.PushAsync(new Home());
+            await Navigation.PushAsync(new MainPage());
         }
 
 

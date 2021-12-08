@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BankingExplorationApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,7 @@ namespace Sigma3.Views
         {
             
             InitializeComponent();
+            this.BindingContext = new topMoversModel();
         }
 
         private void ToolbarItem_Clicked(object sender, EventArgs e)

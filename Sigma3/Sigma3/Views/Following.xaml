@@ -1,20 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Sigma3.Views.Following"
-             Title="Following"
-             >
-
+             x:Class="Sigma3.Views.Following">
     <ContentPage.ToolbarItems>
-        <ToolbarItem IconImageSource="search.png" Text="Sigma" Clicked="ToolbarItem_Clicked" />
+        <ToolbarItem IconImageSource="search.png"></ToolbarItem>
+
     </ContentPage.ToolbarItems>
-
-
-
     <ContentPage.Content>
-        <StackLayout>
-            <ListView>
-            </ListView>
-        </StackLayout>
+        <Grid Padding="35,10,35,45" RowDefinitions="Auto,Auto,Auto,Auto,Auto,*,Auto" ColumnDefinitions="*,Auto">
+            <!-- Activities-->
+            <Label Grid.Row="0" Grid.Column="0" Text="Following" FontAttributes="Bold" Padding="0,20" FontSize="25" TextColor="white"/>
+            
+
+            <CollectionView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding ActivitiesCollection}" HeightRequest="400"
+                                 VerticalScrollBarVisibility="Never">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="Auto,*,Auto" Padding="0,10">
+                            <Button Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" TextColor="White" BackgroundColor="#e8e8e8" CornerRadius="25" WidthRequest="50" HeightRequest="50"/>
+                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding Title}" Padding="15,0,0,0" FontAttributes="Bold" TextColor="white" />
+                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding Date}" Padding="15,0,0,0" TextColor="Silver"/>
+                            <Label Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Text="{Binding Price}" VerticalTextAlignment="Center" TextColor="#589280" FontAttributes="Bold" Padding="15,0,0,0"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

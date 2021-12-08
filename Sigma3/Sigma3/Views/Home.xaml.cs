@@ -6,15 +6,18 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Entry = Microcharts.ChartEntry;
 
 namespace Sigma3.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Home : ContentPage
     {
+
         public Home()
         {
             InitializeComponent();
+            
         }
         async private void StockSelected(object sender, SelectedItemChangedEventArgs e)
         {
@@ -23,6 +26,11 @@ namespace Sigma3.Views
         async private void Topmovers()
         {
            // var topMovers = await YahooFinanceApi.Yahoo.
+        }
+
+        private void ImageButton_Clicked(object sender, EventArgs e)
+        {
+
         }
     }
 }

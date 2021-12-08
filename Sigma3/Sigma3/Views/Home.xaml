@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Sigma3.Views.Home">
+             x:Class="Sigma3.Views.Home"
+             xmlns:forms ="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
+             >
     <ContentPage.ToolbarItems>
-        <ToolbarItem IconImageSource="search.png"></ToolbarItem>
+        <ToolbarItem IconImageSource="search.png" Text="Sigma" ></ToolbarItem>
+
     </ContentPage.ToolbarItems>
-        <ContentPage.Content>
-           <StackLayout>
-            <StackLayout >
-                <ImageButton Source="search.png" WidthRequest="30" HorizontalOptions="End" ></ImageButton>
-            </StackLayout>
+    <ContentPage.Content>
+        <StackLayout>
             <StackLayout>
                 <Label Text="Sigma" FontSize="25"  TextColor="White" TranslationY="-40"  HorizontalOptions="Center" ></Label>
             </StackLayout>
@@ -20,9 +20,13 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <ImageButton Source="sigma.png"
+                    HorizontalOptions="Center"
+                    VerticalOptions="CenterAndExpand" />
+            
+            
         </StackLayout>
-        
-      
-        </ContentPage.Content>
+    </ContentPage.Content>
     
-    </ContentPage>
+
+</ContentPage>

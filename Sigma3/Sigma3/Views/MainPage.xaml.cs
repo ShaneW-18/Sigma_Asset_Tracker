@@ -13,10 +13,11 @@ namespace Sigma3
         public MainPage()
         {
             InitializeComponent();
-            NavigationPage.SetHasNavigationBar(this, false);
-            BarBackground = new SolidColorBrush(Color.Black);
-            
-            
+            BarBackgroundColor = Color.Black;
+            BarTextColor = Color.Black;
+
+
+
         }
     }
 }

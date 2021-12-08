@@ -1,25 +1,35 @@
-name: .NET
+name: Build android app
 
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
 
 jobs:
+  # Build App
   build:
-
-    runs-on: ubuntu-latest
-
+    runs-on: windows-latest
+    
+    env:
+      SERVICE_APP_KEY: ${{ secrets.SERVICE_APP_KEY }}
+      APPLICATION_NAME: Sigma3
+      PACKAGE_NAME: com.companyname.sigma3
+      
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.0.x
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+      - uses: actions/checkout@v2
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.0.2
+
+      - name: Build Solution
+        run: msbuild ./${{ env.APPLICATION_NAME }}.sln /restore /p:Configuration=Release
+
+      - name: Create and Sign the APK
+        run: msbuild ${{ env.APPLICATION_NAME }}.Android\${{ env.APPLICATION_NAME }}.Android.csproj /t:SignAndroidPackage /p:Configuration=Release /p:OutputPath=bin\Release\
+
+      - name: List folder content
+        run: dir ${{ env.APPLICATION_NAME }}.Android\bin\Release
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: MyApplication.apk

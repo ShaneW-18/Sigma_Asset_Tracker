@@ -8,20 +8,18 @@
              android:TabbedPage.ToolbarPlacement="Bottom"
              BarBackgroundColor="Black"
              SelectedTabColor="White"
-             UnselectedTabColor="Gray"
-             Title="Sigma"
-             
-                >
+             UnselectedTabColor="Gray">
+
     <NavigationPage.TitleView>
-        <StackLayout Orientation="Horizontal">
-   
+       
+        <StackLayout Orientation="Horizontal" >
+
             <Label Text="Sigma"
                    HorizontalOptions="CenterAndExpand"
                    VerticalOptions="CenterAndExpand"
                    FontAttributes="Bold"
                    FontSize="20"
                    TextColor="white"/>
-
         </StackLayout>
     </NavigationPage.TitleView>
 

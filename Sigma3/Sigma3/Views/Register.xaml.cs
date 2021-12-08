@@ -49,6 +49,11 @@ namespace Sigma3.Views
             password = Convert.ToString(Password.Text); 
         }
 
+        private void Name_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
         private void VPassword_TextChanged(object sender, TextChangedEventArgs e)
         {
             vPassword = Convert.ToString(VPassword.Text);

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BankingExplorationApp.ViewModels;
+using Sigma3.Objects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +19,8 @@ namespace Sigma3.Views
         public Home()
         {
             InitializeComponent();
-            
+            this.BindingContext = new topMoversModel();
+
         }
         async private void StockSelected(object sender, SelectedItemChangedEventArgs e)
         {
@@ -29,6 +32,11 @@ namespace Sigma3.Views
         }
 
         private void ImageButton_Clicked(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
 
         }

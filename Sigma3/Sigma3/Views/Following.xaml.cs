@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BankingExplorationApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace Sigma3.Views
         public Following()
         {
             InitializeComponent();
+            this.BindingContext = new topMoversModel();
         }
     }
 }

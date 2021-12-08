@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using YahooFinanceApi;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -16,19 +17,18 @@ namespace Sigma3.Views
 
         public Home()
         {
+  
             InitializeComponent();
             
         }
-        async private void StockSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-
-        }
-        async private void Topmovers()
-        {
-           // var topMovers = await YahooFinanceApi.Yahoo.
-        }
+        
 
         private void ImageButton_Clicked(object sender, EventArgs e)
+        {
+
+        }
+
+        private void topMoversListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
 
         }

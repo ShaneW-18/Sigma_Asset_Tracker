@@ -14,7 +14,13 @@ namespace Sigma3.Views
     {
         public Following()
         {
+            
             InitializeComponent();
+        }
+
+        private void ToolbarItem_Clicked(object sender, EventArgs e)
+        {
+
         }
     }
 }

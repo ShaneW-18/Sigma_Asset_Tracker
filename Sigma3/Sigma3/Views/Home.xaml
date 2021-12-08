@@ -6,25 +6,12 @@
              >
     <ContentPage.ToolbarItems>
         <ToolbarItem IconImageSource="search.png" Text="Sigma" ></ToolbarItem>
-
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
             <StackLayout>
                 <Label Text="Sigma" FontSize="25"  TextColor="White" TranslationY="-40"  HorizontalOptions="Center" ></Label>
             </StackLayout>
-            <ListView x:Name="topMoversListView" ItemSelected="StockSelected">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <TextCell Text ="{Binding topMovers} " Detail="{Binding combine}" TextColor="black" DetailColor="#2196F3" ></TextCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <ImageButton Source="sigma.png"
-                    HorizontalOptions="Center"
-                    VerticalOptions="CenterAndExpand" />
-            
-            
         </StackLayout>
     </ContentPage.Content>
     

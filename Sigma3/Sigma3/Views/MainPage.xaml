@@ -9,13 +9,15 @@
              BarBackgroundColor="Black"
              SelectedTabColor="White"
              UnselectedTabColor="Gray"
-             Title="Sigma"
+             NavigationPage.HasBackButton="False"
              
                 >
+
+
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal">
-   
-            <Label Text="Sigma"
+
+            <Label x:Name="TopTitle" Text="Sigma"
                    HorizontalOptions="CenterAndExpand"
                    VerticalOptions="CenterAndExpand"
                    FontAttributes="Bold"

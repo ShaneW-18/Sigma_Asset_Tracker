@@ -12,6 +12,7 @@ namespace Sigma3
     {
         public MainPage()
         {
+            
             InitializeComponent();
             BarBackgroundColor = Color.Black;
             BarTextColor = Color.Black;

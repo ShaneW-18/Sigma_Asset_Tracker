@@ -5,59 +5,157 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-
+using Sigma3.Services;
 using Xamarin.Forms;
+using System.Security.Cryptography;
 using Xamarin.Forms.Xaml;
+using Sigma3.Util;
 
 namespace Sigma3.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Register : ContentPage
     {
-        String email, password, vPassword, phoneNumber;
+        private int CurrentErrors = 0;
+        private Dictionary<int, string> ErrorReasons = new Dictionary<int, string>();
+
+        private List<Entry> TextEntries;
         public Register()
         {
+          
             InitializeComponent();
+            TextEntries = new List<Entry>()
+            {
+                Name,
+                Email,
+                Password,
+                VPassword,
+                PhoneNumber
+            };
             NavigationPage.SetHasNavigationBar(this, false);
         }
-        private async void ClickedRegister(object sender, EventArgs e)
+        async private void ClickedRegister(object sender, EventArgs e)
         {
-            Activity.IsRunning = true;
+           for (int i = 0; i < TextEntries.Count; i++)
+            {
+                var entry = TextEntries[i].Text;
+
+                if (String.IsNullOrWhiteSpace(entry))
+                {
+                    AddReason($"Your {TextEntries[i].Placeholder} field is empty");
+                    continue;
+                }
+
+                switch (i)
+                {
+                    case 0:
+                        var count = entry.Length;
+                        if (count < 2)
+                        {
+                            AddReason("Your name is less than 2 characters");
+                        }
+                        else if (count >= 35)
+                        {
+                            AddReason("Your name is too long. Use an abreviation");
+                        }
+                        continue;
+                    // Email
+                    case 1:
+                        if (!isValidEmail(entry))
+                        {
+                            AddReason("Your email is incorrect");
+                        }
+                     
+                        // perform regex check
+
+                        continue;
+                        // Password
+                    case 2:
+                        if (!isValidPassword(entry))
+                        {
+                             AddReason("Password field must be contain a digit (4-20), a number, special char, upper and lower case letter at least once!");
+                        }
+
+                        continue;
+                      // Password Validator
+                    case 3:
+                       if (!entry.Equals(Password.Text))
+                       {
+                            AddReason("Passwords do not match!");
+                       }
+                       continue;
+                        // Phone Number
+                    case 4:
+                        if (!isValidPhoneNumber(entry))
+                        {
+                            AddReason("Phone number is not valid");
+                        }
+                        break;
+
+                }
+
+            }
+
+            var keys = ErrorReasons.Keys;
             
-            Regex reg = new Regex(@"\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*");
-            if ((email.Equals("") | password.Equals("") | phoneNumber.Equals("") | !reg.IsMatch(email)) && password.Equals(vPassword))
+           
+            if (keys.Count > 0)
             {
-                await DisplayAlert("Alert", "Cridentials are wrong", "OK");
+                var builder = new StringBuilder();
+
+                foreach (var key in keys)
+                {
+                    var error = ErrorReasons[key];
+                    builder.Append(error)
+                        .Append("\n");
+                }
+
+
+                await DisplayAlert($"You have {keys.Count} errors", builder.ToString(), "OK");
+                // Should be 
+                CurrentErrors = 0;
+                ErrorReasons = new Dictionary<int, string>();
+                return;
             }
-            else
+
+
+
+            await AppService.AddUserAsync(new User
             {
-                User u = new User(password, email, phoneNumber);
-                await Navigation.PushAsync(new MainPage());
-            }
-            Activity.IsRunning = false;   
+                Name = Name.Text,
+                Email = Email.Text,
+                Password = StringUtils.HashString(Password.Text),
+                PhoneNumber = PhoneNumber.Text,
+                PortfolioBalance = 0
+            });
 
-
+            // add to database logic here
+            await Navigation.PushAsync(new Home());
         }
 
-        private void Email_TextChanged(object sender, TextChangedEventArgs e)
+
+        public void AddReason(string reason)
         {
-            email = Convert.ToString(Email.Text);
+            ErrorReasons.Add(CurrentErrors++, reason);
         }
 
-        private void Password_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            password = Convert.ToString(Password.Text); 
+        private bool isValidEmail(string email)
+        {          
+           return new Regex("^(.+)@(.+)$").IsMatch(email);
         }
 
-        private void VPassword_TextChanged(object sender, TextChangedEventArgs e)
+        private bool isValidPhoneNumber(string phone)
         {
-            vPassword = Convert.ToString(VPassword.Text);
+            return new Regex("^(\\+\\d{1,3}( )?)?((\\(\\d{1,3}\\))|\\d{1,3})[- .]?\\d{3,4}[- .]?\\d{4}$").IsMatch(phone);
         }
 
-        private void PhoneNumber_TextChanged(object sender, TextChangedEventArgs e)
+        private bool isValidPassword(string password)
         {
-            phoneNumber = Convert.ToString(PhoneNumber.Text);   
+            return new Regex("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{4,20}$").IsMatch(password);
         }
+
+
+
         protected override void OnAppearing()
         {
             VPassword.Text = "";
@@ -66,6 +164,14 @@ namespace Sigma3.Views
             PhoneNumber.Text = "";
 
 
+            // Should be 
+            CurrentErrors = 0;
+            ErrorReasons = new Dictionary<int, string>();
+        }
+
+        async private void BackButton_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PopAsync();
         }
     }
 }

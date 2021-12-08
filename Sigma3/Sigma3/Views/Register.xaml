@@ -35,8 +35,8 @@
             <Entry x:Name="Password" IsPassword="True"  Grid.Row="3" Placeholder="Password" PlaceholderColor="White" FontSize="16"   TextColor="White"  HorizontalTextAlignment="Center"/>
             <Entry x:Name="VPassword" IsPassword="True" Grid.Row="4" Placeholder="Verify Password" PlaceholderColor="White" FontSize="16"   TextColor="White" HorizontalTextAlignment="Center" />
             <Entry x:Name="PhoneNumber"  Grid.Row="5" Placeholder="Phone Number" PlaceholderColor="White" FontSize="16"   TextColor="White" HorizontalTextAlignment="Center"/>
-            <Button CornerRadius="40" Text="Register" BackgroundColor="DarkGray" TextColor="White" HeightRequest="50" VerticalOptions="Start" Grid.Row="7" Clicked="ClickedRegister"/>
-            <Button CornerRadius="40" Text="Back" BackgroundColor="DarkGray" TextColor="White" HeightRequest="50" VerticalOptions="Start" Grid.Row="6" Clicked="ClickedRegister"/>
+            <Button CornerRadius="40" Text="Register" BackgroundColor="DarkGray" TextColor="White" HeightRequest="50" VerticalOptions="Start" Grid.Row="6" Clicked="ClickedRegister"/>
+            <Button CornerRadius="40" Text="Back" BackgroundColor="DarkGray" TextColor="White" HeightRequest="50" VerticalOptions="Start" Grid.Row="7" Clicked="BackButton_Clicked"/>
 
             <Grid Grid.Row="7">
                 <Grid.ColumnDefinitions>

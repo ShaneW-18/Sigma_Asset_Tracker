@@ -12,18 +12,18 @@
             <ScrollView>
                 <Grid Padding="35,45,35,45" RowDefinitions="Auto,Auto,Auto,Auto,Auto,*,Auto" ColumnDefinitions="*,Auto">
                     <!-- Balance information-->
-                    <Label Grid.Row="0" Grid.Column="0" Text="2 Feb, Monday" TextColor="White"/>
-                    <Label Grid.Row="1" Grid.Column="0" Text="Shane Wiles" FontSize="20" FontAttributes="Bold" TextColor="White"/>
+                    <Label Grid.Row="0" Grid.Column="0" Text="DATE" TextColor="White" x:Name="TODAYS_DATE"/>
+                    <Label Grid.Row="1" Grid.Column="0" Text="USER_NAME" FontSize="20" FontAttributes="Bold" x:Name="USER_NAME" TextColor="White"/>
 
-                <Frame Margin="0,20" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" CornerRadius="30" BackgroundColor="Gray" HasShadow="False" HeightRequest="120">
+                <Frame Margin="0,20" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" CornerRadius="30" BackgroundColor="Gray" HasShadow="False" HeightRequest="120" Opacity="0.4">
                     <Grid RowDefinitions="Auto,*" Padding="0,20" ColumnDefinitions="*,Auto">
                         <Label Grid.Row="0" Grid.Column="0" Text="Main Portfolio" FontSize="20" TextColor="White" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
-                            <Label Grid.Row="1" Grid.Column="0" Text="$28,640" FontSize="40" TextColor="White" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
-                        </Grid>
+                        <Label Grid.Row="1" Grid.Column="0" Text="PORTFOLIO_BALANCE" FontSize="40" TextColor="White" FontAttributes="Bold" HorizontalTextAlignment="Center" x:Name="PORTFOLIO_BALANCE"/>
+                    </Grid>
                     </Frame>
                    
                     <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" RowDefinitions="Auto,Auto" ColumnDefinitions="Auto,*">
-                    <Button Grid.Row="0" Grid.Column="1" Text="+" TextColor="Black" BackgroundColor="Gray" CornerRadius="30" HeightRequest="60" FontSize="30"/>
+                    <Button Grid.Row="0" Grid.Column="1" Text="+" TextColor="Black" BackgroundColor="Gray" CornerRadius="30" HeightRequest="60" FontSize="30" Opacity="0.4"/>
 
                     </Grid>
                     <!-- Activities-->

@@ -21,7 +21,13 @@ namespace Sigma3.Views
         }
         async private void ClickedLogin(object sender, EventArgs e)
         {
+            if (Constans.DEMO_ENABLED)
+            {
+                await Navigation.PushAsync(new MainPage(Constans.DEMO_USER));
+                return;
+            }
             var errors = await HandleLogin();
+            var User = errors.User;
 
 
             if (!String.IsNullOrEmpty(errors.Errors))
@@ -32,7 +38,7 @@ namespace Sigma3.Views
 
             await DisplayAlert("Correct", "Correct", "o");
 
-            await Navigation.PushAsync(new MainPage());
+            await Navigation.PushAsync(new MainPage(User));
         }
 
         async private Task<LoginObj> HandleLogin()
@@ -40,6 +46,8 @@ namespace Sigma3.Views
             var builder = new StringBuilder();
             var email = Email.Text;
             var password = Password.Text;
+
+            
 
             if (String.IsNullOrWhiteSpace(email))
             {
@@ -87,8 +95,7 @@ namespace Sigma3.Views
                 this.Errors = Errors;
             }
 
-            public LoginObj()
-            { }
+            public LoginObj() {}
         }
     }
 }

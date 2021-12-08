@@ -18,5 +18,10 @@ namespace Sigma3.Util
            }
             
         }
+
+        public static string ParseNumberWithCommas(decimal num)
+        {
+            return num.ToString("#,##0.00");
+        }
     }
 }

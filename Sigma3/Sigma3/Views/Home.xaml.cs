@@ -1,8 +1,6 @@
-﻿using BankingExplorationApp.ViewModels;
-using Sigma3.Objects;
+﻿using Sigma3.Objects;
 using Sigma3.Util;
 using System;
-using YahooFinanceApi;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -16,8 +14,6 @@ namespace Sigma3.Views
         {
             InitializeComponent();
             USER_LOGGED_IN = MainPage.USER_LOGGED_IN;
-            this.BindingContext = new topMoversModel();
-
         }
 
         
@@ -38,11 +34,16 @@ namespace Sigma3.Views
         }
 
 
-        protected override void OnAppearing()
+        async protected override void OnAppearing()
         {
-         this.USER_NAME.Text = $"Welcome {USER_LOGGED_IN.Name}! ";
-         this.TODAYS_DATE.Text = DateTime.Now.ToString("d MMM, ddd");
-         this.PORTFOLIO_BALANCE.Text = $"${StringUtils.ParseNumberWithCommas( USER_LOGGED_IN.PortfolioBalance )}";
+            if (USER_LOGGED_IN.Email == "Demo")
+            {
+                USER_LOGGED_IN.UserFollowing = await Constants.GetDefaultFollowing();
+            }
+            this.BindingContext = USER_LOGGED_IN.UserFollowing;
+             this.USER_NAME.Text = $"Welcome {USER_LOGGED_IN.Name}! ";
+             this.TODAYS_DATE.Text = DateTime.Now.ToString("d MMM, ddd");
+             this.PORTFOLIO_BALANCE.Text = $"${StringUtils.ParseNumberWithCommas( USER_LOGGED_IN.PortfolioBalance )}";
         }
     }
 }

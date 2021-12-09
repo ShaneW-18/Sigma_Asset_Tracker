@@ -18,18 +18,20 @@ namespace Sigma3.Services
             if (database != null) return;
             var databasePath = Path.Combine(FileSystem.AppDataDirectory, "app.db");
 
-
-           
-
             database = new SQLiteAsyncConnection(databasePath);
             await database.CreateTableAsync<User>();
 
-            await AddUserAsync(Constans.DEMO_USER);
+            await AddUserAsync(Constants.DEMO_USER);
         }
 
         async public static Task AddUserAsync(User user)
         {
             await Init();
+
+            if (user.Email == "Demo")
+            {
+                user.UserFollowing = await Constants.GetDefaultFollowing();
+            }
 
             await database.InsertAsync(user);
         }

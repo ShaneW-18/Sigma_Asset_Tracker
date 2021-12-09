@@ -4,13 +4,27 @@
              x:Class="Sigma3.Views.Settings"
              Title="Settings"
              >
-
-   
-    
-   
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Settings" TextColor="White"></Label>
-        </StackLayout>
-    </ContentPage.Content>
+    <TableView HasUnevenRows="True" Intent="Settings">
+        <TableRoot>
+            <TableSection Title="Connected Cadence Sensor">
+                <EntryCell x:Name="EntryName" Label="Display Name:" />
+                <TextCell
+                    x:Name="CellId"
+                    Text="Id"
+                  />
+                <TextCell
+                    x:Name="SetupSensor"
+                    StyleId="disclosure"
+                    Tapped="SetupSensor_Tapped"
+                    Text="Setup Sensor"
+                   />
+                <TextCell
+                    x:Name="BuyCadence"
+                    StyleId="disclosure"
+                    Tapped="BuyCadence_Tapped"
+                    Text="Buy Cadence Sensor"
+                  />
+            </TableSection>
+        </TableRoot>
+    </TableView>
 </ContentPage>

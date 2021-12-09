@@ -16,5 +16,15 @@ namespace Sigma3.Views
         {
             InitializeComponent();
         }
+
+        private void SetupSensor_Tapped(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BuyCadence_Tapped(object sender, EventArgs e)
+        {
+
+        }
     }
 }

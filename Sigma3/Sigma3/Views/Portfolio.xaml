@@ -2,9 +2,57 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Sigma3.Views.Portfolio">
+
     <ContentPage.ToolbarItems>
         <ToolbarItem IconImageSource="search.png"></ToolbarItem>
-
     </ContentPage.ToolbarItems>
+    <ContentPage.Content >
+        <StackLayout>
+            <ScrollView x:Name="UserPortfolio">
 
+                <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,*,Auto" ColumnDefinitions="*,Auto">
+                    <!-- Balance information-->
+                    <Frame Margin="0,20" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" CornerRadius="30" BackgroundColor="Gray" HasShadow="False" HeightRequest="120" Opacity="0.4">
+                        <Grid RowDefinitions="Auto,*" Padding="0,20" ColumnDefinitions="*,Auto">
+                            <Label Grid.Row="0" Grid.Column="0" Text="Main Portfolio" FontSize="20" TextColor="White" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
+                            <Label Grid.Row="1" Grid.Column="0" Text="PORTFOLIO_BALANCE" FontSize="40" TextColor="White" FontAttributes="Bold" HorizontalTextAlignment="Center" x:Name="PORTFOLIO_BALANCE"/>
+                        </Grid>
+                    </Frame>
+
+
+                    <Grid Padding="35,0,40,35" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" RowDefinitions="Auto,Auto" ColumnDefinitions="Auto,*">
+                        <!-- Activities-->
+                        <Label Grid.Row="1" Grid.Column="0" Text="Holdings" FontAttributes="Bold" Padding="0,20" FontSize="25" TextColor="white"/>
+
+
+                        <CollectionView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding ActivitiesCollection}" HeightRequest="300"
+                                 VerticalScrollBarVisibility="Never">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="Auto,*,Auto" Padding="0,10">
+                                        <Button Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" TextColor="White" BackgroundColor="#e8e8e8" CornerRadius="25" WidthRequest="50" HeightRequest="50"/>
+                                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding Title}" Padding="15,0,0,0" FontAttributes="Bold" TextColor="white" />
+                                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding Date}" Padding="15,0,0,0" TextColor="Silver"/>
+                                        <Label Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Text="{Binding Price}" VerticalTextAlignment="Center" TextColor="#589280" FontAttributes="Bold" Padding="15,0,0,0"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+
+                    </Grid>
+
+                </Grid>
+            </ScrollView>
+            <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,*,Auto" ColumnDefinitions="*,Auto" IsVisible="False" IsEnabled="False" x:Name="NoUserPortfolio">
+                <Label Grid.Row="10" Text="Your new portfolio starts here!" TextColor="White" HorizontalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="23"  VerticalOptions="CenterAndExpand"/>
+                <Label Grid.Row="11" Text="We need some securties to get start tracking your " HorizontalOptions="CenterAndExpand" TextColor="Gray"/>
+                <Label Grid.Row="12" Text="portfolio, please click the + button below" HorizontalOptions="CenterAndExpand" TextColor="Gray" TranslationY="-10"/>
+                <Button x:Name="AddPortfolioBtn" Grid.Row="13"  Grid.RowSpan="2" Grid.Column="0" TextColor="Black" BackgroundColor="gray" CornerRadius="100" WidthRequest="60"  Text="+"  FontSize="30" HorizontalOptions="CenterAndExpand" Clicked="AddPortfolioBtn_Clicked" />
+            </Grid>
+
+        </StackLayout>
+    </ContentPage.Content>
+
+    
 </ContentPage>

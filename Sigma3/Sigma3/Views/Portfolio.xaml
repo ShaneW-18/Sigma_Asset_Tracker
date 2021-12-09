@@ -8,7 +8,7 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content >
         <StackLayout>
-            <ScrollView x:Name="UserPortfolio">
+            <ScrollView x:Name="UserPortfolio" IsVisible="False" IsEnabled="False">
 
                 <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,*,Auto" ColumnDefinitions="*,Auto">
                     <!-- Balance information-->
@@ -44,7 +44,7 @@
 
                 </Grid>
             </ScrollView>
-            <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,*,Auto" ColumnDefinitions="*,Auto" IsVisible="False" IsEnabled="False" x:Name="NoUserPortfolio">
+            <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,*,Auto" ColumnDefinitions="*,Auto" IsVisible="True" IsEnabled="True" x:Name="NoUserPortfolio">
                 <Label Grid.Row="10" Text="Your new portfolio starts here!" TextColor="White" HorizontalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="23"  VerticalOptions="CenterAndExpand"/>
                 <Label Grid.Row="11" Text="We need some securties to get start tracking your " HorizontalOptions="CenterAndExpand" TextColor="Gray"/>
                 <Label Grid.Row="12" Text="portfolio, please click the + button below" HorizontalOptions="CenterAndExpand" TextColor="Gray" TranslationY="-10"/>

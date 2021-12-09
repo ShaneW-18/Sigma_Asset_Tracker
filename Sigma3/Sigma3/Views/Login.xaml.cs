@@ -22,10 +22,11 @@ namespace Sigma3.Views
 
         async private void ClickedLogin(object sender, EventArgs e)
         {
-            if (Constans.DEMO_ENABLED)
+            if (Constants.DEMO_ENABLED)
             {
+
                 System.Diagnostics.Debug.WriteLine(Xamarin.Essentials.AppInfo.PackageName);
-                await Navigation.PushAsync(new MainPage(Constans.DEMO_USER));
+                await Navigation.PushAsync(new MainPage(Constants.DEMO_USER));
                 return;
             }
             var errors = await HandleLogin();

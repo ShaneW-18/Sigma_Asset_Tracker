@@ -10,7 +10,6 @@ using Xamarin.Forms;
 using System.Security.Cryptography;
 using Xamarin.Forms.Xaml;
 using Sigma3.Util;
-using YahooFinanceApi;
 
 namespace Sigma3.Views
 {
@@ -127,7 +126,8 @@ namespace Sigma3.Views
                 Email = Email.Text,
                 Password = StringUtils.HashString(Password.Text),
                 PhoneNumber = PhoneNumber.Text,
-                PortfolioBalance = 0
+                PortfolioBalance = 0,
+                UserFollowing = await Constants.GetDefaultFollowing()
             });
 
             // add to database logic here

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using SQLite;
+using YahooFinanceApi;
 
 namespace Sigma3.Objects
 {
@@ -14,6 +15,10 @@ namespace Sigma3.Objects
         public string Password { get; set; } 
         public string PhoneNumber { get; set; }
         public decimal PortfolioBalance { get; set; }
+        public List<Security> UserFollowing { get; set; }
+        public List<Security> UserPortfolio { get; set; }
+
+
 
     }
 }

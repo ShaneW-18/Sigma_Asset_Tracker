@@ -10,6 +10,7 @@ using Xamarin.Forms;
 using System.Security.Cryptography;
 using Xamarin.Forms.Xaml;
 using Sigma3.Util;
+using YahooFinanceApi;
 
 namespace Sigma3.Views
 {

@@ -18,9 +18,6 @@ namespace Sigma3.Services
             if (database != null) return;
             var databasePath = Path.Combine(FileSystem.AppDataDirectory, "app.db");
 
-
-           
-
             database = new SQLiteAsyncConnection(databasePath);
             await database.CreateTableAsync<User>();
 

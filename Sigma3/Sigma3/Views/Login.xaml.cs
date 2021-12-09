@@ -19,10 +19,12 @@ namespace Sigma3.Views
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
         }
+
         async private void ClickedLogin(object sender, EventArgs e)
         {
             if (Constans.DEMO_ENABLED)
             {
+                System.Diagnostics.Debug.WriteLine(Xamarin.Essentials.AppInfo.PackageName);
                 await Navigation.PushAsync(new MainPage(Constans.DEMO_USER));
                 return;
             }

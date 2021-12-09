@@ -36,14 +36,16 @@ namespace Sigma3.Views
 
         async protected override void OnAppearing()
         {
+            this.USER_NAME.Text = $"Welcome {USER_LOGGED_IN.Name}! ";
+            this.TODAYS_DATE.Text = DateTime.Now.ToString("d MMM, ddd");
+            this.PORTFOLIO_BALANCE.Text = $"${StringUtils.ParseNumberWithCommas(USER_LOGGED_IN.PortfolioBalance)}";
+
             if (USER_LOGGED_IN.Email == "Demo")
             {
                 USER_LOGGED_IN.UserFollowing = await Constants.GetDefaultFollowing();
             }
-            this.BindingContext = USER_LOGGED_IN.UserFollowing;
-             this.USER_NAME.Text = $"Welcome {USER_LOGGED_IN.Name}! ";
-             this.TODAYS_DATE.Text = DateTime.Now.ToString("d MMM, ddd");
-             this.PORTFOLIO_BALANCE.Text = $"${StringUtils.ParseNumberWithCommas( USER_LOGGED_IN.PortfolioBalance )}";
+             this.BindingContext = USER_LOGGED_IN.UserFollowing;
+     
         }
     }
 }

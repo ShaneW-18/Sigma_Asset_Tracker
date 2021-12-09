@@ -31,5 +31,10 @@ namespace Sigma3.Views
             this.FollowingCollectionView.ItemsSource = USER_LOGGED_IN.UserFollowing;
 
         }
+
+        private void RefreshButton_Clicked(object sender, EventArgs e)
+        {
+
+        }
     }
 }

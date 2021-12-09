@@ -27,5 +27,15 @@ namespace Sigma3.Views
         {
             this.PORTFOLIO_BALANCE.Text = $"${StringUtils.ParseNumberWithCommas(USER_LOGGED_IN.PortfolioBalance)}";
         }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AddPortfolioBtn_Clicked(object sender, EventArgs e)
+        {
+
+        }
     }
 }

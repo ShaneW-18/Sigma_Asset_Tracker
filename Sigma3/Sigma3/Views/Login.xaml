@@ -30,19 +30,16 @@
             <Button CornerRadius ="40" Text="Login" BackgroundColor="DarkGray" TextColor="LightGray" HeightRequest="50" VerticalOptions="Start" Grid.Row="3" Clicked="ClickedLogin"/>
             <Button CornerRadius ="40" Text="Register" BackgroundColor="DarkGray" TextColor="LightGray" HeightRequest="50" VerticalOptions="Start" Grid.Row="4" Clicked="ClickedRegister"/>
             <Grid Grid.Row="5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Label BackgroundColor="#bababa" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label BackgroundColor="#bababa" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
                 <Image Source="sigma.png" Grid.Column="1" VerticalOptions="Center" Margin="10,0,10,0"/>
-                    <Label BackgroundColor="#bababa" Grid.Column="2" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
-                </Grid>
-                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Grid.Row="6">
-                    <Label Text="Login with Google" TextColor="White"  />
-                </StackLayout>
+                <Label BackgroundColor="#bababa" Grid.Column="2" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
             </Grid>
+        </Grid>
             <StackLayout Grid.Row="2" BackgroundColor="Black">
                 <Label HeightRequest="1" BackgroundColor="Black"/>
             <Label Text="Made by Shane Wiles and Damon Motague" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor= "White"/>

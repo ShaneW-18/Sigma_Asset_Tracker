@@ -15,5 +15,6 @@ namespace Sigma3.Objects
         public string PhoneNumber { get; set; }
         public decimal PortfolioBalance { get; set; }
 
+        
     }
 }

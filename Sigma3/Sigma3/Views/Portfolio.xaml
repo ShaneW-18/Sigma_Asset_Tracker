@@ -11,6 +11,7 @@
             <ScrollView x:Name="UserPortfolio" IsVisible="False" IsEnabled="False">
 
                 <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,*,Auto" ColumnDefinitions="*,Auto">
+
                     <!-- Balance information-->
                     <Frame Margin="0,20" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" CornerRadius="30" BackgroundColor="Gray" HasShadow="False" HeightRequest="120" Opacity="0.4">
                         <Grid RowDefinitions="Auto,*" Padding="0,20" ColumnDefinitions="*,Auto">
@@ -24,6 +25,7 @@
                         <!-- Activities-->
                         <Label Grid.Row="1" Grid.Column="0" Text="Holdings" FontAttributes="Bold" Padding="0,20" FontSize="25" TextColor="white"/>
 
+                        
 
                         <CollectionView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding ActivitiesCollection}" HeightRequest="300"
                                  VerticalScrollBarVisibility="Never">
@@ -50,7 +52,6 @@
                 <Label Grid.Row="12" Text="portfolio, please click the + button below" HorizontalOptions="CenterAndExpand" TextColor="Gray" TranslationY="-10"/>
                 <Button x:Name="AddPortfolioBtn" Grid.Row="13"  Grid.RowSpan="2" Grid.Column="0" TextColor="Black" BackgroundColor="gray" CornerRadius="100" WidthRequest="60"  Text="+"  FontSize="30" HorizontalOptions="CenterAndExpand" Clicked="AddPortfolioBtn_Clicked" />
             </Grid>
-
         </StackLayout>
     </ContentPage.Content>
 

@@ -2,6 +2,23 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Sigma3.Views.Following">
+    <ContentPage.Resources>
+        <Style TargetType="Grid">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="gray" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
     <ContentPage.ToolbarItems>
         <ToolbarItem IconImageSource="search.png"></ToolbarItem>
         <ToolbarItem IconImageSource="plus.png" />
@@ -13,13 +30,13 @@
         <Grid Padding="35,10,35,45" RowDefinitions="Auto,Auto,Auto,Auto,Auto,*,Auto" ColumnDefinitions="*,Auto">
             <!-- Activities-->
             <Label Grid.Row="0" Grid.Column="0" Text="Following" FontAttributes="Bold" Padding="0,20" FontSize="25" TextColor="white"/>
-            <CollectionView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding ActivitiesCollection}" HeightRequest="1000"
+            <CollectionView SelectionMode="Single" SelectionChanged="FollowingCollectionView_SelectionChanged"  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  HeightRequest="1000"
                                  VerticalScrollBarVisibility="Never" x:Name="FollowingCollectionView">
-                <CollectionView.ItemTemplate>
+                <CollectionView.ItemTemplate >
                     <DataTemplate>
                         <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="Auto,*,Auto" Padding="0,10">
                             <Button Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" TextColor="White" BackgroundColor="#e8e8e8" CornerRadius="25" WidthRequest="50" HeightRequest="50"/>
-                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding Symbol}" Padding="15,0,0,0" FontAttributes="Bold" TextColor="White" />
+                            <Label  Grid.Row="0" Grid.Column="1" Text="{Binding Symbol}" Padding="15,0,0,0" FontAttributes="Bold" TextColor="White" />
                             <Label Grid.Row="1" Grid.Column="1" Text="{Binding ShortName}" Padding="15,0,0,0" TextColor="Silver" FontSize="10"/>
                             <Label Grid.Row="0" Grid.Column="2" Grid.RowSpan="1" Text="{Binding RegularMarketPriceProp}"  VerticalTextAlignment="Center" TextColor="White" FontAttributes="Bold" Padding="15,0,0,0" HorizontalOptions="EndAndExpand"/>
                             <Label Grid.Row="1" Grid.Column="2" Grid.RowSpan="1" Text="{Binding RegularMarketChangePercentProp}"  VerticalTextAlignment="Center" TextColor="{Binding ColorProp}" FontAttributes="Bold" Padding="15,0,0,0" HorizontalOptions="EndAndExpand"/>

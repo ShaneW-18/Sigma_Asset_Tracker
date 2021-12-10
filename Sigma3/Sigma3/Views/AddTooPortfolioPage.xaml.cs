@@ -12,17 +12,17 @@ namespace Sigma3.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AddTooPortfolioPage : ContentPage
     {
-        // private Button buttonSelected { get; set; }
+        private Button buttonSelected { get; set; }
         public AddTooPortfolioPage()
         {
             InitializeComponent();
-            /*
+           
             this.BuyButton.IsEnabled = true;
             this.buttonSelected = this.BuyButton;
-            */
+            
         }
 
-        /*
+       
 
         private void BuyButton_Clicked(object sender, EventArgs e)
         {
@@ -38,14 +38,14 @@ namespace Sigma3.Views
             this.SellButton.TextColor = Color.Gray;
 
             // Entry
-            this.AmountEntry.Text = "Amount Bought";
+            this.AmountEntry.Placeholder = "Amount Bought";
 
         }
 
         private void SellButton_Clicked(object sender, EventArgs e)
         {
             // Sell
-            this.SellButton.BackgroundColor = Color.LightGreen;
+            this.SellButton.BackgroundColor = Color.Red;
             this.SellButton.FontAttributes = FontAttributes.Bold;
             this.SellButton.TextColor = Color.White;
             this.SellButton.BorderColor = Color.LightGreen;
@@ -56,14 +56,9 @@ namespace Sigma3.Views
             this.BuyButton.TextColor = Color.Gray;
 
             // Entry
-            this.AmountEntry.Text = "Amount Sold";
+            this.AmountEntry.Placeholder = "Amount Sold";
             
         }
-
-        private void SellButton_Clicked_1(object sender, EventArgs e)
-        {
-
-        }
-        */
+       
     }
 }

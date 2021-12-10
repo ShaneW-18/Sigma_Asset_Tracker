@@ -28,11 +28,13 @@ namespace Sigma3
             var btc = await YahooFinance.Get("BTC-USD");
             var nvda = await YahooFinance.Get("NVDA");
             var dis = await YahooFinance.Get("Dis");
+            var twtr = await YahooFinance.Get("TWTR");
+            var bac = await YahooFinance.Get("bac");
 
 
             return new List<StockModel>()
             {
-                appl, btc, nvda, dis
+                appl, btc, nvda, dis, twtr, bac
             };
         }
 

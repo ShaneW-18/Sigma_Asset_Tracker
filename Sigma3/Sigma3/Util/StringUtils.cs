@@ -23,5 +23,12 @@ namespace Sigma3.Util
         {
             return num.ToString("#,##0.00");
         }
+
+        public static string ParseNumberWithCommas(double num)
+        {
+            return num.ToString("#,##0.00");
+        }
+
+
     }
 }

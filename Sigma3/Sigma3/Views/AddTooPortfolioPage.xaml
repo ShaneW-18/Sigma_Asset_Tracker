@@ -10,31 +10,15 @@
             <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="Auto,*,Auto" Padding="0,10">
                 <Button Grid.Row="0"  Grid.Column="0" TextColor="White" BackgroundColor="gray" CornerRadius="10" WidthRequest="150" HeightRequest="50" Text="Buy"/>
                 <Button Grid.Row="0"  Grid.Column="1" TextColor="White" BackgroundColor="gray" CornerRadius="10" WidthRequest="150" HeightRequest="50" TranslationX="15" Text="Sell"/>
-                
 
-                
             </Grid>
             
             <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="Auto,*,Auto" Padding="0,10">
                 <Label BackgroundColor="#bababa" Grid.Row="4" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
                 <Label Grid.Row="4" Text="Date Purchased" TextColor="white" TranslationY="30" ></Label>
-                <DatePicker VerticalOptions="CenterAndExpand" Date="{x:Static sys:DateTime.Now}" TextColor="Gray" Grid.Row="5" HorizontalOptions="Center">
-                    <DatePicker.Format>yyyy-MM-dd</DatePicker.Format >
-                    <DatePicker.MinimumDate>
-                        <sys:DateTime >
-                            <x:Arguments>
-                                <x:String>Jan 1 2000</x:String>
-                            </x:Arguments>
-                        </sys:DateTime>
-                    </DatePicker.MinimumDate>
-                    <DatePicker.MaximumDate>
-                        <sys:DateTime>
-                            <x:Arguments>
-                                <x:String>Dec 31 2050</x:String>
-                            </x:Arguments >
-                        </sys:DateTime>
-                    </DatePicker.MaximumDate>
-                </DatePicker>
+                <DatePicker VerticalOptions="CenterAndExpand" Date="{x:Static sys:DateTime.Now}" MinimumDate="01/01/1950"  MaximumDate="{x:Static sys:DateTime.Now}" TextColor="Gray" Grid.Row="5" HorizontalOptions="Center"/>
+
+
                 <Label BackgroundColor="#bababa" Grid.Row="6" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
                 <Entry TextColor="white" PlaceholderColor="Gray" Grid.Row="7"  Placeholder="Unadjusteed Buy Price in USD" WidthRequest="50" HorizontalTextAlignment="Center" Keyboard="Numeric"></Entry>
                 <Label BackgroundColor="#bababa" Grid.Row="8" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>

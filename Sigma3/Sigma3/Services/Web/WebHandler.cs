@@ -37,5 +37,7 @@ namespace Sigma3.Services.Web
             var content = await client.GetStringAsync(url);
             return content;
         }
+
+
     }
 }

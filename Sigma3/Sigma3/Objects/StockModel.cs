@@ -20,6 +20,9 @@ namespace Sigma3.Objects
         [JsonPropertyName("displayName")]
         public string DisplayName { get; set; }
 
+        [JsonPropertyName("coinImageUrl")]
+        public string CoinUrl { get; set; } 
+
         [JsonPropertyName("triggerable")]
         public bool Triggerable;
 

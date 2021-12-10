@@ -17,7 +17,7 @@
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal">
 
-            <Label x:Name="TopTitle" Text="Sigma"
+            <Label x:Name="TopTitle" Text="{Binding PageTitle}"
                    HorizontalOptions="CenterAndExpand"
                    VerticalOptions="CenterAndExpand"
                    FontAttributes="Bold"

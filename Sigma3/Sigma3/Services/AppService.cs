@@ -52,5 +52,10 @@ namespace Sigma3.Services
 
              return users.Find(user => user.Email.Equals(email) && user.Password.Equals(password));
         }
+
+        async public static void UpdateUser(User user)
+        {
+            await Init();
+        }
     }
 }

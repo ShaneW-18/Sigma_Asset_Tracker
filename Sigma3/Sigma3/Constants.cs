@@ -20,6 +20,7 @@ namespace Sigma3
         };
 
         public static readonly bool DEMO_ENABLED = true;
+        public static readonly int LONGEST_STOCK_TICKER_LENGTH = 12;
 
 
         async public static Task<List<StockModel>> GetDefaultFollowing()

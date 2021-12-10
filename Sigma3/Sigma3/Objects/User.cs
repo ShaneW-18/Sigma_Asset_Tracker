@@ -14,7 +14,7 @@ namespace Sigma3.Objects
         public string Password { get; set; } 
         public string PhoneNumber { get; set; }
         public decimal PortfolioBalance { get; set; }
-        public List<StockModel> UserFollowing { get; set; }
+        public List<StockModel> UserFollowing { get; set; } 
         public List<StockModel> UserPortfolio { get; set; }
 
 

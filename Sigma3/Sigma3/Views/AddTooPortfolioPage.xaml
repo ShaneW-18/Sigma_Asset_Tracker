@@ -8,8 +8,8 @@
         <Grid Padding="35,10,35,45" RowDefinitions="Auto,Auto,Auto,Auto,Auto,*,Auto" ColumnDefinitions="*,Auto">
             <!-- Activities-->
             <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="Auto,*,Auto" Padding="0,10">
-                <Button Grid.Row="0"  Grid.Column="0" TextColor="White" BackgroundColor="gray" CornerRadius="10" WidthRequest="150" HeightRequest="50" Text="Buy"/>
-                <Button Grid.Row="0"  Grid.Column="1" TextColor="White" BackgroundColor="gray" CornerRadius="10" WidthRequest="150" HeightRequest="50" TranslationX="15" Text="Sell"/>
+                <Button x:Name="BuyButton" Grid.Row="0"  Grid.Column="0" TextColor="White" BackgroundColor="gray" CornerRadius="10" WidthRequest="150" HeightRequest="50" Text="Buy"/>
+                <Button x:Name="SellButton" Grid.Row="0" Grid.Column="1" TextColor="White" BackgroundColor="gray" CornerRadius="10" WidthRequest="150" HeightRequest="50" TranslationX="15" Text="Sell"/>
 
             </Grid>
             
@@ -22,7 +22,7 @@
                 <Label BackgroundColor="#bababa" Grid.Row="6" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
                 <Entry TextColor="white" PlaceholderColor="Gray" Grid.Row="7"  Placeholder="Unadjusteed Buy Price in USD" WidthRequest="50" HorizontalTextAlignment="Center" Keyboard="Numeric"></Entry>
                 <Label BackgroundColor="#bababa" Grid.Row="8" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
-                <Entry TextColor="white" PlaceholderColor="Gray" Grid.Row="9"  Placeholder="Amount Bought" WidthRequest="50" HorizontalTextAlignment="Center" Keyboard="Numeric"></Entry>
+                <Entry x:Name="AmountEntry" TextColor="white" PlaceholderColor="Gray" Grid.Row="9"  Placeholder="Amount Bought" WidthRequest="50" HorizontalTextAlignment="Center" Keyboard="Numeric"></Entry>
                 <Label BackgroundColor="#bababa" Grid.Row="10" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
                 <Entry TextColor="white" PlaceholderColor="Gray" Grid.Row= "11"  Placeholder="Notes" WidthRequest="50" HorizontalTextAlignment="Center" Keyboard="Numeric"></Entry>
                 <Button Grid.Row="13"  Grid.Column="0" TextColor="White" BackgroundColor="gray" CornerRadius="10" WidthRequest="330" HeightRequest="50" Text="Add Transaction" HorizontalOptions="Center" VerticalOptions="End"/>

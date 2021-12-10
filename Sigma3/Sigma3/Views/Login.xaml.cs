@@ -25,7 +25,9 @@ namespace Sigma3.Views
             if (Constants.DEMO_ENABLED)
             {
 
-                System.Diagnostics.Debug.WriteLine(Xamarin.Essentials.AppInfo.PackageName);
+                ToggleUI();
+                Constants.DEMO_USER.UserFollowing = await Constants.GetDefaultFollowing();
+                ToggleUI();
                 await Navigation.PushAsync(new MainPage(Constants.DEMO_USER));
                 return;
             }
@@ -99,6 +101,13 @@ namespace Sigma3.Views
             }
 
             public LoginObj() {}
+        }
+
+        private void ToggleUI()
+        {
+            this.IsEnabled = !this.IsEnabled;
+            this.IsBusy = !this.IsBusy;
+            this.Indicator.IsRunning = !this.Indicator.IsRunning;
         }
     }
 }

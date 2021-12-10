@@ -13,10 +13,8 @@
         <Grid Padding="35,10,35,45" RowDefinitions="Auto,Auto,Auto,Auto,Auto,*,Auto" ColumnDefinitions="*,Auto">
             <!-- Activities-->
             <Label Grid.Row="0" Grid.Column="0" Text="Following" FontAttributes="Bold" Padding="0,20" FontSize="25" TextColor="white"/>
-            
-<CollectionView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding ActivitiesCollection}" HeightRequest="1000"
+            <CollectionView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding ActivitiesCollection}" HeightRequest="1000"
                                  VerticalScrollBarVisibility="Never" x:Name="FollowingCollectionView">
-  
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="Auto,*,Auto" Padding="0,10">
@@ -30,6 +28,7 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+            <ActivityIndicator x:Name="Indicator" IsRunning="False" Color="White"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

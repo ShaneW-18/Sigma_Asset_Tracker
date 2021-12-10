@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sigma3.iOS", "Sigma3\Sigma3
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sigma3", "Sigma3\Sigma3\Sigma3.csproj", "{46DF5D03-FB2D-4796-8D2A-0EDFCE46C048}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SigmaTransactionAPI", "SigmaTransactionAPI\SigmaTransactionAPI.csproj", "{7B5633F9-330A-4005-BE71-7976044143A2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,18 @@ Global
 		{46DF5D03-FB2D-4796-8D2A-0EDFCE46C048}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{46DF5D03-FB2D-4796-8D2A-0EDFCE46C048}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{46DF5D03-FB2D-4796-8D2A-0EDFCE46C048}.Release|iPhoneSimulator.Deploy.0 = Release|Any CPU
+		{7B5633F9-330A-4005-BE71-7976044143A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B5633F9-330A-4005-BE71-7976044143A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B5633F9-330A-4005-BE71-7976044143A2}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{7B5633F9-330A-4005-BE71-7976044143A2}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{7B5633F9-330A-4005-BE71-7976044143A2}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{7B5633F9-330A-4005-BE71-7976044143A2}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{7B5633F9-330A-4005-BE71-7976044143A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B5633F9-330A-4005-BE71-7976044143A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B5633F9-330A-4005-BE71-7976044143A2}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{7B5633F9-330A-4005-BE71-7976044143A2}.Release|iPhone.Build.0 = Release|Any CPU
+		{7B5633F9-330A-4005-BE71-7976044143A2}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{7B5633F9-330A-4005-BE71-7976044143A2}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

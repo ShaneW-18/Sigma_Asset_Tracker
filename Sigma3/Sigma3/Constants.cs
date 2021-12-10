@@ -10,7 +10,7 @@ namespace Sigma3
 {
     public class Constants
     {
-        public static readonly User DEMO_USER = new User
+        public static User DEMO_USER = new User
         {
             Name = "John Doe",
             PhoneNumber = "000-000-0000",
@@ -24,12 +24,12 @@ namespace Sigma3
 
         async public static Task<List<StockModel>> GetDefaultFollowing()
         {
-            var appl = await YahooFinance.Get("TSLA");
-            var btc = await YahooFinance.Get("BTC-USD");
-            var nvda = await YahooFinance.Get("NVDA");
-            var dis = await YahooFinance.Get("Dis");
-            var twtr = await YahooFinance.Get("TWTR");
-            var bac = await YahooFinance.Get("bac");
+            var appl = await YahooFinance.GetAsync("TSLA");
+            var btc = await YahooFinance.GetAsync("BTC-USD");
+            var nvda = await YahooFinance.GetAsync("NVDA");
+            var dis = await YahooFinance.GetAsync("Dis");
+            var twtr = await YahooFinance.GetAsync("TWTR");
+            var bac = await YahooFinance.GetAsync("bac");
 
 
             return new List<StockModel>()

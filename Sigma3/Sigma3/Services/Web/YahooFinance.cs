@@ -15,7 +15,7 @@ namespace Sigma3.Services.Web
         public static readonly string QUOTES_BASE_URL = "https://query1.finance.yahoo.com/v7/finance/quote";
         //https://query1.finance.yahoo.com/v8/finance/chart/ROKU?region=US&lang=en-US&includePrePost=false&interval=2m&useYfid=true&range=1d&corsDomain=finance.yahoo.com&.tsrc=finance
 
-        async public static Task<StockModel> Get(string symbol)
+        async public static Task<StockModel> GetAsync(string symbol)
         {
             var symbolCased = symbol.ToUpper();
             
@@ -33,7 +33,11 @@ namespace Sigma3.Services.Web
             CACHED_MODELS[symbolCased] = stock;
 
             return obj.QuoteResponse.Result.Count == 0 ? null : stock;
-           
+        }
+
+        async public static Task<List<StockModel>> GetAsync(params string[] args)
+        {
+            return null;
         }
 
         async public static Task<List<StockModel>> GetUpdate(List<StockModel> stockModels)

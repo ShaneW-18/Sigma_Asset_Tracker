@@ -1,5 +1,6 @@
 ﻿using Sigma3.Objects;
 using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,11 +36,18 @@ namespace Sigma3.Views
 
         async private void RefreshButton_Clicked(object sender, EventArgs e)
         {
-            // disable ui
-            // add spinner
+            ToggleUI();
             var list = await YahooFinance.GetUpdate(USER_LOGGED_IN.UserFollowing);
             USER_LOGGED_IN.UserFollowing = list;
             this.FollowingCollectionView.ItemsSource = USER_LOGGED_IN.UserFollowing;
+            ToggleUI();
+        }
+
+        private void ToggleUI()
+        {
+            this.IsEnabled = !this.IsEnabled;
+            this.IsBusy = !this.IsBusy;
+            this.Indicator.IsRunning = !this.Indicator.IsRunning;
         }
     }
 }

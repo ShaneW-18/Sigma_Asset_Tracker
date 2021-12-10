@@ -8,11 +8,14 @@
         <ToolbarItem IconImageSource="search.png"></ToolbarItem>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
+        
             <ScrollView>
+                
                 <Grid Padding="35,45,35,45" RowDefinitions="Auto,Auto,Auto,Auto,Auto,*,Auto" ColumnDefinitions="*,Auto">
                     <!-- Balance information-->
                     <Label Grid.Row="0" Grid.Column="0" Text="DATE" TextColor="White" x:Name="TODAYS_DATE"/>
                     <Label Grid.Row="1" Grid.Column="0" Text="USER_NAME" FontSize="20" FontAttributes="Bold" x:Name="USER_NAME" TextColor="White"/>
+                    <ActivityIndicator x:Name="Indicator" IsRunning="False" Color="Black"/>
 
                 <Frame Margin="0,20" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" CornerRadius="30" BackgroundColor="Gray" HasShadow="False" HeightRequest="120" Opacity="0.4">
                     <Grid RowDefinitions="Auto,*" Padding="0,20" ColumnDefinitions="*,Auto">
@@ -99,6 +102,7 @@
                 </CollectionView>
                 <!--Bottom menu-->
             </Grid>
-            </ScrollView>
-        </ContentPage.Content>
+        </ScrollView>
+
+   </ContentPage.Content>
     </ContentPage>

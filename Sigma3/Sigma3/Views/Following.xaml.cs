@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Sigma3.Services.Web;
+using System.Collections.ObjectModel;
 
 namespace Sigma3.Views
 {
@@ -48,6 +49,12 @@ namespace Sigma3.Views
             this.IsEnabled = !this.IsEnabled;
             this.IsBusy = !this.IsBusy;
             this.Indicator.IsRunning = !this.Indicator.IsRunning;
+        }
+
+        private async void FollowingCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            await Navigation.PushAsync( new StockViewPage(e.CurrentSelection[0] as StockModel));
+
         }
     }
 }

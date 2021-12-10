@@ -192,6 +192,8 @@ namespace Sigma3.Objects
 
         public string Color { get; set; }
 
+        
+
         public string ColorProp
         {
             get

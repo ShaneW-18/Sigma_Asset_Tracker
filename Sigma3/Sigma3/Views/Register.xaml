@@ -38,15 +38,15 @@
             <Button CornerRadius="40" Text="Register" BackgroundColor="DarkGray" TextColor="White" HeightRequest="50" VerticalOptions="Start" Grid.Row="6" Clicked="ClickedRegister"/>
             <Button CornerRadius="40" Text="Back" BackgroundColor="DarkGray" TextColor="White" HeightRequest="50" VerticalOptions="Start" Grid.Row="7" Clicked="BackButton_Clicked"/>
 
-            <Grid Grid.Row="7">
+            <Grid Grid.Row="8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Label BackgroundColor="#bababa" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Grid.Row="2"/>
-                <Image Source="sigma.png" Grid.Column="1" VerticalOptions="Center" Margin="10,0,10,0" Grid.Row="2" />
-                <Label BackgroundColor="#bababa" Grid.Column="2" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Grid.Row="2"/>
+                <Label BackgroundColor="#bababa" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Grid.Row="2" TranslationY="-70"/>
+                <Image Source="sigma.png" Grid.Column="1" VerticalOptions="Center" Margin="10,0,10,0" Grid.Row="2" TranslationY="-70"/>
+                <Label BackgroundColor="#bababa" Grid.Column="2" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Grid.Row="2" TranslationY="-70"/>
             </Grid>
 
         </Grid>

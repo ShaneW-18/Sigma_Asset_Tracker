@@ -7,25 +7,25 @@
     <ContentPage.Content>
         <Grid Padding="35,10,35,45" RowDefinitions="Auto,Auto,Auto,Auto,Auto,*,Auto" ColumnDefinitions="*,Auto">
             <!-- Activities-->
-            <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="Auto,*,Auto" Padding="0,10">
-                <Button x:Name="BuyButton" Grid.Row="0"  Grid.Column="0" TextColor="White" BackgroundColor="gray" CornerRadius="10" WidthRequest="150" HeightRequest="50" Text="Buy"/>
-                <Button x:Name="SellButton" Grid.Row="0" Grid.Column="1" TextColor="White" BackgroundColor="gray" CornerRadius="10" WidthRequest="150" HeightRequest="50" TranslationX="15" Text="Sell"/>
 
-            </Grid>
+            <Button x:Name="BuyButton" Grid.Row="1"  Grid.Column="0" TextColor="White" BackgroundColor="gray" CornerRadius="10" WidthRequest="10" HeightRequest="50" Text="Buy" />
+                <Button x:Name="SellButton" Grid.Row="1" Grid.Column="1" TextColor="White" BackgroundColor="gray" CornerRadius="10" WidthRequest="150" HeightRequest="50"  Text="Sell"/>
+
+            
             
             <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="Auto,*,Auto" Padding="0,10">
+                <Label BackgroundColor="#bababa" Grid.Row="2" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                <Label Grid.Row="2" Text="Date Purchased" TextColor="white" TranslationY="30" ></Label>
+                <DatePicker VerticalOptions="CenterAndExpand" Date="{x:Static sys:DateTime.Now}" MinimumDate="01/01/1950"  MaximumDate="{x:Static sys:DateTime.Now}" TextColor="Gray" Grid.Row="3" HorizontalOptions="Center"/>
+
+
                 <Label BackgroundColor="#bababa" Grid.Row="4" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
-                <Label Grid.Row="4" Text="Date Purchased" TextColor="white" TranslationY="30" ></Label>
-                <DatePicker VerticalOptions="CenterAndExpand" Date="{x:Static sys:DateTime.Now}" MinimumDate="01/01/1950"  MaximumDate="{x:Static sys:DateTime.Now}" TextColor="Gray" Grid.Row="5" HorizontalOptions="Center"/>
-
-
+                <Entry TextColor="white" PlaceholderColor="Gray" Grid.Row="5"  Placeholder="Unadjusteed Buy Price in USD" WidthRequest="50" HorizontalTextAlignment="Center" Keyboard="Numeric"></Entry>
                 <Label BackgroundColor="#bababa" Grid.Row="6" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
-                <Entry TextColor="white" PlaceholderColor="Gray" Grid.Row="7"  Placeholder="Unadjusteed Buy Price in USD" WidthRequest="50" HorizontalTextAlignment="Center" Keyboard="Numeric"></Entry>
+                <Entry x:Name="AmountEntry" TextColor="white" PlaceholderColor="Gray" Grid.Row="7"  Placeholder="Amount Bought" WidthRequest="50" HorizontalTextAlignment="Center" Keyboard="Numeric"></Entry>
                 <Label BackgroundColor="#bababa" Grid.Row="8" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
-                <Entry x:Name="AmountEntry" TextColor="white" PlaceholderColor="Gray" Grid.Row="9"  Placeholder="Amount Bought" WidthRequest="50" HorizontalTextAlignment="Center" Keyboard="Numeric"></Entry>
-                <Label BackgroundColor="#bababa" Grid.Row="10" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
-                <Entry TextColor="white" PlaceholderColor="Gray" Grid.Row= "11"  Placeholder="Notes" WidthRequest="50" HorizontalTextAlignment="Center" Keyboard="Numeric"></Entry>
-                <Button Grid.Row="13"  Grid.Column="0" TextColor="White" BackgroundColor="gray" CornerRadius="10" WidthRequest="330" HeightRequest="50" Text="Add Transaction" HorizontalOptions="Center" VerticalOptions="End"/>
+                <Entry TextColor="white" PlaceholderColor="Gray" Grid.Row= "9"  Placeholder="Notes" WidthRequest="50" HorizontalTextAlignment="Center" Keyboard="Numeric"></Entry>
+                <Button Grid.Row="11"  Grid.Column="0" TextColor="White" BackgroundColor="gray" CornerRadius="10" WidthRequest="330" HeightRequest="50" Text="Add Transaction" HorizontalOptions="Center" VerticalOptions="End"/>
             </Grid>
             
 

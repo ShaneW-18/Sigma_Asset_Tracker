@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Sigma3.Services.Web;
 
 namespace Sigma3.Views
 {
@@ -30,6 +31,15 @@ namespace Sigma3.Views
 
             this.FollowingCollectionView.ItemsSource = USER_LOGGED_IN.UserFollowing;
 
+        }
+
+        async private void RefreshButton_Clicked(object sender, EventArgs e)
+        {
+            // disable ui
+            // add spinner
+            var list = await YahooFinance.GetUpdate(USER_LOGGED_IN.UserFollowing);
+            USER_LOGGED_IN.UserFollowing = list;
+            this.FollowingCollectionView.ItemsSource = USER_LOGGED_IN.UserFollowing;
         }
     }
 }

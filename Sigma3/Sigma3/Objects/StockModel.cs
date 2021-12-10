@@ -1,6 +1,6 @@
 
 using System.Text.Json.Serialization;
-
+using Sigma3.Util;
 namespace Sigma3.Objects
 {
     public class StockModel
@@ -15,7 +15,7 @@ namespace Sigma3.Objects
         public string QuoteType;
 
         [JsonPropertyName("quoteSourceName")]
-        public string QuoteSourceName;
+        public string QuoteSourceName;             
 
         [JsonPropertyName("displayName")]
         public string DisplayName { get; set; }
@@ -81,10 +81,16 @@ namespace Sigma3.Objects
         public string ToCurrency;
 
         [JsonPropertyName("regularMarketChange")]
-        public double RegularMarketChange;
+        public double RegularMarketChange { get; set; }
 
         [JsonPropertyName("regularMarketChangePercent")]
-        public double RegularMarketChangePercent;
+        public double RegularMarketChangePercent { get; set; }
+
+        public string RegularMarketChangePercentProp
+        {
+            get { return $"{RegularMarketChangePercent.ToString("#,##0.00")}%"; }
+        }
+
 
         [JsonPropertyName("regularMarketTime")]
         public int RegularMarketTime;
@@ -92,6 +98,11 @@ namespace Sigma3.Objects
         [JsonPropertyName("regularMarketPrice")]
         public double RegularMarketPrice { get; set; }
 
+        [JsonPropertyName("regularMarketPrice")]
+        public string RegularMarketPriceProp
+        {
+            get { return $"${RegularMarketPrice.ToString("#,##0.00")}"; }
+        }
         [JsonPropertyName("regularMarketDayHigh")]
         public double RegularMarketDayHigh;
 
@@ -176,6 +187,15 @@ namespace Sigma3.Objects
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; }
 
+        public string Color { get; set; }
+
+        public string ColorProp
+        {
+            get
+            {
+                return RegularMarketChange > 0 ? "Green" : "Red";
+            }
+        }
    
     }
 }

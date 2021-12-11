@@ -22,7 +22,7 @@
                 <Label BackgroundColor="#bababa" Grid.Row="6" HeightRequest="1" HorizontalOptions="FillAndExpand" TranslationY="-38.5" VerticalOptions="Center"/>
                 <Entry x:Name="SecurityTransfered" TextColor="white" PlaceholderColor="Gray" Grid.Row="7"  Placeholder="Security Purchased (Symbol or Name)" WidthRequest="50" HorizontalTextAlignment="Center" />
                 <Label BackgroundColor="#bababa" Grid.Row="8" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center" TranslationY="-38.5" />
-                <Entry x:Name="AmountEntry" TextColor="white" PlaceholderColor="Gray" Grid.Row= "8"  Placeholder="Amount Bought (per unit)" WidthRequest="50" HorizontalTextAlignment="Center" TranslationY="35"/>
+                <Entry x:Name="AmountEntry" TextColor="white" PlaceholderColor="Gray" Grid.Row= "8"  Placeholder="Amount Bought (per unit)" WidthRequest="50" HorizontalTextAlignment="Center" TranslationY="35" Keyboard="Numeric"/>
                 <Label BackgroundColor="#bababa" Grid.Row="9" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center" TranslationY="-1" />
                 <Button Grid.Row="11"  Grid.Column="0" TextColor="White" BackgroundColor="gray" CornerRadius="10" WidthRequest="330" HeightRequest="50" Text="Add Transaction" HorizontalOptions="Center" VerticalOptions="End" x:Name="AddTransActionButton" Clicked="AddTransActionButton_Clicked"/>
             </Grid>

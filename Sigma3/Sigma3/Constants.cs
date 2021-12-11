@@ -26,7 +26,7 @@ namespace Sigma3
         public static readonly int LONGEST_STOCK_TICKER_LENGTH = 12;
 
 
-        async public static Task<List<StockModel>> GetDefaultFollowing()
+        async public static Task<List<SecurityModel>> GetDefaultFollowing()
         {
             var appl = await YahooFinance.GetAsync("TSLA");
             var btc = await YahooFinance.GetAsync("BTC-USD");
@@ -36,7 +36,7 @@ namespace Sigma3
             var bac = await YahooFinance.GetAsync("bac");
 
 
-            return new List<StockModel>()
+            return new List<SecurityModel>()
             {
                 appl, btc, nvda, dis, twtr, bac
             };

@@ -83,6 +83,10 @@ namespace Sigma3.Views
             // Entry
             this.AmountEntry.Placeholder = "Security Purchased";
 
+
+            // Button
+            this.buttonSelected = BuyButton;
+
         }
 
         private void SellButton_Clicked(object sender, EventArgs e)
@@ -110,7 +114,10 @@ namespace Sigma3.Views
 
             // Entry
             this.AmountEntry.Placeholder = "Security Sold";
-            
+
+            // Button
+            this.buttonSelected = SellButton;
+
         }
 
 
@@ -119,25 +126,39 @@ namespace Sigma3.Views
         async private void AddTransActionButton_Clicked(object sender, EventArgs e)
         {
             
-            ToggleUI();
-            var errors = await HandleValidation();
 
-            if (!String.IsNullOrWhiteSpace(errors.Errors))
-            {
-                await DisplayAlert("Error occured", errors.Errors, "Try again");
-                return;
-            }
+                ToggleUI();
+                var errors = await HandleValidation();
+
+                if (!String.IsNullOrWhiteSpace(errors.Errors))
+                {
+                    await DisplayAlert("Error occured", errors.Errors, "Try again");
+                    ToggleUI();
+                    return;
+                }
 
 
-            var transaction = new Transaction()
-            {
+                var transaction = new Transaction()
+                {
+                    TransType = buttonSelected.Text == "Sell" ? TransactionType.SELL : TransactionType.BUY,
+                    AmountTraded = decimal.Parse(AmountEntry.Text),
+                    PricePerSecurity = decimal.Parse(PricePerAssetEntry.Text),
+                    SecurityTraded = SecurityTransfered.Text
+                };
 
-            };
+                var sucess = await MainPage.USER_LOGGED_IN.AddTransaction(transaction,errors.StockModel);
 
-            var sucess = await MainPage.USER_LOGGED_IN.AddTransaction(transaction);
-
-            ToggleUI();
+                if (sucess)
+                {
+                    await Navigation.PopAsync();
+                }
+                else
+                {
+                    await DisplayAlert("Error", "API error occured", "Ok");
+                }
+                ToggleUI();
             
+          
 
         }
 
@@ -166,6 +187,7 @@ namespace Sigma3.Views
             {
                 builder.Append("Asset Field is empty")
                     .Append("\n");
+                return new ATPObj(builder.ToString(), null);
             }
 
 
@@ -183,19 +205,26 @@ namespace Sigma3.Views
             {
                 builder.Append($"{symbol} is either not supported or doesnt exist")
                     .Append("\n");
+                
             }
 
 
             if (String.IsNullOrWhiteSpace(AmountEntry.Text))
             {
-                builder.Append("Price Field is Empty")
+                builder.Append("Amount Field is Empty")
                     .Append("\n");
+                return new ATPObj(builder.ToString(), null);
             }
 
             if (!(decimal.TryParse(PricePerAssetEntry.Text, out var amount)))
             {
                 builder.Append("Amount Entry is not a number")
                     .Append("\n");
+            }
+
+            if (asset == null)
+            {
+                return new ATPObj(builder.ToString(), null);
             }
 
             CanUserDoAction(asset, buttonSelected.Text, builder);
@@ -206,23 +235,24 @@ namespace Sigma3.Views
         
 
         // Probably bad should return a bool
-        private void CanUserDoAction(StockModel model, string action, StringBuilder builder)
+        private void CanUserDoAction(SecurityModel model, string action, StringBuilder builder)
         {
             if (action.Equals("sell", StringComparison.OrdinalIgnoreCase))
             {
                 var portfolio = MainPage.USER_LOGGED_IN.UserPortfolio;
                 var symbol = model.Symbol;
 
-                var exist = portfolio.Values.First(security => security.Security.Symbol.Equals(symbol) || security.Security.DisplayName.Equals(symbol));
+                var exist = portfolio.Values.FirstOrDefault(security => security.Symbol.Equals(symbol, StringComparison.OrdinalIgnoreCase));
 
                 if (exist == null)
                 {
                     builder.Append("You do not own this security")
                         .Append("\n");
+                    return;
                 }
                 var AttemptSelling = decimal.Parse(AmountEntry.Text);
 
-                if (AttemptSelling < exist.AmountOwned)
+                if (AttemptSelling > exist.AmountOwned)
                 {
                     builder.Append("You do not have enough of this security to make this transaction")
                         .Append("\n");
@@ -251,9 +281,9 @@ namespace Sigma3.Views
         public class ATPObj
         {
             public string Errors { get; set; }
-            public StockModel StockModel { get; set; }
+            public SecurityModel StockModel { get; set; }
 
-            public ATPObj(string errors, StockModel model)
+            public ATPObj(string errors, SecurityModel model)
             {
                 this.Errors = errors;
                 this.StockModel = model;

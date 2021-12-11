@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 using Sigma3.Util;
 namespace Sigma3.Objects
 {
-    public class StockModel
+    public class SecurityModel
     {
         [JsonPropertyName("language")]
         public string Language { get; set; }
@@ -20,9 +20,6 @@ namespace Sigma3.Objects
 
         [JsonPropertyName("displayName")]
         public string DisplayName { get; set; }
-
-        [JsonPropertyName("coinImageUrl")]
-        public string CoinUrl { get; set; } 
 
         [JsonPropertyName("triggerable")]
         public bool Triggerable;
@@ -138,7 +135,7 @@ namespace Sigma3.Objects
         public int StartDate;
 
         [JsonPropertyName("coinImageUrl")]
-        public string CoinImageUrl;
+        public string CoinImageUrl { get; set; }
 
         [JsonPropertyName("fiftyTwoWeekLowChange")]
         public double FiftyTwoWeekLowChange;

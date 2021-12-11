@@ -15,7 +15,6 @@ namespace Sigma3.Views
         {
             InitializeComponent();
             USER_LOGGED_IN = MainPage.USER_LOGGED_IN;
-            MainPage.PageTitle = "Home";
         }
 
         

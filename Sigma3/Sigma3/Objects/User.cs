@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Sigma3.Services.Web;
 using SQLite;
 using Sigma3.Objects;
 using Sigma3.Services.Web;
@@ -83,9 +84,20 @@ namespace Sigma3.Objects
             }
         }
 
-  
 
 
-        
+        async public void addFollowing(string symbole)
+        {
+           
+            UserFollowing.Add(await YahooFinance.GetAsync(symbole));
+
+        }
+        async public void RemoveFollowing(string symbole)
+        {
+
+            UserFollowing.Remove(await YahooFinance.GetAsync(symbole));
+
+        }
+
     }
 }

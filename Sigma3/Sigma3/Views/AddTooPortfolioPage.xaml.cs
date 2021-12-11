@@ -125,8 +125,6 @@ namespace Sigma3.Views
         
         async private void AddTransActionButton_Clicked(object sender, EventArgs e)
         {
-            
-
                 ToggleUI();
                 var errors = await HandleValidation();
 
@@ -157,9 +155,6 @@ namespace Sigma3.Views
                     await DisplayAlert("Error", "API error occured", "Ok");
                 }
                 ToggleUI();
-            
-          
-
         }
 
         
@@ -288,10 +283,6 @@ namespace Sigma3.Views
                 this.Errors = errors;
                 this.StockModel = model;
             }
-        }
-
-
-      
-        
+        }   
     }
 }

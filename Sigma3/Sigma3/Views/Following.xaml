@@ -12,7 +12,7 @@
                         <VisualState x:Name="Selected">
                             <VisualState.Setters>
                                 <Setter Property="BackgroundColor"
-                                        Value="Black" />
+                                        Value="Gray" />
                             </VisualState.Setters>
                         </VisualState>
                     </VisualStateGroup>
@@ -34,7 +34,7 @@
             <Label Grid.Row="0" Grid.Column="0" Text="Following" FontAttributes="Bold" Padding="0,20" FontSize="25" TextColor="white"/>
 
             <CollectionView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HeightRequest="1000"
-                                 VerticalScrollBarVisibility="Never" x:Name="FollowingCollectionView" SelectionMode="Single">
+                                 VerticalScrollBarVisibility="Never" x:Name="FollowingCollectionView" SelectionMode="Single" SelectionChanged="FollowingCollectionView_SelectionChanged">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <!--

@@ -13,6 +13,7 @@ namespace Sigma3.Services.Web
         // ?symbol={symbol}
         private static readonly Dictionary<string, SecurityModel> CACHED_MODELS = new Dictionary<string, SecurityModel>();
         public static readonly string QUOTES_BASE_URL = "https://query1.finance.yahoo.com/v7/finance/quote";
+        public static readonly string NASDAQ_URL = "https://pastecord.com/raw/atylizusyx";
         //https://query1.finance.yahoo.com/v8/finance/chart/ROKU?region=US&lang=en-US&includePrePost=false&interval=2m&useYfid=true&range=1d&corsDomain=finance.yahoo.com&.tsrc=finance
 
         async public static Task<SecurityModel> GetAsync(string symbol)
@@ -69,5 +70,16 @@ namespace Sigma3.Services.Web
             return newList;
              
         }
+        async public static Task<List<Nasdaq>> GetNasdaq()
+        {
+            var handler = WebHandler.GetInstance();
+            var URL = NASDAQ_URL;
+            var content = await handler.GetWebsiteContent(URL);
+
+            var list = new List<Nasdaq>();
+            list = JsonConvert.DeserializeObject<List<Nasdaq>>(content);
+            return list;
+        }
     }
+    
 }

@@ -49,18 +49,7 @@ namespace Sigma3.Objects
             public int SellTimes { get; set; }
         }
 
-        public class Transaction
-        {
-            public string TransactionId { get; set; }
-            public TransactionType TransType { get; set; }
-            public decimal AmountTransacted { get; set; }
-
-            public enum TransactionType
-            {
-                BUY,
-                SELL
-            }
-        }
+  
 
 
         

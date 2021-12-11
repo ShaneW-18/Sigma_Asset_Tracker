@@ -129,7 +129,7 @@ namespace Sigma3.Views
         
 
 
-        /*
+        
         async private string HandleValidation()
         {
             var builder = new StringBuilder(); 
@@ -183,12 +183,22 @@ namespace Sigma3.Views
                     .Append("\n");
             }
 
-            if (buttonSelected.Text.Equals("Sell"))
+            var result = CanUserDoAction(asset, buttonSelected.Text, builder);
+            return result ?  new ATPReturnVal(asset, builder.ToString(), decimal.Parse(Amo)) : 
+
+           
+        }
+        
+
+        private bool CanUserDoAction(StockModel model, string action, StringBuilder builder)
+        {
+            if (action.Equals("sell", StringComparison.OrdinalIgnoreCase))
             {
                 var portfolio = MainPage.USER_LOGGED_IN.UserPortfolio;
+                var symbol = model.Symbol;
 
                 var exist = portfolio.Values.First(security => security.Security.Symbol.Equals(symbol) || security.Security.DisplayName.Equals(symbol));
-                
+
                 if (exist == null)
                 {
                     builder.Append("You do not own this security")
@@ -200,12 +210,27 @@ namespace Sigma3.Views
                 {
                     builder.Append("You do not have enough of this security to make this transaction")
                         .Append("\n");
+                    return false;
                 }
-                return null;
+                return true;
             }
-            return null;
+            else if (action.Equals("buy", StringComparison.OrdinalIgnoreCase))
+            {
+                var amountBought =  long.Parse(AmountEntry.Text);
+                if (amountBought > (model.MarketCap / 2))
+                {
+                    builder.Append("It is highly unlikely you own half of this company")
+                        .Append("\n");
+                    return false;
+                }
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
-        */
 
         private void ToggleUI()
         {
@@ -220,7 +245,7 @@ namespace Sigma3.Views
             public StockModel model { get; set; }
             public string Errors { get; set; }
             public int AmountTransfered { get; set; }
-            public string type { get; set; }
+            public TransactionType type { get; set; }
         }
         
     }

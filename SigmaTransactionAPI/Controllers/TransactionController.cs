@@ -8,7 +8,6 @@ namespace SigmaTransactionAPI.Controllers
     [ApiController]
     public class TransactionController : ControllerBase
     {
-        // GET: api/<TransactionController>
         [HttpGet]
         public List<TransactionModel> Get()
         {
@@ -16,7 +15,7 @@ namespace SigmaTransactionAPI.Controllers
             var list = Manager.GetTransactionModels();
             return list;
         }
-        // GET api/<ChuckController>/{guid}
+
         [HttpGet("{id}")]
         public TransactionModel? Get(string guid)
         {
@@ -27,7 +26,6 @@ namespace SigmaTransactionAPI.Controllers
             return TransactionModel;
 
         }
-        // POST api/<TransactionController>
         [HttpPost]
         public TransactionModel Post([FromBody] TransactionModel transactionModel)
         {
@@ -39,25 +37,24 @@ namespace SigmaTransactionAPI.Controllers
 
             return transactionModel;
         }
-        // PUT api/<ChuckController>/5
+
         [HttpPut("{id}")]
-        public int Put(string id, [FromBody] TransactionModel ChuckModel)
+        public int Put(string id, [FromBody] TransactionModel transactionModel)
         {
             var Manger = DataManager.GetInstance();
-            var Chuck = Manger.GetTransactionModels()
+            var Model = Manger.GetTransactionModels()
                 .Find(model => model.Id == id);
 
-            if (Chuck == null)
+            if (Model == null)
             {
                 return 43;
             }
 
-            Chuck = ChuckModel;
+            Model = transactionModel;
             return 0;
 
         }
 
-        // DELETE api/<ChuckController>/5
         [HttpDelete("{id}")]
         public int Delete(string id)
         {

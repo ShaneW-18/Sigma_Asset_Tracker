@@ -52,7 +52,7 @@ namespace Sigma3.Views
             var email = Email.Text;
             var password = Password.Text;
 
-            
+
 
             if (String.IsNullOrWhiteSpace(email))
             {
@@ -76,7 +76,7 @@ namespace Sigma3.Views
             // Probbaly bad
             var UserMaybe = await AppService.GetUserByEmailAsync(email, hashed);
 
-            return UserMaybe == null ? new LoginObj(UserMaybe, "Email or password is incorrect") : new LoginObj(UserMaybe, ""); 
+            return UserMaybe == null ? new LoginObj(UserMaybe, "Email or password is incorrect") : new LoginObj(UserMaybe, "");
         }
 
         private async void ClickedRegister(object sender, EventArgs e)
@@ -86,7 +86,7 @@ namespace Sigma3.Views
         }
         protected override void OnAppearing()
         {
-           
+
         }
 
         public class LoginObj
@@ -100,7 +100,7 @@ namespace Sigma3.Views
                 this.Errors = Errors;
             }
 
-            public LoginObj() {}
+            public LoginObj() { }
         }
 
         private void ToggleUI()
@@ -109,5 +109,7 @@ namespace Sigma3.Views
             this.IsBusy = !this.IsBusy;
             this.Indicator.IsRunning = !this.Indicator.IsRunning;
         }
+
+
     }
 }

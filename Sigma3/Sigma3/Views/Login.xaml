@@ -6,25 +6,25 @@
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" 
                  x:Class="Sigma3.Views.Login">
     <Grid BackgroundColor="Black">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="50"/>
-            </Grid.RowDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
         <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0,10,0,0" Grid.Row="0">
             <Image Source="mediaw.png" Opacity="0.6" VerticalOptions="Start" Margin="0,3,0,0"/>
-            </StackLayout>
-            <Grid RowSpacing="20" Grid.Row="1" Margin="20,0,20,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Image Source="sigma.png" HeightRequest="90" VerticalOptions="EndAndExpand" TranslationY="-50"/>
+        </StackLayout>
+        <Grid RowSpacing="20" Grid.Row="1" Margin="20,0,20,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Image Source="sigma.png" HeightRequest="90" VerticalOptions="EndAndExpand" TranslationY="-50"/>
             <Entry x:Name="Email" Grid.Row="1" Placeholder="Email" PlaceholderColor="White" TextColor="White" FontSize="16" HorizontalTextAlignment="Center" />
             <Entry x:Name="Password" IsPassword="True" Grid.Row="2" Placeholder="Password" PlaceholderColor="White" FontSize="16" TextColor="White" HorizontalTextAlignment="Center"/>
             <Button CornerRadius ="40" Text="Login" BackgroundColor="DarkGray" TextColor="LightGray" HeightRequest="50" VerticalOptions="Start" Grid.Row="3" Clicked="ClickedLogin"/>
@@ -41,9 +41,11 @@
             </Grid>
             <ActivityIndicator x:Name="Indicator" IsRunning="False" Color="White" TranslationY="-15" />
         </Grid>
-            <StackLayout Grid.Row="2" BackgroundColor="Black">
-                <Label HeightRequest="1" BackgroundColor="Black"/>
+        <StackLayout Grid.Row="2" BackgroundColor="Black">
+            <Label HeightRequest="1" BackgroundColor="Black"/>
             <Label Text="Made by Shane Wiles and Damon Montague" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor= "White"/>
-            </StackLayout>
-        </Grid>
-    </ContentPage>
+          
+
+        </StackLayout>
+    </Grid>
+</ContentPage>

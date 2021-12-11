@@ -3,12 +3,48 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Sigma3.Views.SearchPage"
              BackgroundColor="Black">
+    <ContentPage.Resources>
+        <Style TargetType="Grid">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="Gray" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
-               
+
+            <ActivityIndicator x:Name="Indicator" IsRunning="False" Color="White"/>
             <Entry Placeholder="Search" PlaceholderColor ="gray" HorizontalTextAlignment="center" TextColor="white" TextChanged="Entry_TextChanged" ></Entry>
             <Button x:Name="SearchStock" BackgroundColor="gray" WidthRequest="150" HeightRequest="35" HorizontalOptions="Center" CornerRadius="100" Clicked="SearchStock_Clicked"></Button>
-             
+            <CollectionView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HeightRequest="1000"
+                                 VerticalScrollBarVisibility="Never" x:Name="SearchResults" SelectionMode="Single" SelectionChanged="FollowingCollectionView_SelectionChanged" TranslationY="30">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <!--
+                        Binding: OneTime -> Will not change the value ever (performance)
+                        
+                        -->
+                        <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="Auto,*,Auto" Padding="0,10">
+                            <Button ImageSource="{Binding CoinUrl, FallbackValue='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.pinclipart.com%2Fpicdir%2Fmiddle%2F423-4237777_eth-icon-cryptocurrency-flat-transparent-background-ethereum-clipart.png'}" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" TextColor="White" BackgroundColor="#e8e8e8" CornerRadius="25" WidthRequest="50" HeightRequest="50"/>
+                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding symbol, Mode=OneTime}" Padding="15,0,0,0" FontAttributes="Bold" TextColor="White" />
+                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding companyName, Mode=OneTime}" Padding="15,0,0,0" TextColor="Silver" FontSize="10"/>
+                            <Label Grid.Row="0" Grid.Column="2" Grid.RowSpan="1" Text="{Binding RegularMarketPriceProp, Mode=OneWay}"  VerticalTextAlignment="Center" TextColor="White" FontAttributes="Bold" Padding="15,0,0,0" HorizontalOptions="EndAndExpand"/>
+                            <Label Grid.Row="1" Grid.Column="2" Grid.RowSpan="1" Text="{Binding RegularMarketChangePercentProp, Mode=OneWay}"  VerticalTextAlignment="Center" TextColor="{Binding ColorProp}" FontAttributes="Bold" Padding="15,0,0,0" HorizontalOptions="EndAndExpand"/>
+                            <Label BackgroundColor="Gray" Grid.Row="4" Grid.ColumnSpan="3" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Opacity="0.6" TranslationY="-10"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

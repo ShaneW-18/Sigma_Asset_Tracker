@@ -130,64 +130,7 @@ namespace Sigma3.Views
 
 
         
-        async private string HandleValidation()
-        {
-            var builder = new StringBuilder(); 
-
-            if ( String.IsNullOrWhiteSpace(PricePerAssetEntry.Text) )
-            {
-                builder.Append("Price Field is Empty")
-                    .Append("\n");
-            }
-
-            if (!(decimal.TryParse(PricePerAssetEntry.Text, out var pricePerAsset)))
-            {
-                builder.Append("Price Entry is not a number")
-                    .Append("\n");
-            }
-
-            var symbol = SecurityTransfered.Text;
-            if ( String.IsNullOrWhiteSpace( symbol ) )
-            {
-                builder.Append("Asset Field is empty")
-                    .Append("\n");
-            }
-
-
-            
-            if (symbol.Length >= Constants.LONGEST_STOCK_TICKER_LENGTH)
-            {
-                builder.Append("Your Asset symbol is too large & most likely doesnt exist")
-                    .Append("\n");
-            }
-
-
-            var asset = await YahooFinance.GetAsync(symbol);
-
-            if (asset == null)
-            {
-                builder.Append($"{symbol} is either not supported or doesnt exist")
-                    .Append("\n");
-            }
-
-
-            if (String.IsNullOrWhiteSpace(AmountEntry.Text))
-            {
-                builder.Append("Price Field is Empty")
-                    .Append("\n");
-            }
-
-            if (!(decimal.TryParse(PricePerAssetEntry.Text, out var amount)))
-            {
-                builder.Append("Amount Entry is not a number")
-                    .Append("\n");
-            }
-
-            var result = CanUserDoAction(asset, buttonSelected.Text, builder);
-            return result ?  new ATPReturnVal(asset, builder.ToString(), decimal.Parse(Amo)) : 
-
-           
-        }
+       
         
 
         private bool CanUserDoAction(StockModel model, string action, StringBuilder builder)

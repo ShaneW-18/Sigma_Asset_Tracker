@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sigma3.Objects;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
@@ -12,6 +13,7 @@ namespace Sigma3.Services.Web
         private static WebHandler Handler = null;
         private static readonly object LockObject = new object();
         private static readonly HttpClient client = new HttpClient();
+     
 
 
         private WebHandler()

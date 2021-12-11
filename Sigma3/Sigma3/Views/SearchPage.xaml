@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Sigma3.Views.SearchPage"
+             BackgroundColor="Black">
+    <ContentPage.Content>
+        <StackLayout>
+               
+            <Entry Placeholder="Search" PlaceholderColor ="gray" HorizontalTextAlignment="center" TextColor="white" TextChanged="Entry_TextChanged" ></Entry>
+            <Button x:Name="SearchStock" BackgroundColor="gray" WidthRequest="150" HeightRequest="35" HorizontalOptions="Center" CornerRadius="100" Clicked="SearchStock_Clicked"></Button>
+             
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,6 +1,7 @@
 ﻿using Sigma3.Objects;
 using Sigma3.Util;
 using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -44,7 +45,9 @@ namespace Sigma3.Views
      
         }
 
-
-     
+        private async void ToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new SearchPage());
+        }
     }
 }

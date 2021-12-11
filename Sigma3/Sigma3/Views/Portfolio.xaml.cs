@@ -44,6 +44,10 @@ namespace Sigma3.Views
         {
             await Navigation.PushAsync(new AddTooPortfolioPage());
         }
+        private async void Search_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new SearchPage());
+        }
 
     }
 }

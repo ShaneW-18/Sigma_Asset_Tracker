@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using static Sigma3.Objects.User;
 
 namespace Sigma3.Views
 {
@@ -19,11 +20,13 @@ namespace Sigma3.Views
         {
             InitializeComponent();
             USER_LOGGED_IN = MainPage.USER_LOGGED_IN;
+            this.BindingContext = new UserPortfolioObject();
 
         }
-        protected override void OnAppearing()
+        async protected override void OnAppearing()
         {
             
+            // Could convert to function
             if (USER_LOGGED_IN.UserPortfolio == null || USER_LOGGED_IN.UserPortfolio.Count == 0)
             {
                 this.NoUserPortfolio.IsEnabled = true;
@@ -31,8 +34,16 @@ namespace Sigma3.Views
                 this.UserPortfolio.IsVisible = false;
                 this.UserPortfolio.IsEnabled = false;
             }
+            else
+            {
+                this.NoUserPortfolio.IsEnabled = false;
+                this.NoUserPortfolio.IsVisible = false;
+                this.UserPortfolio.IsVisible = true;
+                this.UserPortfolio.IsEnabled = true;
+            }
             this.PORTFOLIO_BALANCE.Text = $"${StringUtils.ParseNumberWithCommas(USER_LOGGED_IN.PortfolioBalance)}";
-            this.BindingContext = USER_LOGGED_IN.UserFollowing;
+            this.PortfolioListView.ItemsSource = await USER_LOGGED_IN.GetUserPortfolio();
+           
         }
 
         private void Button_Clicked(object sender, EventArgs e)
@@ -44,10 +55,15 @@ namespace Sigma3.Views
         {
             await Navigation.PushAsync(new AddTooPortfolioPage());
         }
+
         private async void Search_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new SearchPage());
         }
 
+        private void RefreshButton_Clicked(object sender, EventArgs e)
+        {
+
+        }
     }
 }

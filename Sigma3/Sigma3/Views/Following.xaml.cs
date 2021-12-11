@@ -53,7 +53,7 @@ namespace Sigma3.Views
 
         private async void FollowingCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            await Navigation.PushAsync( new StockViewPage(e.CurrentSelection[0] as StockModel));
+            await Navigation.PushAsync( new StockViewPage(e.CurrentSelection[0] as SecurityModel));
 
         }
 

@@ -32,7 +32,7 @@
                     <Label Grid.Row="4" Grid.Column="0" Text="Most Active" FontAttributes="Bold" Padding="0,20" FontSize="25" TextColor="white"/> 
                     <Label Grid.Row="4" Grid.Column="1" Text="View All" Padding="0,20" TextColor="white" FontAttributes="Bold" HorizontalTextAlignment="End" FontSize="20"/>
 
-                <CollectionView Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding ActivitiesCollection}" HeightRequest="300"
+                <CollectionView Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"  HeightRequest="300"
                                  VerticalScrollBarVisibility="Never">
                                  <CollectionView.ItemTemplate>
                                        <DataTemplate>

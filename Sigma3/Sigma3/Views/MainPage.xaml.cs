@@ -12,14 +12,12 @@ namespace Sigma3
     public partial class MainPage : TabbedPage
     {
         public static User USER_LOGGED_IN { get; set; }
-        public static string PageTitle { get; set; } 
         public MainPage(User user)
         {
             USER_LOGGED_IN = user;
             InitializeComponent();
             BarBackgroundColor = Color.Black;
             BarTextColor = Color.Black;
-            this.BindingContext = this;
 
         }
 

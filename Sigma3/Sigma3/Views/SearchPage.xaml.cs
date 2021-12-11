@@ -37,7 +37,7 @@ namespace Sigma3.Views
         {
             try
             {
-                StockModel s = await YahooFinance.GetAsync(symbol);
+                SecurityModel s = await YahooFinance.GetAsync(symbol);
                
 
                     await Navigation.PushAsync(new StockViewPage(s));

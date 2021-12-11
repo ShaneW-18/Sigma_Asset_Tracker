@@ -3,9 +3,9 @@
     public class TransactionModel
     {
         public string Id { get; set; }
-
         public TransactionType TransType { get; set; }
         public decimal AmountTransacted { get; set; }
+        public decimal PricePerSecurity { get; set; }  
         public string SecurityTraded { get; set; }
         public string UserId { get; set; }
         public DateTimeOffset DateTime { get; set; }

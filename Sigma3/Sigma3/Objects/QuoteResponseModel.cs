@@ -6,7 +6,7 @@ namespace Sigma3.Objects
     public class QuoteResponseModel
     {
         [JsonPropertyName("result")]
-        public List<StockModel> Result;
+        public List<SecurityModel> Result;
 
         [JsonPropertyName("error")]
         public object Error;

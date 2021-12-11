@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Sigma3.Objects;
 using System.Linq;
 using Sigma3.Services.Web;
+using Sigma3.Util;
 
 namespace Sigma3
 {
@@ -17,13 +18,15 @@ namespace Sigma3
             Email = "Demo",
             Password = "Demo",
             PortfolioBalance = 0,
+            Id = StringUtils.HashString("Demo")
+
         };
 
         public static readonly bool DEMO_ENABLED = true;
         public static readonly int LONGEST_STOCK_TICKER_LENGTH = 12;
 
 
-        async public static Task<List<StockModel>> GetDefaultFollowing()
+        async public static Task<List<SecurityModel>> GetDefaultFollowing()
         {
             var appl = await YahooFinance.GetAsync("TSLA");
             var btc = await YahooFinance.GetAsync("BTC-USD");
@@ -33,7 +36,7 @@ namespace Sigma3
             var bac = await YahooFinance.GetAsync("bac");
 
 
-            return new List<StockModel>()
+            return new List<SecurityModel>()
             {
                 appl, btc, nvda, dis, twtr, bac
             };

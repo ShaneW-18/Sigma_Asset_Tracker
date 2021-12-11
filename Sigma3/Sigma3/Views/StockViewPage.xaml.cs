@@ -15,9 +15,9 @@ namespace Sigma3.Views
     public partial class StockViewPage : ContentPage
     {
         private readonly User USER_LOGGED_IN = MainPage.USER_LOGGED_IN;
-        StockModel stock1;
+        SecurityModel stock1;
        
-        public StockViewPage(StockModel stock)
+        public StockViewPage(SecurityModel stock)
         {
            
             InitializeComponent();
@@ -42,7 +42,7 @@ namespace Sigma3.Views
         {
             if (!USER_LOGGED_IN.UserFollowing.Contains(stock1))
             {
-                USER_LOGGED_IN.addFollowing(stock1.Symbol);
+                USER_LOGGED_IN.AddFollowing(stock1.Symbol);
                 star.IconImageSource = "filledStar.png";
             }
             else

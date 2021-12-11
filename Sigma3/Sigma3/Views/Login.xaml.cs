@@ -8,6 +8,8 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Sigma3.Objects;
 using Sigma3.Util;
+using Sigma3.Services.Web;
+using Newtonsoft.Json;
 
 namespace Sigma3.Views
 {
@@ -40,8 +42,6 @@ namespace Sigma3.Views
                 await DisplayAlert("Error", errors.Errors, "OK");
                 return;
             }
-
-            await DisplayAlert("Correct", "Correct", "o");
 
             await Navigation.PushAsync(new MainPage(User));
         }

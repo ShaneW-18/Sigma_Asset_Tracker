@@ -26,6 +26,7 @@ namespace SigmaTransactionAPI.Controllers
             return TransactionModel;
 
         }
+
         [HttpPost]
         public TransactionModel Post([FromBody] TransactionModel transactionModel)
         {

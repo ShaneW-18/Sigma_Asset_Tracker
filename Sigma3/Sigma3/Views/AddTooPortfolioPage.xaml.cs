@@ -83,6 +83,10 @@ namespace Sigma3.Views
             // Entry
             this.AmountEntry.Placeholder = "Security Purchased";
 
+
+            // Button
+            this.buttonSelected = BuyButton;
+
         }
 
         private void SellButton_Clicked(object sender, EventArgs e)
@@ -110,7 +114,10 @@ namespace Sigma3.Views
 
             // Entry
             this.AmountEntry.Placeholder = "Security Sold";
-            
+
+            // Button
+            this.buttonSelected = SellButton;
+
         }
 
 
@@ -118,44 +125,133 @@ namespace Sigma3.Views
         
         async private void AddTransActionButton_Clicked(object sender, EventArgs e)
         {
-            /*
-            ToggleUI();
-            var errors = await HandleValidation();
-            ToggleUI();
-            */
+                ToggleUI();
+                var errors = await HandleValidation();
 
+                if (!String.IsNullOrWhiteSpace(errors.Errors))
+                {
+                    await DisplayAlert("Error occured", errors.Errors, "Try again");
+                    ToggleUI();
+                    return;
+                }
+
+
+                var transaction = new Transaction()
+                {
+                    TransType = buttonSelected.Text == "Sell" ? TransactionType.SELL : TransactionType.BUY,
+                    AmountTraded = decimal.Parse(AmountEntry.Text),
+                    PricePerSecurity = decimal.Parse(PricePerAssetEntry.Text),
+                    SecurityTraded = SecurityTransfered.Text
+                };
+
+                var sucess = await MainPage.USER_LOGGED_IN.AddTransaction(transaction,errors.StockModel);
+
+                if (sucess)
+                {
+                    await Navigation.PopAsync();
+                }
+                else
+                {
+                    await DisplayAlert("Error", "API error occured", "Ok");
+                }
+                ToggleUI();
         }
 
         
 
 
         
-       
+        async private Task<ATPObj> HandleValidation()
+        {
+            var builder = new StringBuilder(); 
+
+            if ( String.IsNullOrWhiteSpace(PricePerAssetEntry.Text) )
+            {
+                builder.Append("Price Field is Empty")
+                    .Append("\n");
+            }
+
+            if (!(decimal.TryParse(PricePerAssetEntry.Text, out var pricePerAsset)))
+            {
+                builder.Append("Price Entry is not a number")
+                    .Append("\n");
+            }
+
+            var symbol = SecurityTransfered.Text;
+            if ( String.IsNullOrWhiteSpace( symbol ) )
+            {
+                builder.Append("Asset Field is empty")
+                    .Append("\n");
+                return new ATPObj(builder.ToString(), null);
+            }
+
+
+            
+            if (symbol.Length >= Constants.LONGEST_STOCK_TICKER_LENGTH)
+            {
+                builder.Append("Your Asset symbol is too large & most likely doesnt exist")
+                    .Append("\n");
+            }
+
+
+            var asset = await YahooFinance.GetAsync(symbol);
+
+            if (asset == null)
+            {
+                builder.Append($"{symbol} is either not supported or doesnt exist")
+                    .Append("\n");
+                
+            }
+
+
+            if (String.IsNullOrWhiteSpace(AmountEntry.Text))
+            {
+                builder.Append("Amount Field is Empty")
+                    .Append("\n");
+                return new ATPObj(builder.ToString(), null);
+            }
+
+            if (!(decimal.TryParse(PricePerAssetEntry.Text, out var amount)))
+            {
+                builder.Append("Amount Entry is not a number")
+                    .Append("\n");
+            }
+
+            if (asset == null)
+            {
+                return new ATPObj(builder.ToString(), null);
+            }
+
+            CanUserDoAction(asset, buttonSelected.Text, builder);
+
+            return new ATPObj(builder.ToString(), asset);
+           
+        }
         
 
-        private bool CanUserDoAction(StockModel model, string action, StringBuilder builder)
+        // Probably bad should return a bool
+        private void CanUserDoAction(SecurityModel model, string action, StringBuilder builder)
         {
             if (action.Equals("sell", StringComparison.OrdinalIgnoreCase))
             {
                 var portfolio = MainPage.USER_LOGGED_IN.UserPortfolio;
                 var symbol = model.Symbol;
 
-                var exist = portfolio.Values.First(security => security.Security.Symbol.Equals(symbol) || security.Security.DisplayName.Equals(symbol));
+                var exist = portfolio.Values.FirstOrDefault(security => security.Symbol.Equals(symbol, StringComparison.OrdinalIgnoreCase));
 
                 if (exist == null)
                 {
                     builder.Append("You do not own this security")
                         .Append("\n");
+                    return;
                 }
                 var AttemptSelling = decimal.Parse(AmountEntry.Text);
 
-                if (AttemptSelling < exist.AmountOwned)
+                if (AttemptSelling > exist.AmountOwned)
                 {
                     builder.Append("You do not have enough of this security to make this transaction")
                         .Append("\n");
-                    return false;
                 }
-                return true;
             }
             else if (action.Equals("buy", StringComparison.OrdinalIgnoreCase))
             {
@@ -164,14 +260,8 @@ namespace Sigma3.Views
                 {
                     builder.Append("It is highly unlikely you own half of this company")
                         .Append("\n");
-                    return false;
                 }
 
-                return true;
-            }
-            else
-            {
-                return false;
             }
         }
 
@@ -183,13 +273,16 @@ namespace Sigma3.Views
         }
 
 
-        public class ATPReturnVal
+        public class ATPObj
         {
-            public StockModel model { get; set; }
             public string Errors { get; set; }
-            public int AmountTransfered { get; set; }
-            public TransactionType type { get; set; }
-        }
-        
+            public SecurityModel StockModel { get; set; }
+
+            public ATPObj(string errors, SecurityModel model)
+            {
+                this.Errors = errors;
+                this.StockModel = model;
+            }
+        }   
     }
 }

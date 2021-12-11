@@ -24,6 +24,9 @@ namespace Sigma3.Objects
 
         [JsonProperty("dateTime")]
         public DateTimeOffset Time { get; set; }
+
+        [JsonProperty("pricePerSecurity")]
+        public decimal PricePerSecurity { get; set; }
     }
 
     public enum TransactionType

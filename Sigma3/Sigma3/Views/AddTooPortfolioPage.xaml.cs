@@ -118,11 +118,26 @@ namespace Sigma3.Views
         
         async private void AddTransActionButton_Clicked(object sender, EventArgs e)
         {
-            /*
+            
             ToggleUI();
             var errors = await HandleValidation();
+
+            if (!String.IsNullOrWhiteSpace(errors.Errors))
+            {
+                await DisplayAlert("Error occured", errors.Errors, "Try again");
+                return;
+            }
+
+
+            var transaction = new Transaction()
+            {
+
+            };
+
+            var sucess = await MainPage.USER_LOGGED_IN.AddTransaction(transaction);
+
             ToggleUI();
-            */
+            
 
         }
 
@@ -130,7 +145,7 @@ namespace Sigma3.Views
 
 
         
-        async private string HandleValidation()
+        async private Task<ATPObj> HandleValidation()
         {
             var builder = new StringBuilder(); 
 
@@ -183,14 +198,15 @@ namespace Sigma3.Views
                     .Append("\n");
             }
 
-            var result = CanUserDoAction(asset, buttonSelected.Text, builder);
-            return result ?  new ATPReturnVal(asset, builder.ToString(), decimal.Parse(Amo)) : 
+            CanUserDoAction(asset, buttonSelected.Text, builder);
 
+            return new ATPObj(builder.ToString(), asset);
            
         }
         
 
-        private bool CanUserDoAction(StockModel model, string action, StringBuilder builder)
+        // Probably bad should return a bool
+        private void CanUserDoAction(StockModel model, string action, StringBuilder builder)
         {
             if (action.Equals("sell", StringComparison.OrdinalIgnoreCase))
             {
@@ -210,9 +226,7 @@ namespace Sigma3.Views
                 {
                     builder.Append("You do not have enough of this security to make this transaction")
                         .Append("\n");
-                    return false;
                 }
-                return true;
             }
             else if (action.Equals("buy", StringComparison.OrdinalIgnoreCase))
             {
@@ -221,14 +235,8 @@ namespace Sigma3.Views
                 {
                     builder.Append("It is highly unlikely you own half of this company")
                         .Append("\n");
-                    return false;
                 }
 
-                return true;
-            }
-            else
-            {
-                return false;
             }
         }
 
@@ -240,13 +248,20 @@ namespace Sigma3.Views
         }
 
 
-        public class ATPReturnVal
+        public class ATPObj
         {
-            public StockModel model { get; set; }
             public string Errors { get; set; }
-            public int AmountTransfered { get; set; }
-            public TransactionType type { get; set; }
+            public StockModel StockModel { get; set; }
+
+            public ATPObj(string errors, StockModel model)
+            {
+                this.Errors = errors;
+                this.StockModel = model;
+            }
         }
+
+
+      
         
     }
 }

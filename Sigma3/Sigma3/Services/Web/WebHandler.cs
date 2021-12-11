@@ -40,16 +40,6 @@ namespace Sigma3.Services.Web
             return content;
         }
 
-        async public Task<Z> SendPostAsync<T, Z>(string url, T obj)
-        {
-            var json = JsonSerializer.Serialize(obj);
-            var data  = new StringContent(json, Encoding.UTF8, "application/json");
-
-            var response = await client.PostAsync(url, data);
-            var responseStr = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<Z>(responseStr);
-        }
-
         async public Task<Z> SendRequestAsync<T, Z>(string url, string requestType, T data = default(T))
         {
             var request = CraftRequest(requestType, url, data);

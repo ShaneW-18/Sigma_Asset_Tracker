@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Sigma3.Objects;
 using System.Linq;
 using Sigma3.Services.Web;
+using Sigma3.Util;
 
 namespace Sigma3
 {
@@ -17,6 +18,8 @@ namespace Sigma3
             Email = "Demo",
             Password = "Demo",
             PortfolioBalance = 0,
+            Id = StringUtils.HashString("Demo")
+
         };
 
         public static readonly bool DEMO_ENABLED = true;

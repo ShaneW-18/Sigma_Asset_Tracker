@@ -39,7 +39,7 @@
                 <Image Source="sigma.png" Grid.Column="1" VerticalOptions="Center" Margin="10,0,10,0"/>
                 <Label BackgroundColor="#bababa" Grid.Column="2" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
             </Grid>
-            <ActivityIndicator x:Name="Indicator" IsRunning="False" Color="White"/>
+            <ActivityIndicator x:Name="Indicator" IsRunning="False" Color="White" TranslationY="-15" />
         </Grid>
             <StackLayout Grid.Row="2" BackgroundColor="Black">
                 <Label HeightRequest="1" BackgroundColor="Black"/>

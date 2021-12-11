@@ -1,10 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Sigma3.Views.Following"
              Title="Following"
              >
-
     <ContentPage.Resources>
         <Style TargetType="Grid">
             <Setter Property="VisualStateManager.VisualStateGroups">
@@ -33,6 +32,7 @@
         <Grid Padding="35,10,35,45" RowDefinitions="Auto,Auto,Auto,Auto,Auto,*,Auto" ColumnDefinitions="*,Auto">
             <!-- Activities-->
             <Label Grid.Row="0" Grid.Column="0" Text="Following" FontAttributes="Bold" Padding="0,20" FontSize="25" TextColor="white"/>
+
             <CollectionView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HeightRequest="1000"
                                  VerticalScrollBarVisibility="Never" x:Name="FollowingCollectionView" SelectionMode="Single">
                 <CollectionView.ItemTemplate>
@@ -48,7 +48,6 @@
                             <Label Grid.Row="0" Grid.Column="2" Grid.RowSpan="1" Text="{Binding RegularMarketPriceProp, Mode=OneWay}"  VerticalTextAlignment="Center" TextColor="White" FontAttributes="Bold" Padding="15,0,0,0" HorizontalOptions="EndAndExpand"/>
                             <Label Grid.Row="1" Grid.Column="2" Grid.RowSpan="1" Text="{Binding RegularMarketChangePercentProp, Mode=OneWay}"  VerticalTextAlignment="Center" TextColor="{Binding ColorProp}" FontAttributes="Bold" Padding="15,0,0,0" HorizontalOptions="EndAndExpand"/>
                             <Label BackgroundColor="Gray" Grid.Row="4" Grid.ColumnSpan="3" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Opacity="0.6" TranslationY="-10"/>
-
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

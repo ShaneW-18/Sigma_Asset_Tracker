@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             x:Class="Sigma3.Views.StockViewPage"
+             BackgroundColor="black">
+    <ContentPage.Content >
+        <StackLayout>
+          
+
+                <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,*,Auto" ColumnDefinitions="*,Auto">
+
+                    <!-- Balance information-->
+                <Frame Margin="0,20" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" CornerRadius="30" BackgroundColor="Gray" HasShadow="False" HeightRequest="120" Opacity="0.4">
+                    <Grid RowDefinitions="Auto,*" Padding="0,20" ColumnDefinitions="*,Auto">
+
+                        <Label x:Name="Name" Grid.Row="0" Grid.Column="0" Text="{Binding ShortName}" FontSize="20" TextColor="LightGray" FontAttributes="Bold" HorizontalTextAlignment="Center" TranslationY="-30" />
+                        <Label x:Name="Symbol" Grid.Row="0" Grid.Column="0" Text="{Binding Symbol}" FontSize="20" TextColor="LightGray"  HorizontalTextAlignment="Center"/>
+                        <Label x:Name="Price"   Grid.Row="1" Grid.Column="0" Text="{Binding Symbol}" FontSize="40" TextColor="white"  HorizontalTextAlignment="Center" />
+                    </Grid>
+                </Frame>
+                    
+                <Grid Padding="35,0,40,35" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" RowDefinitions="Auto,Auto" ColumnDefinitions="Auto,*">
+                        <!-- Activities-->
+                    <Label x:Name="PreviousClose" Grid.Row="1" Grid.Column="0" Text="Previous Close" FontAttributes="Bold" Padding="0,20" FontSize="15" TextColor="gray"/>
+                    <Label x:Name="PreviousCloseT" Grid.Row="1" Grid.Column="0" Text="Open" FontAttributes="Bold" Padding="0,20" FontSize="15" TextColor="white" TranslationY="40"/>
+                    <Label  x:Name="Open" Grid.Row="1" Grid.Column="2" Text="Open" FontAttributes="Bold" Padding="0,20" FontSize="15" TextColor="gray"/>
+                    <Label x:Name="OpenT" Grid.Row="1" Grid.Column="2" Text="Open" FontAttributes="Bold" Padding="0,20" FontSize="15" TextColor="white" TranslationY="40"/>
+                    <Label x:Name="MarketCap" Grid.Row="3" Grid.Column="0" Text="Market Cap" FontAttributes="Bold" Padding="0,20" FontSize="15" TextColor="gray"/>
+                    <Label x:Name="MarketCapT" Grid.Row="3" Grid.Column="0" Text="Open" FontAttributes="Bold" Padding="0,20" FontSize="15" TextColor="white" TranslationY="40"/>
+                    <Label x:Name="Vol" Grid.Row="3" Grid.Column="2" Text="Daily Volume" FontAttributes="Bold" Padding="0,20" FontSize="15" TextColor="gray"/>
+                    <Label x:Name="VolT" Grid.Row="3" Grid.Column="2" Text="Open" FontAttributes="Bold" Padding="0,20" FontSize="15" TextColor="white" TranslationY="40"/>
+                    <Label x:Name="YearHigh" Grid.Row="5" Grid.Column="0" Text="1 Year High" FontAttributes="Bold" Padding="0,20" FontSize="15" TextColor="gray"/>
+                    <Label x:Name="YearHighT" Grid.Row="5" Grid.Column="0" Text="Open" FontAttributes="Bold" Padding="0,20" FontSize="15" TextColor="green" TranslationY="40"/>
+                    <Label x:Name="YearLow" Grid.Row="5" Grid.Column="2" Text="1 Year Low" FontAttributes="Bold" Padding="0,20" FontSize="15" TextColor="gray"/>
+                    <Label x:Name="YearLowT" Grid.Row="5" Grid.Column="2" Text="Open" FontAttributes="Bold" Padding="0,20" FontSize="15" TextColor="red" TranslationY="40"/>
+
+
+
+
+                </Grid>
+
+                </Grid>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

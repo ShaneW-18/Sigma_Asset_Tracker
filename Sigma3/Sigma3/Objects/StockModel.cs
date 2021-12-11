@@ -1,4 +1,5 @@
 
+using System;
 using System.Text.Json.Serialization;
 using Sigma3.Util;
 namespace Sigma3.Objects
@@ -66,7 +67,7 @@ namespace Sigma3.Objects
         public int PriceHint;
 
         [JsonPropertyName("circulatingSupply")]
-        public int CirculatingSupply;
+        public long CirculatingSupply;
 
         [JsonPropertyName("lastMarket")]
         public string LastMarket;

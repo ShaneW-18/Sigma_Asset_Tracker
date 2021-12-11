@@ -4,7 +4,7 @@
              x:Class="Sigma3.Views.Portfolio">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem IconImageSource="search.png"></ToolbarItem>
+        <ToolbarItem IconImageSource="search.png" Clicked="Search_Clicked"></ToolbarItem>
     </ContentPage.ToolbarItems>
     <ContentPage.Content >
         <StackLayout>

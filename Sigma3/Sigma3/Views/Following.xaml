@@ -22,10 +22,11 @@
         </Style>
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
-        <ToolbarItem IconImageSource="search.png"></ToolbarItem>
-        <ToolbarItem IconImageSource="plus.png" />
+        
+        <ToolbarItem x:Name="addButton" IconImageSource="plus.png" Clicked="addButton_Clicked"> </ToolbarItem>
         <!--Will Be a refresh button-->
         <ToolbarItem x:Name="RefreshButton" IconImageSource="refresh.png" Clicked="RefreshButton_Clicked"></ToolbarItem>
+        <ToolbarItem IconImageSource="search.png" x:Name="Search" Clicked="Search_Clicked"></ToolbarItem>
 
     </ContentPage.ToolbarItems>
     <ContentPage.Content>

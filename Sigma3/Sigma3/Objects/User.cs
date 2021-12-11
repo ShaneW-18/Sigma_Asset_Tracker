@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Sigma3.Services.Web;
 using SQLite;
 using static Sigma3.Views.AddTooPortfolioPage;
 
@@ -54,7 +55,7 @@ namespace Sigma3.Objects
             public string TransactionId { get; set; }
             public TransactionType TransType { get; set; }
             public decimal AmountTransacted { get; set; }
-
+            
             public enum TransactionType
             {
                 BUY,
@@ -63,6 +64,18 @@ namespace Sigma3.Objects
         }
 
 
-        
+        async public void addFollowing(string symbole)
+        {
+           
+            UserFollowing.Add(await YahooFinance.GetAsync(symbole));
+
+        }
+        async public void RemoveFollowing(string symbole)
+        {
+
+            UserFollowing.Remove(await YahooFinance.GetAsync(symbole));
+
+        }
+
     }
 }

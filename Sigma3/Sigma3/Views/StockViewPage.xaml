@@ -3,7 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              x:Class="Sigma3.Views.StockViewPage"
              BackgroundColor="black">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="star" IconImageSource="star.png" Clicked="star_Clicked"></ToolbarItem>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content >
+        
         <StackLayout>
           
 

@@ -17,18 +17,18 @@ namespace SigmaTransactionAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public ObjectResult? Get(string guid)
+        public TransactionModel? Get(string guid)
         {
             var Manger = DataManager.GetInstance();
             var TransactionModel = Manger.GetTransactionModels()
                 .Find(TransModel => TransModel.Id == guid);
 
-            return StatusCode(200, TransactionModel);
+            return TransactionModel;
 
         }
 
         [HttpPost]
-        public ObjectResult Post([FromBody] TransactionModel transactionModel)
+        public TransactionModel Post([FromBody] TransactionModel transactionModel)
         {
             var Manger = DataManager.GetInstance();
             transactionModel.Id = Guid.NewGuid().ToString();
@@ -36,7 +36,7 @@ namespace SigmaTransactionAPI.Controllers
 
             Manger.AddItem(transactionModel);
 
-            return StatusCode(200, transactionModel);
+            return transactionModel;
         }
 
         [HttpPut("{id}")]

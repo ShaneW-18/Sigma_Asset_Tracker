@@ -6,6 +6,7 @@ namespace SigmaTransactionAPI
     {
         private string FileName = "DataPers.json";
         public List<TransactionModel> Models = new List<TransactionModel>();
+        private static ReaderWriterLockSlim _readWriteLock = new ReaderWriterLockSlim();
         private static DataManager Manager = null;
 
 
@@ -48,23 +49,29 @@ namespace SigmaTransactionAPI
 
         public void AddItem(TransactionModel model)
         {
-
-            if (!File.Exists(FileName))
-            {
-                File.Create(FileName);
-            }
-
-            Models.Add(model);
-
-            lock (typeof(DataManager))
-            {
-                // serialize JSON directly to a file
-                using (StreamWriter file = File.CreateText(FileName))
+           
+                if (!File.Exists(FileName))
                 {
-                    var serializer = new JsonSerializer();
-                    serializer.Serialize(file, Models);
+                    File.Create(FileName);
                 }
-            }
+
+                Models.Add(model);
+                _readWriteLock.EnterWriteLock();
+            
+                try
+                {
+                    // serialize JSON directly to a file
+                    using (StreamWriter file = File.CreateText(FileName))
+                    {
+                        var serializer = new JsonSerializer();
+                        serializer.Serialize(file, Models);
+                    }
+                }
+                finally 
+                {
+                    _readWriteLock.ExitWriteLock();
+                }
+            
         }
 
         public bool RemoveItem(TransactionModel model)

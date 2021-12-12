@@ -48,21 +48,14 @@ namespace SigmaTransactionAPI
 
         public void AddItem(TransactionModel model)
         {
-
-            if (!File.Exists(FileName))
-            {
-                var f = File.Create(FileName);
-                f.Close();
-            }
-
             Models.Add(model);
-
 
             // serialize JSON directly to a file
             using (StreamWriter file = new StreamWriter(FileName)) // not thread safe?? 
             {
                 var serializer = new JsonSerializer();
                 serializer.Serialize(file, Models);
+
             }
         }
 

@@ -169,4 +169,7 @@
   <ItemGroup>
     <BundleResource Include="Resources\filledStar.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\remove.png" />
+  </ItemGroup>
 </Project>

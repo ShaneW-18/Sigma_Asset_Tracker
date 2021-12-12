@@ -27,7 +27,7 @@
             <Entry Placeholder="Search" PlaceholderColor ="gray" HorizontalTextAlignment="center" TextColor="white" TextChanged="Entry_TextChanged" x:Name="SearchEntry" ></Entry>
             <Button x:Name="SearchStock" BackgroundColor="gray" WidthRequest="150" HeightRequest="35" HorizontalOptions="Center" CornerRadius="100" Clicked="SearchStock_Clicked"></Button>
             <CollectionView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HeightRequest="1000"
-                                 VerticalScrollBarVisibility="Never" x:Name="SearchResults" SelectionMode="Single" SelectionChanged="FollowingCollectionView_SelectionChanged" TranslationY="30">
+                                 VerticalScrollBarVisibility="Never" x:Name="SearchResults" SelectionMode="Single" TranslationY="30">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <!--

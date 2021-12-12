@@ -99,9 +99,10 @@ namespace Sigma3.Objects
             }
             return values;
         }
-        
 
-        
+  
+
+
         public class UserSecurity
         {
             public string Symbol { get; set; }

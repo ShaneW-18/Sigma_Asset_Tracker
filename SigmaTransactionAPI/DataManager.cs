@@ -6,7 +6,6 @@ namespace SigmaTransactionAPI
     {
         private string FileName = "DataPers.json";
         public List<TransactionModel> Models = new List<TransactionModel>();
-        private static ReaderWriterLockSlim _readWriteLock = new ReaderWriterLockSlim();
         private static DataManager Manager = null;
 
 
@@ -22,7 +21,7 @@ namespace SigmaTransactionAPI
             // deserialize JSON directly from a file
             using (StreamReader file = File.OpenText(FileName))
             {
-                JsonSerializer serializer = new JsonSerializer();
+                var serializer = new JsonSerializer();
 
                 Models = (List<TransactionModel>)serializer.Deserialize(file, typeof(List<TransactionModel>));
 
@@ -49,29 +48,17 @@ namespace SigmaTransactionAPI
 
         public void AddItem(TransactionModel model)
         {
-           
-                if (!File.Exists(FileName))
-                {
-                    File.Create(FileName);
-                }
 
-                Models.Add(model);
-                _readWriteLock.EnterWriteLock();
-            
-                try
-                {
-                    // serialize JSON directly to a file
-                    using (StreamWriter file = File.CreateText(FileName))
-                    {
-                        var serializer = new JsonSerializer();
-                        serializer.Serialize(file, Models);
-                    }
-                }
-                finally 
-                {
-                    _readWriteLock.ExitWriteLock();
-                }
-            
+            if (!File.Exists(FileName))
+            {
+                File.Create(FileName);
+            }
+
+            Models.Add(model);
+
+            File.WriteAllText(FileName, JsonConvert.SerializeObject(Models));
+
+          
         }
 
         public bool RemoveItem(TransactionModel model)
@@ -87,13 +74,10 @@ namespace SigmaTransactionAPI
 
             if (!remove) return false;
 
-            // serialize JSON directly to a file
-            using (StreamWriter file = File.CreateText(FileName))
-            {
-                var serializer = new JsonSerializer();
-                serializer.Serialize(file, Models);
-                return true;
-            }
+            File.WriteAllText(FileName, JsonConvert.SerializeObject(Models));
+            return true;
+
+          
         }
 
         public List<TransactionModel> GetTransactionModels()

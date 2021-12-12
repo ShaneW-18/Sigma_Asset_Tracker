@@ -16,7 +16,7 @@ namespace Sigma3.Views
         private Button buttonSelected { get; set; } 
         private List<Entry> Entries { get; set; }
         
-        public AddTooPortfolioPage()
+        public AddTooPortfolioPage(SecuritiesModel stock = null)
         {
             // lol
             var portfolio = MainPage.USER_LOGGED_IN.UserPortfolio;

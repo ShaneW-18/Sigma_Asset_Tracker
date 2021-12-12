@@ -16,7 +16,8 @@ namespace Sigma3.Views
     {
         private readonly User USER_LOGGED_IN = MainPage.USER_LOGGED_IN;
         SecuritiesModel stock1;
-       
+        private Task<SecuritiesModel> task;
+
         public StockViewPage(SecuritiesModel stock)
         {
            
@@ -37,6 +38,7 @@ namespace Sigma3.Views
             VolT.Text = StringUtils.ParseNumberWithCommas((double)stock.AverageDailyVolume10Day).ToString();
 
         }
+
 
         private void star_Clicked(object sender, EventArgs e)
         {

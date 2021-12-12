@@ -5,6 +5,9 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using HtmlAgilityPack;
+using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace Sigma3.Services.Web
 {
@@ -70,6 +73,28 @@ namespace Sigma3.Services.Web
                 returnMessage.Content = new StringContent(company, Encoding.UTF8, "application/json");
             }
             return returnMessage;
+        }
+
+        async public Task<List<string>> GetInnerContentsByClassName(string url, string className)
+        {
+            var content = await GetWebsiteContent(url);
+            var html = new HtmlDocument();
+            html.LoadHtml(content);
+            var z = GetElementsByClassName(html, className);
+            return GetElementsByClassName(html, className)
+                .Select(x => x.InnerText)
+                .ToList();
+        }
+
+        private static List<HtmlNode> GetElementsByClassName(HtmlDocument doc, String className)
+        {
+            var regex = new Regex("\\b" + Regex.Escape(className) + "\\b", RegexOptions.Compiled);
+
+            return doc.DocumentNode
+                .Descendants()
+                .Where(n => n.NodeType == HtmlNodeType.Element)
+                .Where(e => (e.Name == "div" || e.Name == "a") && regex.IsMatch(e.GetAttributeValue("class", "")))
+                .ToList();
         }
 
     }

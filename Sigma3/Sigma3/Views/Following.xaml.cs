@@ -38,7 +38,7 @@ namespace Sigma3.Views
         async private void RefreshButton_Clicked(object sender, EventArgs e)
         {
             ToggleUI();
-            var list = await YahooFinance.GetUpdate(USER_LOGGED_IN.UserFollowing);
+            var list = await SecuritiesApi.GetUpdate(USER_LOGGED_IN.UserFollowing);
             USER_LOGGED_IN.UserFollowing = list;
             this.FollowingCollectionView.ItemsSource = USER_LOGGED_IN.UserFollowing;
             ToggleUI();
@@ -53,7 +53,7 @@ namespace Sigma3.Views
 
         private async void FollowingCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            await Navigation.PushAsync( new StockViewPage(e.CurrentSelection[0] as SecurityModel));
+            await Navigation.PushAsync( new StockViewPage(e.CurrentSelection[0] as SecuritiesModel));
 
         }
 

@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 using Sigma3.Util;
 namespace Sigma3.Objects
 {
-    public class SecurityModel
+    public class SecuritiesModel
     {
         [JsonPropertyName("language")]
         public string Language { get; set; }

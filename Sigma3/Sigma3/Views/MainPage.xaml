@@ -9,9 +9,7 @@
              BarBackgroundColor="Black"
              SelectedTabColor="White"
              UnselectedTabColor="Gray"
-             NavigationPage.HasBackButton="False"
-             
-                >
+             NavigationPage.HasBackButton="False">
 
 
     <NavigationPage.TitleView>
@@ -26,13 +24,9 @@
 
         </StackLayout>
     </NavigationPage.TitleView>
-
-
     <sigmans:Home IconImageSource="bank1.png"/>
-    <sigmans:Following IconImageSource="star.png"/>
     <sigmans:Portfolio IconImageSource="sigma.png"/>
-    <sigmans:Notifications IconImageSource="bell.png"/>
-    <sigmans:Settings IconImageSource="settings.png"/>
+    <sigmans:Following IconImageSource="star.png"/>
 
 
 

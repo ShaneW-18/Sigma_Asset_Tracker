@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Xamarin.Essentials;
+
 
 namespace Sigma3
 {
@@ -12,13 +14,16 @@ namespace Sigma3
         public App()
         {
             InitializeComponent();
-            
+
             MainPage = new NavigationPage(new Login());
 
         }
 
+    
+
         protected override void OnStart()
         {
+           
         }
 
         protected override void OnSleep()

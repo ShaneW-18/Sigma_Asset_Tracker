@@ -15,10 +15,8 @@ namespace Sigma3.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SearchPage : ContentPage
     {
-        private List<Nasdaq> nasdaq { get; set; } = new List<Nasdaq> ();
-       
+        private List<Nasdaq> Nasdaq { get; set; } = new List<Nasdaq>();
 
-        String symbol = "";
         public SearchPage()
         {
             InitializeComponent();
@@ -28,36 +26,34 @@ namespace Sigma3.Views
 
        async protected override void OnAppearing()
         {
-            if (nasdaq.Count == 0)
+            if (Nasdaq.Count == 0)
             {
                 await nas();
             }
         }
         private async void SearchStock_Clicked(object sender, EventArgs e)
         {
-            try
-            {
-                SecurityModel s = await YahooFinance.GetAsync(symbol);
-               
+            var Symbol = this.SearchEntry.Text;
 
-                    await Navigation.PushAsync(new StockViewPage(s));
+            var security = await SecuritiesApi.GetAsync(Symbol);
 
-            }
-            catch (Exception ex)
+            if (security == null)
             {
-                System.Diagnostics.Debug.Write(ex.ToString());
                 await DisplayAlert("Alert", "Symbol does not exist", "OK");
+                return;
             }
+            
         }
 
         async private void Entry_TextChanged(object sender, TextChangedEventArgs e)
         {
             
             this.Indicator.IsRunning = true;
-            symbol = Convert.ToString(((Entry)sender).Text).ToUpper();
+            var entry = sender as Entry;
+            var Symbol = entry.Text;
 
            
-            var v =  nasdaq.Where(xr => xr.symbol.ToUpper().StartsWith(symbol.ToUpper()) | xr.companyName.ToUpper().StartsWith(symbol.ToUpper())).Take(30);
+            var v =  Nasdaq.Where(xr => xr.symbol.ToUpper().StartsWith(Symbol.ToUpper()) || xr.companyName.ToUpper().StartsWith(Symbol.ToUpper())).Take(30);
 
             this.SearchResults.ItemsSource = v;
             this.Indicator.IsRunning = false;
@@ -66,12 +62,12 @@ namespace Sigma3.Views
         }
         async protected Task nas()
         { 
-             nasdaq = await YahooFinance.GetNasdaq();
+             Nasdaq = await SecuritiesApi.GetNasdaq();
         }
         private async void FollowingCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Nasdaq nas = e.CurrentSelection[0] as Nasdaq;
-            StockModel stock = await YahooFinance.GetAsync(nas.symbol);
+            var stock = await SecuritiesApi.GetAsync(nas.symbol);
             await Navigation.PushAsync(new StockViewPage(stock));
 
         }

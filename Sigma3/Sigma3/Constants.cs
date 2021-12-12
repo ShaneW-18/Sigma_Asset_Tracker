@@ -24,22 +24,32 @@ namespace Sigma3
 
         public static readonly bool DEMO_ENABLED = true;
         public static readonly int LONGEST_STOCK_TICKER_LENGTH = 12;
+        public static readonly string CNN_SYMBOL_HTML_CLASS = "wsod_symbol";
 
 
-        async public static Task<List<SecurityModel>> GetDefaultFollowing()
+        async public static Task<List<SecuritiesModel>> GetDefaultFollowing()
         {
-            var appl = await YahooFinance.GetAsync("TSLA");
-            var btc = await YahooFinance.GetAsync("BTC-USD");
-            var nvda = await YahooFinance.GetAsync("NVDA");
-            var dis = await YahooFinance.GetAsync("Dis");
-            var twtr = await YahooFinance.GetAsync("TWTR");
-            var bac = await YahooFinance.GetAsync("bac");
+            var btc = await SecuritiesApi.GetAsync("BTC-USD");
+            var ltc = await SecuritiesApi.GetAsync("LTC-USD");
+            var eth = await SecuritiesApi.GetAsync("ETH-USD");
+            var sol = await SecuritiesApi.GetAsync("SOL1-USD");
+            var usdc = await SecuritiesApi.GetAsync("USDC-USD");
 
 
-            return new List<SecurityModel>()
+
+
+            var appl = await SecuritiesApi.GetAsync("TSLA");
+            var dis = await SecuritiesApi.GetAsync("DIS");
+            var twtr = await SecuritiesApi.GetAsync("TWTR");
+            var bac = await SecuritiesApi.GetAsync("BAC");
+            var nvda = await SecuritiesApi.GetAsync("NVDA");
+
+
+
+            return new List<SecuritiesModel>()
             {
-                appl, btc, nvda, dis, twtr, bac
-            };
+                btc, ltc, eth, sol, usdc, appl, dis, twtr, bac, nvda
+            } ?? new List<SecuritiesModel>();
         }
 
     }

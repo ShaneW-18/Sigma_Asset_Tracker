@@ -15,9 +15,9 @@ namespace Sigma3.Views
     public partial class StockViewPage : ContentPage
     {
         private readonly User USER_LOGGED_IN = MainPage.USER_LOGGED_IN;
-        SecurityModel stock1;
+        SecuritiesModel stock1;
        
-        public StockViewPage(SecurityModel stock)
+        public StockViewPage(SecuritiesModel stock)
         {
            
             InitializeComponent();

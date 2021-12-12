@@ -194,7 +194,7 @@ namespace Sigma3.Views
             }
 
 
-            var asset = await YahooFinance.GetAsync(symbol);
+            var asset = await SecuritiesApi.GetAsync(symbol);
 
             if (asset == null)
             {
@@ -230,7 +230,7 @@ namespace Sigma3.Views
         
 
         // Probably bad should return a bool
-        private void CanUserDoAction(SecurityModel model, string action, StringBuilder builder)
+        private void CanUserDoAction(SecuritiesModel model, string action, StringBuilder builder)
         {
             if (action.Equals("sell", StringComparison.OrdinalIgnoreCase))
             {
@@ -276,9 +276,9 @@ namespace Sigma3.Views
         public class ATPObj
         {
             public string Errors { get; set; }
-            public SecurityModel StockModel { get; set; }
+            public SecuritiesModel StockModel { get; set; }
 
-            public ATPObj(string errors, SecurityModel model)
+            public ATPObj(string errors, SecuritiesModel model)
             {
                 this.Errors = errors;
                 this.StockModel = model;

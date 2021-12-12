@@ -20,13 +20,13 @@ namespace Sigma3.Objects
         public string PhoneNumber { get; set; }
         public decimal PortfolioBalance { get; set; } = 0;
 
-        public List<SecurityModel> UserPortfolioList = new List<SecurityModel>();
-        public List<SecurityModel> UserFollowing { get; set; } = new List<SecurityModel>();
+        public List<SecuritiesModel> UserPortfolioList = new List<SecuritiesModel>();
+        public List<SecuritiesModel> UserFollowing { get; set; } = new List<SecuritiesModel>();
         public List<Transaction> Transactions { get; set; } = new List<Transaction>();
         public Dictionary<string, UserSecurity> UserPortfolio { get; set; } = new Dictionary<string, UserSecurity>();
 
 
-        async public Task<bool> AddTransaction(Transaction transaction, SecurityModel model)
+        async public Task<bool> AddTransaction(Transaction transaction, SecuritiesModel model)
         {
             var Symbol = transaction.SecurityTraded;
             var isBuy = transaction.TransType.Equals(TransactionType.BUY);
@@ -94,7 +94,7 @@ namespace Sigma3.Objects
             var values = new List<UserPortfolioObject>();
             foreach (var key in keys)
             {
-                var item = await YahooFinance.GetAsync(key);
+                var item = await SecuritiesApi.GetAsync(key);
                 values.Add(new UserPortfolioObject(item, UserPortfolio[key]));
             }
             return values;
@@ -145,7 +145,7 @@ namespace Sigma3.Objects
             public string UnderName { get; set; }
             public string TotalOwned { get; set; }
             public string SecurityPrice { get; set; }
-            public UserPortfolioObject(SecurityModel model, UserSecurity us)
+            public UserPortfolioObject(SecuritiesModel model, UserSecurity us)
             {
                 var dec = decimal.Parse(model.RegularMarketPrice.ToString());
                 this.SecurityPrice = model.RegularMarketPriceProp;
@@ -167,13 +167,13 @@ namespace Sigma3.Objects
         async public void AddFollowing(string symbole)
         {
            
-            UserFollowing.Add(await YahooFinance.GetAsync(symbole));
+            UserFollowing.Add(await SecuritiesApi.GetAsync(symbole));
 
         }
         async public void RemoveFollowing(string symbole)
         {
 
-            UserFollowing.Remove(await YahooFinance.GetAsync(symbole));
+            UserFollowing.Remove(await SecuritiesApi.GetAsync(symbole));
 
         }
 

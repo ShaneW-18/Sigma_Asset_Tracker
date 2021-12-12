@@ -56,12 +56,14 @@ namespace SigmaTransactionAPI
 
             Models.Add(model);
 
-
-            // serialize JSON directly to a file
-            using (StreamWriter file = File.CreateText(FileName))
+            lock (typeof(DataManager))
             {
-                var serializer = new JsonSerializer();
-                serializer.Serialize(file, Models);
+                // serialize JSON directly to a file
+                using (StreamWriter file = File.CreateText(FileName))
+                {
+                    var serializer = new JsonSerializer();
+                    serializer.Serialize(file, Models);
+                }
             }
         }
 

@@ -51,11 +51,11 @@ namespace SigmaTransactionAPI
             Models.Add(model);
 
             // serialize JSON directly to a file
-            using (StreamWriter file = new StreamWriter(FileName)) // not thread safe?? 
+            using (StreamWriter file = new StreamWriter(FileName, false)) // not thread safe?? 
             {
                 var serializer = new JsonSerializer();
                 serializer.Serialize(file, Models);
-
+                file.Close();
             }
         }
 

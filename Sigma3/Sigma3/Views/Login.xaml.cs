@@ -10,6 +10,7 @@ using Sigma3.Objects;
 using Sigma3.Util;
 using Sigma3.Services.Web;
 using Newtonsoft.Json;
+using SQLite;
 
 namespace Sigma3.Views
 {
@@ -84,9 +85,10 @@ namespace Sigma3.Views
             await Navigation.PushAsync(new Register());
 
         }
-        protected override void OnAppearing()
+        protected void OnAppearing()
         {
-
+            Email.Text = "";
+            Password.Text = "";
         }
 
         public class LoginObj

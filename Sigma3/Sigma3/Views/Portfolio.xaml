@@ -11,10 +11,12 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content >
         <StackLayout>
+            
             <ScrollView x:Name="UserPortfolio" IsVisible="False" IsEnabled="False">
+                
 
                 <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,*,Auto" ColumnDefinitions="*,Auto">
-
+                    
                     <!-- Balance information-->
                     <Frame Margin="15, 10, 15, 10" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" CornerRadius="30" BackgroundColor="Gray" HasShadow="False" HeightRequest="120" Opacity="0.4">
                         <Grid RowDefinitions="Auto,*" Padding="0,20" ColumnDefinitions="*,Auto">
@@ -31,7 +33,7 @@
                         
 
                         <CollectionView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"  HeightRequest="300"
-                                 VerticalScrollBarVisibility="Never" x:Name="PortfolioListView">
+                                 VerticalScrollBarVisibility="Never" x:Name="PortfolioListView" SelectionChanged="PortfolioListView_SelectionChanged" SelectionMode="Single">
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
                                     <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="Auto,*,Auto" Padding="0,10">
@@ -50,11 +52,13 @@
 
                 </Grid>
             </ScrollView>
+            <ActivityIndicator x:Name="Indicator" IsRunning="False" Color="White" />
             <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,*,Auto" ColumnDefinitions="*,Auto" IsVisible="True" IsEnabled="True" x:Name="NoUserPortfolio">
                 <Label Grid.Row="10" Text="Your new portfolio starts here!" TextColor="White" HorizontalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="23"  VerticalOptions="CenterAndExpand"/>
                 <Label Grid.Row="11" Text="We need some securties to get start tracking your " HorizontalOptions="CenterAndExpand" TextColor="Gray"/>
                 <Label Grid.Row="12" Text="portfolio, please click the + button below" HorizontalOptions="CenterAndExpand" TextColor="Gray" TranslationY="-10"/>
                 <Button x:Name="AddPortfolioBtn" Grid.Row="13"  Grid.RowSpan="2" Grid.Column="0" TextColor="Black" BackgroundColor="gray" CornerRadius="100" WidthRequest="60"  Text="+"  FontSize="30" HorizontalOptions="CenterAndExpand" Clicked="AddPortfolioBtn_Clicked" />
+                
             </Grid>
         </StackLayout>
     </ContentPage.Content>

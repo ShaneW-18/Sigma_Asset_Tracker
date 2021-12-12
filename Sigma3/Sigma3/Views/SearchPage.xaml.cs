@@ -71,5 +71,12 @@ namespace Sigma3.Views
             await Navigation.PushAsync(new StockViewPage(stock));
 
         }
+
+        private async void SearchResults_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var stock = e.CurrentSelection[0] as Nasdaq;
+            
+            await Navigation.PushAsync(new StockViewPage(await SecuritiesApi.GetAsync(stock.symbol)));
+        }
     }
 }

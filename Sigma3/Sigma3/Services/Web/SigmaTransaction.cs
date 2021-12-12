@@ -10,32 +10,14 @@ namespace Sigma3.Services.Web
     {
         public readonly static string BASE_URL = "https://sigma.schoolbot.dev/api/transaction";
 
-        async public static Task<Transaction> SendPostAsync(Transaction transaction)
+        async public static Task<TransactionModel> SendPostAsync(TransactionModel transaction)
         {
+            transaction.Id = Guid.NewGuid().ToString();
+            transaction.Time = DateTimeOffset.Now;
+
             var Handler = WebHandler.GetInstance();
-            return await Handler.SendRequestAsync<Transaction, Transaction>(BASE_URL, "post", transaction);    
+            return await Handler.SendPostAsync<TransactionModel, TransactionModel>(BASE_URL, transaction);    
         }
 
-        async public static Task<Transaction?> SendGetAsync(string id)
-        {
-            var Handler = WebHandler.GetInstance();
-            var url = $"{BASE_URL}/{id}";
-            return await Handler.SendRequestAsync<Transaction, Transaction>(url, "get");
-        }
-        async public static Task<bool> SendPutAsync(string id, Transaction transaction)
-        {
-            var Handler = WebHandler.GetInstance();
-            var url = $"{BASE_URL}/{id}";
-            var response =  await Handler.SendRequestAsync<Transaction, int>(url, "get", transaction);
-            return response == 0;
-        }
-
-        async public static Task<bool> SendDeleteAsync(string id)
-        {
-            var Handler = WebHandler.GetInstance();
-            var url = $"{BASE_URL}/{id}";
-            var response =  await Handler.SendRequestAsync<Transaction, int>(url, "get");
-            return response == 95; 
-        }
     }
 }

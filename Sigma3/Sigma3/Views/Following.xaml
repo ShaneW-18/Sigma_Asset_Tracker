@@ -42,9 +42,8 @@
                         
                         -->
                         <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="Auto,*,Auto" Padding="0,10">
-                            <Button Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" TextColor="White" BackgroundColor="#e8e8e8" CornerRadius="25" WidthRequest="50" HeightRequest="50"/>
-                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding Symbol, Mode=OneTime}" Padding="15,0,0,0" FontAttributes="Bold" TextColor="White" />
-                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding ShortName, Mode=OneTime}" Padding="15,0,0,0" TextColor="Silver" FontSize="10"/>
+                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding Symbol, Mode=OneTime}" Padding="5,0,0,0" FontAttributes="Bold" TextColor="White" />
+                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding ShortName, Mode=OneTime}" Padding="5,0,0,0" TextColor="Silver" FontSize="10"/>
                             <Label Grid.Row="0" Grid.Column="2" Grid.RowSpan="1" Text="{Binding RegularMarketPriceProp, Mode=OneWay}"  VerticalTextAlignment="Center" TextColor="White" FontAttributes="Bold" Padding="15,0,0,0" HorizontalOptions="EndAndExpand"/>
                             <Label Grid.Row="1" Grid.Column="2" Grid.RowSpan="1" Text="{Binding RegularMarketChangePercentProp, Mode=OneWay}"  VerticalTextAlignment="Center" TextColor="{Binding ColorProp}" FontAttributes="Bold" Padding="15,0,0,0" HorizontalOptions="EndAndExpand"/>
                             <Label BackgroundColor="Gray" Grid.Row="4" Grid.ColumnSpan="3" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Opacity="0.6" TranslationY="-10"/>

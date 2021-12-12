@@ -24,13 +24,16 @@ namespace Sigma3.Services.Web
         public static readonly string NASDAQ_URL = "https://pastecord.com/raw/atylizusyx";
         public static readonly string CNN_URL = "https://money.cnn.com/data/hotstocks/";
 
-        async public static Task<SecuritiesModel> GetAsync(string symbol)
+        async public static Task<SecuritiesModel> GetAsync(string symbol, bool refresh = false)
         {
             var symbolCased = symbol.ToUpper();
-            
-            if (CACHED_MODELS.ContainsKey(symbolCased))
+
+            if (!refresh)
             {
-                return CACHED_MODELS[symbolCased];
+                if (CACHED_MODELS.ContainsKey(symbolCased))
+                {
+                    return CACHED_MODELS[symbolCased];
+                }
             }
 
             var Handler = WebHandler.GetInstance();
@@ -73,13 +76,16 @@ namespace Sigma3.Services.Web
 
         }
 
-        async public static Task<HomePageModel> GetHomePageSecurities()
+        async public static Task<HomePageModel> GetHomePageSecurities(bool refresh = false)
         {
 
-            if (CACHED_ACTIVE.Count != 0)
+            if (!refresh)
             {
-                return new HomePageModel(CACHED_ACTIVE, CACHED_GAINERS, CACHED_LOSERS, CACHED_CRYPTO);
-            }
+                if (CACHED_ACTIVE.Count != 0)
+                {
+                    return new HomePageModel(CACHED_ACTIVE, CACHED_GAINERS, CACHED_LOSERS, CACHED_CRYPTO);
+                }
+            } 
 
             var Handler = WebHandler.GetInstance();
             var symbols = await Handler.GetInnerContentsByClassName(CNN_URL, Constants.CNN_SYMBOL_HTML_CLASS);
@@ -88,7 +94,7 @@ namespace Sigma3.Services.Web
             var models = new List<SecuritiesModel>();
             foreach (var item in l)
             {
-                models.Add(await GetAsync(item));
+                models.Add(await GetAsync(item, refresh));
             }
 
             var active = models.GetRange(0, 10);
@@ -145,16 +151,7 @@ namespace Sigma3.Services.Web
             return JsonConvert.DeserializeObject<List<Nasdaq>>(content);
         }
 
-        private static List<T> SubList<T>(List<T> source, int index1, int index2)
-        {
-            var result = new List<T>();
-            for (; index1 < index2; index1++)
-            {
-                var element  = source[index1];
-                result.Add(element);
-            }
-            return result;
-        }
+
     }
     
 }

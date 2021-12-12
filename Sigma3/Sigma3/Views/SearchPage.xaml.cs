@@ -33,6 +33,8 @@ namespace Sigma3.Views
         }
         private async void SearchStock_Clicked(object sender, EventArgs e)
         {
+
+            if (this.SearchEntry == null || String.IsNullOrWhiteSpace(this.SearchEntry.Text)) return;
             var Symbol = this.SearchEntry.Text;
 
             var security = await SecuritiesApi.GetAsync(Symbol);
@@ -45,7 +47,7 @@ namespace Sigma3.Views
             
         }
 
-        async private void Entry_TextChanged(object sender, TextChangedEventArgs e)
+        private void Entry_TextChanged(object sender, TextChangedEventArgs e)
         {
             
             this.Indicator.IsRunning = true;

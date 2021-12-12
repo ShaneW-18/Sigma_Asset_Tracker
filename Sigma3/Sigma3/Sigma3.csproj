@@ -10,9 +10,6 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
-	<PropertyGroup>
-		<LangVersion>9.0</LangVersion>
-	</PropertyGroup>
 
 	<ItemGroup>
 	  <Compile Remove="Util\Files\**" />

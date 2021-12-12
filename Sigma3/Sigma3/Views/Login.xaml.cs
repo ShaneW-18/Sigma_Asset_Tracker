@@ -26,9 +26,9 @@ namespace Sigma3.Views
         {
             if (Constants.DEMO_ENABLED)
             {
-
                 ToggleUI();
                 Constants.DEMO_USER.UserFollowing = await Constants.GetDefaultFollowing();
+                await SecuritiesApi.GetHomePageSecurities();
                 ToggleUI();
                 await Navigation.PushAsync(new MainPage(Constants.DEMO_USER));
                 return;

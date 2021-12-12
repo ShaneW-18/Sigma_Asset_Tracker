@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Sigma3.Objects;
+using Xamarin.Essentials;
 
 namespace Sigma3
 {
@@ -18,7 +19,6 @@ namespace Sigma3
             InitializeComponent();
             BarBackgroundColor = Color.Black;
             BarTextColor = Color.Black;
-
         }
 
         public MainPage()

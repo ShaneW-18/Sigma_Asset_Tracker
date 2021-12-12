@@ -19,27 +19,34 @@ namespace Sigma3.Views
             this.BindingContext = new SecuritiesModel();
         }
 
-        
-
-        private void ImageButton_Clicked(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void topMoversListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-
-        }
-
-        private void listView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-
-        }
 
 
         async protected override void OnAppearing()
         {
-            ToggleUI(); 
+            this.USER_NAME.Text = $"Welcome {USER_LOGGED_IN.Name}! ";
+            this.TODAYS_DATE.Text = DateTime.Now.ToString("d MMM, ddd");
+            this.PORTFOLIO_BALANCE.Text = $"${StringUtils.ParseNumberWithCommas(USER_LOGGED_IN.PortfolioBalance)}";
+
+            await GetHome();
+          
+        }
+
+        private async void ToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new SearchPage());
+        }
+
+        async private void RefreshButton_Clicked(object sender, EventArgs e)
+        {
+            ToggleUI();
+            await GetHome(true);
+            ToggleUI();
+
+        }
+
+        async private Task GetHome(bool refresh = false)
+        {
+            var list = await SecuritiesApi.GetHomePageSecurities(refresh);
             this.USER_NAME.Text = $"Welcome {USER_LOGGED_IN.Name}! ";
             this.TODAYS_DATE.Text = DateTime.Now.ToString("d MMM, ddd");
             this.PORTFOLIO_BALANCE.Text = $"${StringUtils.ParseNumberWithCommas(USER_LOGGED_IN.PortfolioBalance)}";
@@ -49,14 +56,20 @@ namespace Sigma3.Views
             this.TopLosers.ItemsSource = list.TopLosers;
             this.MostActive.ItemsSource = list.MostActive;
             this.Crypto.ItemsSource = list.Crypto;
-            ToggleUI();
 
         }
 
-        private async void ToolbarItem_Clicked(object sender, EventArgs e)
+        private void ToggleUI()
         {
+            this.IsEnabled = !this.IsEnabled;
+            this.IsBusy = !this.IsBusy;
+            this.Indicator.IsRunning = !this.Indicator.IsRunning;
+        }
 
-            await Navigation.PushAsync(new SearchPage());
+        async private void AddToPortfolio_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new AddTooPortfolioPage());
+
         }
 
         private async void MostActive_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -67,12 +80,6 @@ namespace Sigma3.Views
         private void RefreshButton_Clicked(object sender, EventArgs e)
         {
             OnAppearing();
-        }
-        private void ToggleUI()
-        {
-            this.IsEnabled = !this.IsEnabled;
-            this.IsBusy = !this.IsBusy;
-            this.Indicator.IsRunning = !this.Indicator.IsRunning;
         }
     }
 }

@@ -5,16 +5,16 @@ using System.Text;
 
 namespace Sigma3.Objects
 {
-    public class Transaction
+    public class TransactionModel
     {
         [JsonProperty("id")]
         public string Id { get; set; }
 
         [JsonProperty("transType")]
-        public TransactionType TransType { get; set; }
+        public string TransType { get; set; }
 
         [JsonProperty("amountTransacted")]
-        public decimal AmountTraded { get; set; } 
+        public decimal AmountTransacted { get; set; } 
         
         [JsonProperty("userId")]
         public string UserId { get; set; } 
@@ -29,10 +29,6 @@ namespace Sigma3.Objects
         public decimal PricePerSecurity { get; set; }
     }
 
-    public enum TransactionType
-    {
-        BUY,
-        SELL
-    }
+
 
 }

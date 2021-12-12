@@ -32,7 +32,7 @@ namespace SigmaTransactionAPI.Controllers
         {
             var Manger = DataManager.GetInstance();
             transactionModel.Id = Guid.NewGuid().ToString();
-            transactionModel.DateTime = DateTimeOffset.Now;
+            transactionModel.Time = DateTime.Now;
 
             Manger.AddItem(transactionModel);
 

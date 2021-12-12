@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using HtmlAgilityPack;
 using System.Text.RegularExpressions;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace Sigma3.Services.Web
 {
@@ -45,35 +46,20 @@ namespace Sigma3.Services.Web
             return content;
         }
 
-        async public Task<Z> SendRequestAsync<T, Z>(string url, string requestType, T data = default(T))
+   
+        async public Task<Z> SendPostAsync<T, Z>(string url, T data = default(T))
         {
-            var request = CraftRequest(requestType, url, data);
-            var response = await client.SendAsync(request);
-            var responseStr =  await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<Z>(responseStr);
+         
+            
+            var json  = JsonConvert.SerializeObject(data);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await client.PostAsync(url, content);
+            var responseStr = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<Z>(responseStr);
+
         }
 
-        private HttpRequestMessage CraftRequest<T>(string requestType, string url, T data)
-        {
-            var request = requestType.ToLower();
-            var Method = request switch
-            {
-                "post" => HttpMethod.Post,
-                "put" => HttpMethod.Post,
-                "get" => HttpMethod.Get,
-                "delete" => HttpMethod.Delete,
-                _ => HttpMethod.Get
-            };
-
-            var company = JsonSerializer.Serialize(data);
-
-            var returnMessage = new HttpRequestMessage(Method, url);
-            if (!data.Equals(default(T)))
-            {
-                returnMessage.Content = new StringContent(company, Encoding.UTF8, "application/json");
-            }
-            return returnMessage;
-        }
+    
 
         async public Task<List<string>> GetInnerContentsByClassName(string url, string className)
         {

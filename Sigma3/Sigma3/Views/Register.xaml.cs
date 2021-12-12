@@ -122,8 +122,6 @@ namespace Sigma3.Views
 
             await AppService.AddUserAsync(new User
             {
-                // probably not secure for a real application (would use a secert)  this is just so ids wont change on different phones because I am not using a centralized database
-                Id = StringUtils.HashString(Email.Text),
                 Name = Name.Text,
                 Email = Email.Text,
                 Password = StringUtils.HashString(Password.Text),

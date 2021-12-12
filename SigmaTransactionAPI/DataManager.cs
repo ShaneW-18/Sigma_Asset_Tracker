@@ -21,7 +21,7 @@ namespace SigmaTransactionAPI
             // deserialize JSON directly from a file
             using (StreamReader file = File.OpenText(FileName))
             {
-                JsonSerializer serializer = new JsonSerializer();
+                var serializer = new JsonSerializer();
 
                 Models = (List<TransactionModel>)serializer.Deserialize(file, typeof(List<TransactionModel>));
 
@@ -48,20 +48,14 @@ namespace SigmaTransactionAPI
 
         public void AddItem(TransactionModel model)
         {
-
-            if (!File.Exists(FileName))
-            {
-                File.Create(FileName);
-            }
-
             Models.Add(model);
 
-
             // serialize JSON directly to a file
-            using (StreamWriter file = File.CreateText(FileName))
+            using (StreamWriter file = new StreamWriter(FileName, false)) // not thread safe?? 
             {
                 var serializer = new JsonSerializer();
                 serializer.Serialize(file, Models);
+                file.Close();
             }
         }
 
@@ -78,13 +72,10 @@ namespace SigmaTransactionAPI
 
             if (!remove) return false;
 
-            // serialize JSON directly to a file
-            using (StreamWriter file = File.CreateText(FileName))
-            {
-                var serializer = new JsonSerializer();
-                serializer.Serialize(file, Models);
-                return true;
-            }
+            File.WriteAllText(FileName, JsonConvert.SerializeObject(Models));
+            return true;
+
+          
         }
 
         public List<TransactionModel> GetTransactionModels()

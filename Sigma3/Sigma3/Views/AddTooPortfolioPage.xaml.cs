@@ -74,7 +74,7 @@ namespace Sigma3.Views
             this.SellButton.BorderWidth = 0;
 
 
-            // Add Transaction
+            // Add TransactionModel
             this.AddTransActionButton.BackgroundColor = Color.LightGreen;
             this.AddTransActionButton.FontAttributes = FontAttributes.Bold;
             this.AddTransActionButton.TextColor = Color.White;
@@ -106,7 +106,7 @@ namespace Sigma3.Views
             this.BuyButton.BorderWidth = 0;
 
 
-            // Add Transaction
+            // Add TransactionModel
             this.AddTransActionButton.BackgroundColor = Color.Red;
             this.AddTransActionButton.FontAttributes = FontAttributes.Bold;
             this.AddTransActionButton.TextColor = Color.White;
@@ -136,10 +136,10 @@ namespace Sigma3.Views
                 }
 
 
-                var transaction = new Transaction()
+                var transaction = new TransactionModel()
                 {
-                    TransType = buttonSelected.Text == "Sell" ? TransactionType.SELL : TransactionType.BUY,
-                    AmountTraded = decimal.Parse(AmountEntry.Text),
+                    TransType = buttonSelected.Text == "Sell" ? "SELL" : "BUY",
+                    AmountTransacted = decimal.Parse(AmountEntry.Text),
                     PricePerSecurity = decimal.Parse(PricePerAssetEntry.Text),
                     SecurityTraded = SecurityTransfered.Text
                 };

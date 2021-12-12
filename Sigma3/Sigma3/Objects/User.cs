@@ -22,14 +22,14 @@ namespace Sigma3.Objects
 
         public List<SecuritiesModel> UserPortfolioList = new List<SecuritiesModel>();
         public List<SecuritiesModel> UserFollowing { get; set; } = new List<SecuritiesModel>();
-        public List<Transaction> Transactions { get; set; } = new List<Transaction>();
+        public List<TransactionModel> Transactions { get; set; } = new List<TransactionModel>();
         public Dictionary<string, UserSecurity> UserPortfolio { get; set; } = new Dictionary<string, UserSecurity>();
 
 
-        async public Task<bool> AddTransaction(Transaction transaction, SecuritiesModel model)
+        async public Task<bool> AddTransaction(TransactionModel transaction, SecuritiesModel model)
         {
             var Symbol = transaction.SecurityTraded;
-            var isBuy = transaction.TransType.Equals(TransactionType.BUY);
+            var isBuy = transaction.TransType.Equals("BUY");
             // slow 
             var ParseRegularMarketPrice = decimal.Parse(model.RegularMarketPrice.ToString());
 
@@ -46,15 +46,15 @@ namespace Sigma3.Objects
                 if (isBuy)
                 { 
                     element.BuyTimes += 1;
-                    element.AmountOwned += transaction.AmountTraded;
-                    PortfolioBalance += (ParseRegularMarketPrice * transaction.AmountTraded);
+                    element.AmountOwned += transaction.AmountTransacted;
+                    PortfolioBalance += (ParseRegularMarketPrice * transaction.AmountTransacted);
                     
                 }
                 else
                 {
                     element.SellTimes += 1;
-                    element.AmountOwned -= transaction.AmountTraded;
-                    PortfolioBalance -= (ParseRegularMarketPrice * transaction.AmountTraded);
+                    element.AmountOwned -= transaction.AmountTransacted;
+                    PortfolioBalance -= (ParseRegularMarketPrice * transaction.AmountTransacted);
 
                     if (element.AmountOwned == 0)
                     {
@@ -67,14 +67,14 @@ namespace Sigma3.Objects
             {
                 if (isBuy)
                 {
-                    UserPortfolio[Symbol] = new UserSecurity(Symbol, transaction.AmountTraded, transaction.PricePerSecurity, 1, model.ShortName);
-                    PortfolioBalance += (ParseRegularMarketPrice * transaction.AmountTraded);
+                    UserPortfolio[Symbol] = new UserSecurity(Symbol, transaction.AmountTransacted, transaction.PricePerSecurity, 1, model.ShortName);
+                    PortfolioBalance += (ParseRegularMarketPrice * transaction.AmountTransacted);
 
                 }
                 else
                 {
-                    UserPortfolio[Symbol] = new UserSecurity(transaction.AmountTraded, Symbol, transaction.PricePerSecurity, 1, model.ShortName);
-                    PortfolioBalance -= (ParseRegularMarketPrice * transaction.AmountTraded);
+                    UserPortfolio[Symbol] = new UserSecurity(transaction.AmountTransacted, Symbol, transaction.PricePerSecurity, 1, model.ShortName);
+                    PortfolioBalance -= (ParseRegularMarketPrice * transaction.AmountTransacted);
 
                 }
             }
@@ -171,10 +171,9 @@ namespace Sigma3.Objects
             UserFollowing.Add(await SecuritiesApi.GetAsync(symbole));
 
         }
-        async public void RemoveFollowing(string symbole)
+        public void RemoveFollowing(string symbol)
         {
-
-            UserFollowing.Remove(await SecuritiesApi.GetAsync(symbole));
+            UserFollowing.RemoveAll(security => security.Symbol.Equals(symbol));
 
         }
 

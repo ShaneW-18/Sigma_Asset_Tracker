@@ -26,31 +26,36 @@ namespace Sigma3.Views
 
         async private void ClickedLogin(object sender, EventArgs e)
         {
-            if (!CrossConnectivity.Current.IsConnected)
-                await DisplayAlert("Error", "no internet", "OK");
-            else
+            ToggleUI();
+            if (Constants.DEMO_ENABLED)
             {
-                if (Constants.DEMO_ENABLED)
-                {
-                    ToggleUI();
-                    Constants.DEMO_USER.UserFollowing = await Constants.GetDefaultFollowing();
-                    await SecuritiesApi.GetHomePageSecurities();
-                    ToggleUI();
-                    await Navigation.PushAsync(new MainPage(Constants.DEMO_USER));
-                    return;
-                }
-                var errors = await HandleLogin();
-                var User = errors.User;
-
-
-                if (!String.IsNullOrEmpty(errors.Errors))
-                {
-                    await DisplayAlert("Error", errors.Errors, "OK");
-                    return;
-                }
-
-                await Navigation.PushAsync(new MainPage(User));
+                Constants.DEMO_USER.UserFollowing = await Constants.GetDefaultFollowing();
+                await SecuritiesApi.GetHomePageSecurities();
+                ToggleUI();
+                await Navigation.PushAsync(new MainPage(Constants.DEMO_USER));
+                return;
             }
+            var errors = await HandleLogin();
+            var User = errors.User;
+
+
+            if (!String.IsNullOrEmpty(errors.Errors))
+            {
+                await DisplayAlert("Error", errors.Errors, "OK");
+                ToggleUI();
+                return;
+            }
+
+            if (User.UserFollowing.Count == 0)
+            {
+                User.UserFollowing = await Constants.GetDefaultFollowing();
+            }
+
+            await SecuritiesApi.GetHomePageSecurities();
+            ToggleUI();
+            await Navigation.PushAsync(new MainPage(User));
+
+
         }
 
         async private Task<LoginObj> HandleLogin()

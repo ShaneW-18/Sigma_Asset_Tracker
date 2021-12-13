@@ -103,13 +103,21 @@ namespace Sigma3.Services.Web
 
             CACHED_CRYPTO = new List<SecuritiesModel>()
             {
-                CACHED_MODELS["ETH-USD"],
+                await GetAsync("ETH-USD"),
+                await GetAsync("LTC-USD"),
+                await GetAsync("BTC-USD"),
+                await GetAsync("USDC-USD"),
+                await GetAsync("SOL1-USD"),
+            };
+
+        /*
+
+           CACHED_MODELS["ETH-USD"],
                 CACHED_MODELS["LTC-USD"],
                 CACHED_MODELS["SOL1-USD"],
                 CACHED_MODELS["BTC-USD"],
                 CACHED_MODELS["USDC-USD"],
-                CACHED_MODELS["LTC-USD"]
-            };
+                CACHED_MODELS["LTC-USD"]*/
             CACHED_ACTIVE = active;
             CACHED_GAINERS = gainers;
             CACHED_LOSERS = losers;

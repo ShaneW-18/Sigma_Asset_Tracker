@@ -102,7 +102,6 @@ namespace Sigma3.Views
                 this.PORTFOLIO_BALANCE.Text = $"${StringUtils.ParseNumberWithCommas(USER_LOGGED_IN.PortfolioBalance)}";
                 this.Hidden.IconImageSource = "openEye.png";
             }
-
         }
     }
 }

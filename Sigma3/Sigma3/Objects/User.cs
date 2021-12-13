@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Sigma3.Services.Web;
+using Sigma3.Services;
 using SQLite;
 using Sigma3.Util;
+using Newtonsoft.Json;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Collections.Concurrent;
+using SQLiteNetExtensions.Attributes;
 
 namespace Sigma3.Objects
 {
@@ -22,10 +24,86 @@ namespace Sigma3.Objects
         public string PhoneNumber { get; set; }
         public decimal PortfolioBalance { get; set; } = 0;
 
-        public List<SecuritiesModel> UserPortfolioList = new List<SecuritiesModel>();
-        public List<SecuritiesModel> UserFollowing { get; set; } = new List<SecuritiesModel>();
-        public List<TransactionModel> Transactions { get; set; } = new List<TransactionModel>();
-        public Dictionary<string, UserSecurity> UserPortfolio { get; set; } = new Dictionary<string, UserSecurity>();
+       
+    
+
+        public string UserFollowingBlob { get; set; }
+
+
+        private readonly List<SecuritiesModel> _userFollowing = new List<SecuritiesModel>();
+
+        [TextBlob(nameof(UserFollowingBlob))]
+        [Ignore]
+        public List<SecuritiesModel> UserFollowing
+        {
+            get
+            {
+                if (String.IsNullOrWhiteSpace(UserFollowingBlob))
+                {
+                    return new List<SecuritiesModel>();
+                }
+                return JsonConvert.DeserializeObject<List<SecuritiesModel>>(UserFollowingBlob);
+            }
+
+            set
+            {
+                UserFollowingBlob = JsonConvert.SerializeObject(value);
+                AppService.UpdateUser(this);
+            }
+        }
+
+        public string TransactionsBlob { get; set; }
+
+
+        private readonly List<TransactionModel> _transactionModels = new List<TransactionModel>();   
+
+        [TextBlob(nameof(TransactionsBlob))]
+        [Ignore]
+        public List<TransactionModel> Transactions
+        {
+            get
+            {
+                if (String.IsNullOrEmpty(TransactionsBlob))
+                {
+                    return new List<TransactionModel>();
+                }    
+                return JsonConvert.DeserializeObject<List<TransactionModel>>(TransactionsBlob);
+
+            }
+
+            set
+            {
+                TransactionsBlob = JsonConvert.SerializeObject(value);
+                AppService.UpdateUser(this);
+
+
+            }
+        }
+
+        public string UserPortfolioBlob { get; set; }
+        private Dictionary<string, UserSecurity> _userPortfolio = new Dictionary<string, UserSecurity>();
+
+        [TextBlob(nameof(UserPortfolioBlob))]
+        [Ignore]
+        public Dictionary<string, UserSecurity> UserPortfolio
+        {
+            get
+            {
+                if (String.IsNullOrEmpty(UserPortfolioBlob))
+                {
+                    return new Dictionary<string, UserSecurity>();
+                }
+                return JsonConvert.DeserializeObject<Dictionary<string, UserSecurity>>(UserPortfolioBlob);
+
+            }
+
+            set
+            {
+                UserPortfolioBlob = JsonConvert.SerializeObject(value);
+                AppService.UpdateUser(this);
+
+            }
+        }
 
 
         async public Task<bool> AddTransaction(TransactionModel transaction, SecuritiesModel model)
@@ -39,14 +117,14 @@ namespace Sigma3.Objects
             transaction.UserId = Id;
             var response =  await SigmaTransaction.SendPostAsync(transaction);
 
-            Transactions.Add(transaction);
+            AddTransaction(transaction);
             
             // I dont believe this is thread-safe.. ConcurrentDict would probably be better?
             if (UserPortfolio.ContainsKey(Symbol))
             {
-                var element = UserPortfolio[Symbol];
+                var element = _userPortfolio[Symbol];
                 if (isBuy)
-                { 
+                {
                     element.BuyTimes += 1;
                     element.AmountOwned += transaction.AmountTransacted;
                     PortfolioBalance += (ParseRegularMarketPrice * transaction.AmountTransacted);
@@ -60,22 +138,24 @@ namespace Sigma3.Objects
 
                     if (element.AmountOwned == 0)
                     {
-                        UserPortfolio.Remove(Symbol);
+                        PortfolioBalance = 0;
+                        RemovePortfolio(Symbol);
                     }
                 }
+                UserPortfolio = _userPortfolio;
 
             }
             else
             {
                 if (isBuy)
                 {
-                    UserPortfolio[Symbol] = new UserSecurity(Symbol, transaction.AmountTransacted, transaction.PricePerSecurity, 1, model.ShortName);
+                    AddUserPortfolio( new UserSecurity(Symbol, transaction.AmountTransacted, transaction.PricePerSecurity, 1, model.ShortName) );
                     PortfolioBalance += (ParseRegularMarketPrice * transaction.AmountTransacted);
 
                 }
                 else
                 {
-                    UserPortfolio[Symbol] = new UserSecurity(transaction.AmountTransacted, Symbol, transaction.PricePerSecurity, 1, model.ShortName);
+                    AddUserPortfolio ( new UserSecurity(transaction.AmountTransacted, Symbol, transaction.PricePerSecurity, 1, model.ShortName) );
                     PortfolioBalance -= (ParseRegularMarketPrice * transaction.AmountTransacted);
 
                 }
@@ -102,7 +182,39 @@ namespace Sigma3.Objects
             return values;
         }
 
-  
+        public void RemovePortfolio(string symbol)
+        {
+            _userPortfolio.Remove(symbol);
+             UserPortfolio = _userPortfolio;
+            
+            
+        }
+
+        public void AddTransaction(TransactionModel transaction)
+        {
+            _transactionModels.Add(transaction);
+            Transactions = _transactionModels;
+        }
+
+        public void AddUserPortfolio(UserSecurity security)
+        {
+            _userPortfolio[security.Symbol] = security;
+            UserPortfolio = _userPortfolio;
+        }
+
+        async public void AddFollowing(string symbole)
+        {
+
+            _userFollowing.Add(await SecuritiesApi.GetAsync(symbole));
+            UserFollowing = _userFollowing;
+
+        }
+        public void RemoveFollowing(string symbol)
+        {
+            UserFollowing.RemoveAll(security => security.Symbol.Equals(symbol));
+
+        }
+
 
 
         public class UserSecurity
@@ -139,6 +251,11 @@ namespace Sigma3.Objects
                 this.SellTimes = SellTimes;
                 this.ShortName = name;
             }
+
+            public UserSecurity()
+            {
+
+            }
         }
 
         public class UserPortfolioObject
@@ -167,17 +284,7 @@ namespace Sigma3.Objects
 
 
 
-        async public void AddFollowing(string symbole)
-        {
-           
-            UserFollowing.Add(await SecuritiesApi.GetAsync(symbole));
-
-        }
-        public void RemoveFollowing(string symbol)
-        {
-            UserFollowing.RemoveAll(security => security.Symbol.Equals(symbol));
-
-        }
+   
 
     }
 }

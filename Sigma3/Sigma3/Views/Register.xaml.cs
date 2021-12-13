@@ -122,6 +122,7 @@ namespace Sigma3.Views
 
             await AppService.AddUserAsync(new User
             {
+                Id = StringUtils.HashString(Email.Text),
                 Name = Name.Text,
                 Email = Email.Text,
                 Password = StringUtils.HashString(Password.Text),
@@ -131,7 +132,7 @@ namespace Sigma3.Views
             });
 
             // add to database logic here
-            await Navigation.PushAsync(new MainPage());
+            await Navigation.PushAsync(new Login());
         }
 
 

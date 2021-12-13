@@ -29,6 +29,7 @@ namespace Sigma3.Views
         async protected override void OnAppearing()
         {
 
+
             if (USER_LOGGED_IN.porfolioHidden)
             {
                

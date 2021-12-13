@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Sigma3.Objects;
 using SQLite;
+using SQLiteNetExtensionsAsync.Extensions;
 
 namespace Sigma3.Services
 {
@@ -13,31 +14,34 @@ namespace Sigma3.Services
         async static Task Init()
         {
             if (database != null) return;
-            var databasePath = Path.Combine(FileSystem.AppDataDirectory, "app.db");
+            var databasePath = Path.Combine(FileSystem.AppDataDirectory, "appdb.db");
 
             database = new SQLiteAsyncConnection(databasePath);
             await database.CreateTableAsync<User>();
 
-            await AddUserAsync(Constants.DEMO_USER);
+            // await AddUserAsync(Constants.DEMO_USER);
         }
 
         async public static Task AddUserAsync(User user)
         {
-            await Init();
+          
+                await Init();
 
-            if (user.Email == "Demo")
-            {
-                user.UserFollowing = await Constants.GetDefaultFollowing();
-            }
+                if (user.Email == "Demo")
+                {
+                    user.UserFollowing = await Constants.GetDefaultFollowing();
+                }
 
-            await database.InsertAsync(user);
+                await database.InsertAsync(user);
+        
         }
 
         async public static Task DeleteUserAsync(int id)
         {
             await Init();
 
-            database.DeleteAsync(id);
+            await database.DeleteAsync(id);
+
         }
 
         async public static Task<User> GetUserByEmailAsync(string email, string password)
@@ -53,6 +57,15 @@ namespace Sigma3.Services
         async public static void UpdateUser(User user)
         {
             await Init();
+
+            var query = await database.Table<User>().Where(u => user.Id.Equals(u.Id)).FirstOrDefaultAsync();
+            
+            if (query == null) return;
+
+            query = user;
+            await database.UpdateAsync(query);
+
+
         }
     }
 }

@@ -23,9 +23,11 @@ namespace Sigma3.Views
            
             InitializeComponent();
             stock1 = stock;
-            if (USER_LOGGED_IN.UserFollowing.Contains(stock))
-            {
-                star.IconImageSource = "filledStar.png";
+            foreach (var item in USER_LOGGED_IN.UserFollowing) {
+                if (item.Symbol.Equals(stock.Symbol))
+                {
+                    star.IconImageSource = "filledStar.png";
+                }
             }
             Price.Text =  stock.RegularMarketPriceProp;
             Symbol.Text = stock.Symbol;
@@ -33,8 +35,8 @@ namespace Sigma3.Views
             PreviousCloseT.Text = "$" + StringUtils.ParseNumberWithCommas(stock.RegularMarketPreviousClose).ToString();
             OpenT.Text = "$" + StringUtils.ParseNumberWithCommas(stock.RegularMarketOpen).ToString();
             MarketCapT.Text = "$" + StringUtils.ParseNumberWithCommas((double)stock.MarketCap).ToString();
-            YearLowT.Text = "$" + StringUtils.ParseNumberWithCommas(stock.FiftyTwoWeekLowChange).ToString() ;
-            YearHighT.Text = "$" + StringUtils.ParseNumberWithCommas(stock.FiftyTwoWeekHighChange).ToString();
+            YearLowT.Text = "$" + StringUtils.ParseNumberWithCommas(stock.FiftyTwoWeekLow).ToString() ;
+            YearHighT.Text = "$" + StringUtils.ParseNumberWithCommas(stock.FiftyTwoWeekHigh).ToString();
             VolT.Text = StringUtils.ParseNumberWithCommas((double)stock.AverageDailyVolume10Day).ToString();
 
         }
@@ -42,7 +44,16 @@ namespace Sigma3.Views
 
         private void star_Clicked(object sender, EventArgs e)
         {
-            if (!USER_LOGGED_IN.UserFollowing.Contains(stock1))
+            bool test = false;
+            foreach (var item in USER_LOGGED_IN.UserFollowing)
+            {
+                if (item.Symbol.Equals(stock1.Symbol))
+                {
+                    star.IconImageSource = "filledStar.png";
+                    test = true;
+                }
+            }
+            if (!test)
             {
                 USER_LOGGED_IN.AddFollowing(stock1.Symbol);
                 star.IconImageSource = "filledStar.png";
@@ -52,10 +63,6 @@ namespace Sigma3.Views
                 USER_LOGGED_IN.RemoveFollowing(stock1.Symbol);
                 star.IconImageSource = "star.png";
             }
-            
-
-            
- 
         }
     }
 }

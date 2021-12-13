@@ -26,34 +26,45 @@ namespace Sigma3.Views
 
         async private void ClickedLogin(object sender, EventArgs e)
         {
+
             ToggleUI();
-            if (Constants.DEMO_ENABLED)
+            if (!CrossConnectivity.Current.IsConnected)
             {
-                Constants.DEMO_USER.UserFollowing = await Constants.GetDefaultFollowing();
+                await DisplayAlert("Error", "no internet", "OK");
+                ToggleUI();
+            }
+
+            else
+            {
+                if (Constants.DEMO_ENABLED)
+                {
+                    Constants.DEMO_USER.UserFollowing = await Constants.GetDefaultFollowing();
+                    await SecuritiesApi.GetHomePageSecurities();
+                    ToggleUI();
+                    await Navigation.PushAsync(new MainPage(Constants.DEMO_USER));
+                    return;
+                }
+                var errors = await HandleLogin();
+                var User = errors.User;
+
+
+                if (!String.IsNullOrEmpty(errors.Errors))
+                {
+                    await DisplayAlert("Error", errors.Errors, "OK");
+                    ToggleUI();
+                    return;
+                }
+
+                if (User.UserFollowing.Count == 0)
+                {
+                    User.UserFollowing = await Constants.GetDefaultFollowing();
+                }
+
                 await SecuritiesApi.GetHomePageSecurities();
+
+                await Navigation.PushAsync(new MainPage(User));
                 ToggleUI();
-                await Navigation.PushAsync(new MainPage(Constants.DEMO_USER));
-                return;
             }
-            var errors = await HandleLogin();
-            var User = errors.User;
-
-
-            if (!String.IsNullOrEmpty(errors.Errors))
-            {
-                await DisplayAlert("Error", errors.Errors, "OK");
-                ToggleUI();
-                return;
-            }
-
-            if (User.UserFollowing.Count == 0)
-            {
-                User.UserFollowing = await Constants.GetDefaultFollowing();
-            }
-
-            await SecuritiesApi.GetHomePageSecurities();
-            ToggleUI();
-            await Navigation.PushAsync(new MainPage(User));
 
 
         }

@@ -209,9 +209,11 @@ namespace Sigma3.Objects
             UserFollowing = _userFollowing;
 
         }
-        public void RemoveFollowing(string symbol)
+        public async void RemoveFollowing(string symbol)
         {
-            UserFollowing.RemoveAll(security => security.Symbol.Equals(symbol));
+           
+            _userFollowing.RemoveAll(security => security.Symbol.Equals(symbol));
+            UserFollowing= _userFollowing;
 
         }
 

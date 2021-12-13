@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Sigma3.Services.Web;
+using Plugin.Connectivity;
 
 namespace Sigma3.Views
 {
@@ -12,6 +13,7 @@ namespace Sigma3.Views
     public partial class Home : ContentPage
     {
         private readonly User USER_LOGGED_IN;
+    
         public Home()
         {
             InitializeComponent();
@@ -23,11 +25,14 @@ namespace Sigma3.Views
 
         async protected override void OnAppearing()
         {
-            this.USER_NAME.Text = $"Welcome {USER_LOGGED_IN.Name}! ";
-            this.TODAYS_DATE.Text = DateTime.Now.ToString("d MMM, ddd");
-            this.PORTFOLIO_BALANCE.Text = $"${StringUtils.ParseNumberWithCommas(USER_LOGGED_IN.PortfolioBalance)}";
-
-            await GetHome();
+            if (!USER_LOGGED_IN.porfolioHidden)
+            {
+                this.USER_NAME.Text = $"Welcome {USER_LOGGED_IN.Name}! ";
+                this.TODAYS_DATE.Text = DateTime.Now.ToString("d MMM, ddd");
+                this.PORTFOLIO_BALANCE.Text = $"${StringUtils.ParseNumberWithCommas(USER_LOGGED_IN.PortfolioBalance)}";
+            }
+                await GetHome();
+            
           
         }
 
@@ -39,22 +44,28 @@ namespace Sigma3.Views
         async private void RefreshButton_Clicked(object sender, EventArgs e)
         {
             ToggleUI();
-            await GetHome(true);
+            if (!CrossConnectivity.Current.IsConnected)
+                await DisplayAlert("Error", "no internet", "OK");
+            else
+                await GetHome(true);
             ToggleUI();
 
         }
 
         async private Task GetHome(bool refresh = false)
         {
-            this.USER_NAME.Text = $"Welcome {USER_LOGGED_IN.Name}! ";
-            this.TODAYS_DATE.Text = DateTime.Now.ToString("d MMM, ddd");
-            this.PORTFOLIO_BALANCE.Text = $"${StringUtils.ParseNumberWithCommas(USER_LOGGED_IN.PortfolioBalance)}";
 
-            var list = await SecuritiesApi.GetHomePageSecurities(refresh);
-            this.TopGainers.ItemsSource = list.TopGainers;
-            this.TopLosers.ItemsSource = list.TopLosers;
-            this.MostActive.ItemsSource = list.MostActive;
-            this.Crypto.ItemsSource = list.Crypto;
+                var list = await SecuritiesApi.GetHomePageSecurities(refresh);
+                this.USER_NAME.Text = $"Welcome {USER_LOGGED_IN.Name}! ";
+                this.TODAYS_DATE.Text = DateTime.Now.ToString("d MMM, ddd");
+               
+            
+
+                this.TopGainers.ItemsSource = list.TopGainers;
+                this.TopLosers.ItemsSource = list.TopLosers;
+                this.MostActive.ItemsSource = list.MostActive;
+                this.Crypto.ItemsSource = list.Crypto;
+            
 
         }
 
@@ -74,6 +85,23 @@ namespace Sigma3.Views
         private async void MostActive_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             await Navigation.PushAsync(new StockViewPage(e.CurrentSelection[0] as SecuritiesModel));
+        }
+
+        private  void hidden_Clicked(object sender, EventArgs e)
+        {
+            USER_LOGGED_IN.porfolioHidden = !USER_LOGGED_IN.porfolioHidden;
+
+            if (USER_LOGGED_IN.porfolioHidden)
+            {
+                this.PORTFOLIO_BALANCE.Text = "$--.--";
+                this.Hidden.IconImageSource = "closedEye.png";
+                
+            }
+            else
+            {
+                this.PORTFOLIO_BALANCE.Text = $"${StringUtils.ParseNumberWithCommas(USER_LOGGED_IN.PortfolioBalance)}";
+                this.Hidden.IconImageSource = "openEye.png";
+            }
         }
     }
 }

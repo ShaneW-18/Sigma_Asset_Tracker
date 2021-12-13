@@ -1,4 +1,5 @@
-﻿using Sigma3.Objects;
+﻿using Plugin.Connectivity;
+using Sigma3.Objects;
 using Sigma3.Services.Web;
 using System;
 using System.Collections.Generic;
@@ -33,16 +34,20 @@ namespace Sigma3.Views
         }
         private async void SearchStock_Clicked(object sender, EventArgs e)
         {
-
-            if (this.SearchEntry == null || String.IsNullOrWhiteSpace(this.SearchEntry.Text)) return;
-            var Symbol = this.SearchEntry.Text;
-
-            var security = await SecuritiesApi.GetAsync(Symbol);
-
-            if (security == null)
+            if (!CrossConnectivity.Current.IsConnected)
+                await DisplayAlert("Error", "no internet", "OK");
+            else
             {
-                await DisplayAlert("Alert", "Symbol does not exist", "OK");
-                return;
+                if (this.SearchEntry == null || String.IsNullOrWhiteSpace(this.SearchEntry.Text)) return;
+                var Symbol = this.SearchEntry.Text;
+
+                var security = await SecuritiesApi.GetAsync(Symbol);
+
+                if (security == null)
+                {
+                    await DisplayAlert("Alert", "Symbol does not exist", "OK");
+                    return;
+                }
             }
             
         }
@@ -63,8 +68,12 @@ namespace Sigma3.Views
             
         }
         async protected Task nas()
-        { 
-             Nasdaq = await SecuritiesApi.GetNasdaq();
+
+        {
+            if (!CrossConnectivity.Current.IsConnected)
+                await DisplayAlert("Error", "no internet", "OK");
+            else
+            Nasdaq = await SecuritiesApi.GetNasdaq();
         }
         private async void FollowingCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

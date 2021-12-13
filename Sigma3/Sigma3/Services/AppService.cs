@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.IO;
+﻿using System.IO;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Sigma3.Objects;
@@ -43,6 +40,7 @@ namespace Sigma3.Services
             await Init();
 
             await database.DeleteAsync(id);
+
         }
 
         async public static Task<User> GetUserByEmailAsync(string email, string password)

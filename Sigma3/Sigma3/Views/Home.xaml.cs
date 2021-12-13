@@ -46,12 +46,11 @@ namespace Sigma3.Views
 
         async private Task GetHome(bool refresh = false)
         {
-            var list = await SecuritiesApi.GetHomePageSecurities(refresh);
             this.USER_NAME.Text = $"Welcome {USER_LOGGED_IN.Name}! ";
             this.TODAYS_DATE.Text = DateTime.Now.ToString("d MMM, ddd");
             this.PORTFOLIO_BALANCE.Text = $"${StringUtils.ParseNumberWithCommas(USER_LOGGED_IN.PortfolioBalance)}";
 
-            var list = await SecuritiesApi.GetHomePageSecurities();
+            var list = await SecuritiesApi.GetHomePageSecurities(refresh);
             this.TopGainers.ItemsSource = list.TopGainers;
             this.TopLosers.ItemsSource = list.TopLosers;
             this.MostActive.ItemsSource = list.MostActive;
@@ -75,11 +74,6 @@ namespace Sigma3.Views
         private async void MostActive_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             await Navigation.PushAsync(new StockViewPage(e.CurrentSelection[0] as SecuritiesModel));
-        }
-
-        private void RefreshButton_Clicked(object sender, EventArgs e)
-        {
-            OnAppearing();
         }
     }
 }

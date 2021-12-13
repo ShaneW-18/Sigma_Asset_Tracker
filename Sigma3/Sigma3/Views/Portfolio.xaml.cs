@@ -26,24 +26,26 @@ namespace Sigma3.Views
         }
         async protected override void OnAppearing()
         {
-            
-            // Could convert to function
-            if (USER_LOGGED_IN.UserPortfolio == null || USER_LOGGED_IN.UserPortfolio.Count == 0)
-            {
-                this.NoUserPortfolio.IsEnabled = true;
-                this.NoUserPortfolio.IsVisible = true;
-                this.UserPortfolio.IsVisible = false;
-                this.UserPortfolio.IsEnabled = false;
-            }
-            else
-            {
-                this.NoUserPortfolio.IsEnabled = false;
-                this.NoUserPortfolio.IsVisible = false;
-                this.UserPortfolio.IsVisible = true;
-                this.UserPortfolio.IsEnabled = true;
-            }
-            this.PORTFOLIO_BALANCE.Text = $"${StringUtils.ParseNumberWithCommas(USER_LOGGED_IN.PortfolioBalance)}";
-            this.PortfolioListView.ItemsSource = await USER_LOGGED_IN.GetUserPortfolio();
+          
+
+                // Could convert to function
+                if (USER_LOGGED_IN.UserPortfolio == null || USER_LOGGED_IN.UserPortfolio.Count == 0)
+                {
+                    this.NoUserPortfolio.IsEnabled = true;
+                    this.NoUserPortfolio.IsVisible = true;
+                    this.UserPortfolio.IsVisible = false;
+                    this.UserPortfolio.IsEnabled = false;
+                }
+                else
+                {
+                    this.NoUserPortfolio.IsEnabled = false;
+                    this.NoUserPortfolio.IsVisible = false;
+                    this.UserPortfolio.IsVisible = true;
+                    this.UserPortfolio.IsEnabled = true;
+                }
+                this.PORTFOLIO_BALANCE.Text = $"${StringUtils.ParseNumberWithCommas(USER_LOGGED_IN.PortfolioBalance)}";
+                this.PortfolioListView.ItemsSource = await USER_LOGGED_IN.GetUserPortfolio();
+         
            
         }
 

@@ -25,9 +25,9 @@ namespace Sigma3.Views
 
         async private void ClickedLogin(object sender, EventArgs e)
         {
+            ToggleUI();
             if (Constants.DEMO_ENABLED)
             {
-                ToggleUI();
                 Constants.DEMO_USER.UserFollowing = await Constants.GetDefaultFollowing();
                 await SecuritiesApi.GetHomePageSecurities();
                 ToggleUI();
@@ -41,10 +41,19 @@ namespace Sigma3.Views
             if (!String.IsNullOrEmpty(errors.Errors))
             {
                 await DisplayAlert("Error", errors.Errors, "OK");
+                ToggleUI();
                 return;
             }
 
+            if (User.UserFollowing.Count == 0)
+            {
+                User.UserFollowing = await Constants.GetDefaultFollowing();
+            }
+
+            await SecuritiesApi.GetHomePageSecurities();
+            ToggleUI();
             await Navigation.PushAsync(new MainPage(User));
+
         }
 
         async private Task<LoginObj> HandleLogin()

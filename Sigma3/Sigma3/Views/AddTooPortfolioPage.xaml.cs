@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Plugin.Connectivity;
 using Sigma3.Objects;
 using Sigma3.Services.Web;
 using Xamarin.Forms;
@@ -15,10 +16,12 @@ namespace Sigma3.Views
     {
         private Button buttonSelected { get; set; } 
         private List<Entry> Entries { get; set; }
-        
+
         public AddTooPortfolioPage(SecuritiesModel stock = null)
         {
+
             // lol
+
             var portfolio = MainPage.USER_LOGGED_IN.UserPortfolio;
 
             InitializeComponent();
@@ -126,6 +129,10 @@ namespace Sigma3.Views
         async private void AddTransActionButton_Clicked(object sender, EventArgs e)
         {
                 ToggleUI();
+            if (!CrossConnectivity.Current.IsConnected)
+                await DisplayAlert("Error", "no internet", "OK");
+            else
+            {
                 var errors = await HandleValidation();
 
                 if (!String.IsNullOrWhiteSpace(errors.Errors))
@@ -144,7 +151,7 @@ namespace Sigma3.Views
                     SecurityTraded = SecurityTransfered.Text
                 };
 
-                var sucess = await MainPage.USER_LOGGED_IN.AddTransaction(transaction,errors.StockModel);
+                var sucess = await MainPage.USER_LOGGED_IN.AddTransaction(transaction, errors.StockModel);
 
                 if (sucess)
                 {
@@ -154,6 +161,7 @@ namespace Sigma3.Views
                 {
                     await DisplayAlert("Error", "API error occured", "Ok");
                 }
+            }
                 ToggleUI();
         }
 

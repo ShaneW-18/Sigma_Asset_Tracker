@@ -1,21 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Sigma3.Views.Home" BackgroundColor="Black">
+    <ContentPage.Resources>
+        <Style TargetType="Grid">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="black" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+
     <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="Hidden" IconImageSource="openEye.png" Clicked="hidden_Clicked" />
         <ToolbarItem IconImageSource="search.png" Clicked="ToolbarItem_Clicked" />
         <ToolbarItem x:Name="RefreshButton" IconImageSource="refresh.png" Clicked="RefreshButton_Clicked"/>
+
     </ContentPage.ToolbarItems>
     
     <ContentPage.Content>
         <ScrollView>
-
             <Grid Padding="35,45,35,45" RowDefinitions="Auto,Auto,Auto,Auto,Auto,*,Auto" ColumnDefinitions="*,Auto">
                 <!-- Balance information-->
                 <Label Grid.Row="0" Grid.Column="0" Text="DATE" TextColor="White" x:Name="TODAYS_DATE" />
                 <Label Grid.Row="1" Grid.Column="0" Text="USER_NAME" FontSize="20" FontAttributes="Bold" x:Name="USER_NAME" TextColor="White" />                
-                <Frame Margin="0,20" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" CornerRadius="30" BackgroundColor="Gray" HasShadow="False" HeightRequest="120" Opacity="0.4">
-                    <Grid RowDefinitions="Auto,*" Padding="0,20" ColumnDefinitions="*,Auto">
-                        <Label Grid.Row="0" Grid.Column="0" Text="Main Portfolio" FontSize="20" TextColor="White" FontAttributes="Bold" HorizontalTextAlignment="Center" />
-                        <Label Grid.Row="1" Grid.Column="0" Text="PORTFOLIO_BALANCE" FontSize="40" TextColor="White" FontAttributes="Bold" HorizontalTextAlignment="Center" x:Name="PORTFOLIO_BALANCE" />
+                <Frame Margin="0,10" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" CornerRadius="30" BackgroundColor="Gray" HasShadow="False" HeightRequest="120" Opacity="0.4">
+                    <Grid RowDefinitions="Auto,Auto" Padding="0,0" ColumnDefinitions="Auto,Auto">
+                        <Label Grid.Row="0" Grid.Column="1" Text="Main Portfolio" FontSize="17" TextColor="White" FontAttributes="Bold" HorizontalTextAlignment="Start" />
+                        <Label Grid.Row="1" Grid.Column="1" Text="PORTFOLIO_BALANCE" FontSize="27" TextColor="White" FontAttributes="Bold" HorizontalTextAlignment="Start" x:Name="PORTFOLIO_BALANCE" TranslationY="15" />
                     </Grid>
                 </Frame>
                 <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" RowDefinitions="Auto,Auto" ColumnDefinitions="Auto,*">

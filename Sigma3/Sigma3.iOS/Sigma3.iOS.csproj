@@ -172,4 +172,10 @@
   <ItemGroup>
     <BundleResource Include="Resources\remove.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\openEye.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\closedEye.png" />
+  </ItemGroup>
 </Project>

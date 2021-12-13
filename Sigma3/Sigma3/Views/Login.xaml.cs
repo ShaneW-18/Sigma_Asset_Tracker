@@ -11,6 +11,7 @@ using Sigma3.Util;
 using Sigma3.Services.Web;
 using Newtonsoft.Json;
 using SQLite;
+using Plugin.Connectivity;
 
 namespace Sigma3.Views
 {
@@ -25,26 +26,31 @@ namespace Sigma3.Views
 
         async private void ClickedLogin(object sender, EventArgs e)
         {
-            if (Constants.DEMO_ENABLED)
+            if (!CrossConnectivity.Current.IsConnected)
+                await DisplayAlert("Error", "no internet", "OK");
+            else
             {
-                ToggleUI();
-                Constants.DEMO_USER.UserFollowing = await Constants.GetDefaultFollowing();
-                await SecuritiesApi.GetHomePageSecurities();
-                ToggleUI();
-                await Navigation.PushAsync(new MainPage(Constants.DEMO_USER));
-                return;
+                if (Constants.DEMO_ENABLED)
+                {
+                    ToggleUI();
+                    Constants.DEMO_USER.UserFollowing = await Constants.GetDefaultFollowing();
+                    await SecuritiesApi.GetHomePageSecurities();
+                    ToggleUI();
+                    await Navigation.PushAsync(new MainPage(Constants.DEMO_USER));
+                    return;
+                }
+                var errors = await HandleLogin();
+                var User = errors.User;
+
+
+                if (!String.IsNullOrEmpty(errors.Errors))
+                {
+                    await DisplayAlert("Error", errors.Errors, "OK");
+                    return;
+                }
+
+                await Navigation.PushAsync(new MainPage(User));
             }
-            var errors = await HandleLogin();
-            var User = errors.User;
-
-
-            if (!String.IsNullOrEmpty(errors.Errors))
-            {
-                await DisplayAlert("Error", errors.Errors, "OK");
-                return;
-            }
-
-            await Navigation.PushAsync(new MainPage(User));
         }
 
         async private Task<LoginObj> HandleLogin()

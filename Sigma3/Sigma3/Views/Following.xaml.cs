@@ -9,6 +9,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Sigma3.Services.Web;
 using System.Collections.ObjectModel;
+using Plugin.Connectivity;
 
 namespace Sigma3.Views
 {
@@ -38,9 +39,14 @@ namespace Sigma3.Views
         async private void RefreshButton_Clicked(object sender, EventArgs e)
         {
             ToggleUI();
-            var list = await SecuritiesApi.GetUpdate(USER_LOGGED_IN.UserFollowing);
-            USER_LOGGED_IN.UserFollowing = list;
-            this.FollowingCollectionView.ItemsSource = USER_LOGGED_IN.UserFollowing;
+            if (!CrossConnectivity.Current.IsConnected)
+                await DisplayAlert("Error", "no internet", "OK");
+            else
+            {
+                var list = await SecuritiesApi.GetUpdate(USER_LOGGED_IN.UserFollowing);
+                USER_LOGGED_IN.UserFollowing = list;
+                this.FollowingCollectionView.ItemsSource = USER_LOGGED_IN.UserFollowing;
+            }
             ToggleUI();
         }
 

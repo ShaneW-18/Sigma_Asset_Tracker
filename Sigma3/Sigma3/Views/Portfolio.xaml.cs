@@ -1,4 +1,5 @@
-﻿using Sigma3.Objects;
+﻿using Plugin.Connectivity;
+using Sigma3.Objects;
 using Sigma3.Services.Web;
 using Sigma3.Util;
 using System;
@@ -9,49 +10,57 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using static Sigma3.Objects.User;
+
 
 namespace Sigma3.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Portfolio : ContentPage
     {
+        
         private readonly User USER_LOGGED_IN;
         public Portfolio()
         {
             InitializeComponent();
             USER_LOGGED_IN = MainPage.USER_LOGGED_IN;
-            this.BindingContext = new UserPortfolioObject();
+            this.BindingContext = new User.UserPortfolioObject();
 
         }
         async protected override void OnAppearing()
         {
-          
 
-                // Could convert to function
-                if (USER_LOGGED_IN.UserPortfolio == null || USER_LOGGED_IN.UserPortfolio.Count == 0)
-                {
-                    this.NoUserPortfolio.IsEnabled = true;
-                    this.NoUserPortfolio.IsVisible = true;
-                    this.UserPortfolio.IsVisible = false;
-                    this.UserPortfolio.IsEnabled = false;
-                }
-                else
-                {
-                    this.NoUserPortfolio.IsEnabled = false;
-                    this.NoUserPortfolio.IsVisible = false;
-                    this.UserPortfolio.IsVisible = true;
-                    this.UserPortfolio.IsEnabled = true;
-                }
+
+            if (USER_LOGGED_IN.porfolioHidden)
+            {
+               
+                this.PORTFOLIO_BALANCE.Text = "--.--";
+            }
+
+            else
                 this.PORTFOLIO_BALANCE.Text = $"${StringUtils.ParseNumberWithCommas(USER_LOGGED_IN.PortfolioBalance)}";
-                this.PortfolioListView.ItemsSource = await USER_LOGGED_IN.GetUserPortfolio();
-         
            
+            if (USER_LOGGED_IN.UserPortfolio == null || USER_LOGGED_IN.UserPortfolio.Count == 0)
+            {
+                this.NoUserPortfolio.IsEnabled = true;
+                this.NoUserPortfolio.IsVisible = true;
+                this.UserPortfolio.IsVisible = false;
+                this.UserPortfolio.IsEnabled = false;
+            }
+            else
+            {
+                this.NoUserPortfolio.IsEnabled = false;
+                this.NoUserPortfolio.IsVisible = false;
+                this.UserPortfolio.IsVisible = true;
+                this.UserPortfolio.IsEnabled = true;
+            }
+           
+            this.PortfolioListView.ItemsSource = await USER_LOGGED_IN.GetUserPortfolio();
+
         }
 
         private void Button_Clicked(object sender, EventArgs e)
         {
-            
+
         }
 
         private async void AddPortfolioBtn_Clicked(object sender, EventArgs e)
@@ -67,11 +76,17 @@ namespace Sigma3.Views
         private async void RefreshButton_Clicked(object sender, EventArgs e)
         {
             ToggleUI();
-          
-            if (USER_LOGGED_IN.UserPortfolio != null || USER_LOGGED_IN.UserPortfolio.Count > 0)
+            if (!CrossConnectivity.Current.IsConnected)
+                await DisplayAlert("Error", "no internet", "OK");
+            else
             {
-                this.PORTFOLIO_BALANCE.Text = $"${StringUtils.ParseNumberWithCommas(USER_LOGGED_IN.PortfolioBalance)}";
-                this.PortfolioListView.ItemsSource = await USER_LOGGED_IN.GetUserPortfolio();
+
+
+                if (USER_LOGGED_IN.UserPortfolio != null || USER_LOGGED_IN.UserPortfolio.Count > 0)
+                {
+                    this.PORTFOLIO_BALANCE.Text = $"${StringUtils.ParseNumberWithCommas(USER_LOGGED_IN.PortfolioBalance)}";
+                    this.PortfolioListView.ItemsSource = await USER_LOGGED_IN.GetUserPortfolio();
+                }
             }
             ToggleUI();
 
@@ -80,9 +95,9 @@ namespace Sigma3.Views
 
         private async void PortfolioListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var stock = e.CurrentSelection[0] as UserPortfolioObject;
+            var stock = e.CurrentSelection[0] as User.UserPortfolioObject;
 
-            await Navigation.PushAsync(new StockViewPage( await SecuritiesApi.GetAsync(stock.SecuritySymbol)));
+            await Navigation.PushAsync(new StockViewPage(await SecuritiesApi.GetAsync(stock.SecuritySymbol)));
         }
         private void ToggleUI()
         {

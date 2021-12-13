@@ -11,6 +11,7 @@ using Sigma3.Util;
 using Sigma3.Services.Web;
 using Newtonsoft.Json;
 using SQLite;
+using Plugin.Connectivity;
 
 namespace Sigma3.Views
 {
@@ -53,6 +54,7 @@ namespace Sigma3.Views
             await SecuritiesApi.GetHomePageSecurities();
             ToggleUI();
             await Navigation.PushAsync(new MainPage(User));
+
 
         }
 

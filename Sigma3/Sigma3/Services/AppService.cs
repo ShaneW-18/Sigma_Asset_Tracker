@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Sigma3.Objects;
 using SQLite;
-using SQLiteNetExtensionsAsync.Extensions;
 
 namespace Sigma3.Services
 {
@@ -52,6 +51,15 @@ namespace Sigma3.Services
          
 
              return users.Find(user => user.Email.Equals(email) && user.Password.Equals(password));
+        }
+
+        async public static Task<User> GetUserByEmail( string email)
+        {
+            await Init();
+
+            var users = await database.Table<User>().ToListAsync();
+
+            return users.Find(user => user.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
         }
 
         async public static void UpdateUser(User user)

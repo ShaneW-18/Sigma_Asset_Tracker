@@ -118,7 +118,13 @@ namespace Sigma3.Views
                 return;
             }
 
+            var user = await AppService.GetUserByEmail(Email.Text);
 
+            if (user != null)
+            {
+                await DisplayAlert("Error", "User already exist", "OK");
+                return;
+            }
 
             await AppService.AddUserAsync(new User
             {
